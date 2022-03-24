@@ -18,7 +18,11 @@ return new class extends Migration
             $table->string("nomor_surat_keluar",100)->unique();
             $table->string("perihal_surat",100)->nullable();
             $table->string("nama_pemohon",100)->nullable();
+            $table->string("nama_bersangkutan",100)->nullable();
             $table->string("type_surat",50)->nullable();
+            $table->date("tanggal")->nullable();
+            $table->string("keperluan",50)->nullable();
+            
             $table->timestamps();
         });
     }
