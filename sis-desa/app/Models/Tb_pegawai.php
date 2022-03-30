@@ -18,4 +18,9 @@ class Tb_pegawai extends Model
         'jen_kel',
         'id_jabatan',
     ];
+
+    public function tb_jabatan()
+    {
+        return $this->hasOne(Tb_jabatan::class);
+    }
 }
