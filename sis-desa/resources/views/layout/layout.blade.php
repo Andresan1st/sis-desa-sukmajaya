@@ -17,7 +17,7 @@
        <!-- BEGIN: Vendor CSS-->
        <link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/css/vendors.min.css')}}">
        <link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/css/charts/apexcharts.css')}}">
-       {{-- <link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/css/extensions/toastr.min.css')}}"> --}}
+       <link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/css/extensions/toastr.min.css')}}">
        <!-- END: Vendor CSS-->
    
        <!-- BEGIN: Theme CSS-->
@@ -33,7 +33,7 @@
        <link rel="stylesheet" type="text/css" href="{{asset('app-assets/css/core/menu/menu-types/vertical-menu.css')}}">
        <link rel="stylesheet" type="text/css" href="{{asset('app-assets/css/pages/dashboard-ecommerce.css')}}">
        <link rel="stylesheet" type="text/css" href="{{asset('app-assets/css/plugins/charts/chart-apex.css')}}">
-       {{-- <link rel="stylesheet" type="text/css" href="{{asset('app-assets/css/plugins/extensions/ext-component-toastr.css')}}"> --}}
+       <link rel="stylesheet" type="text/css" href="{{asset('app-assets/css/plugins/extensions/ext-component-toastr.css')}}">
        <link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/css/tables/datatable/dataTables.bootstrap4.min.css')}}  ">
        <link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/css/tables/datatable/responsive.bootstrap4.min.css')}}  ">
        <link rel="stylesheet" href="{{asset('app-assets/sweetalert/sweetalert2.min.css')}}">
@@ -41,6 +41,7 @@
    
        <!-- BEGIN: Custom CSS-->
        <link rel="stylesheet" type="text/css" href="{{asset('assets/css/style.css')}}">
+       @yield('style')
 </head>
 <!-- END: Head-->
 
@@ -200,7 +201,7 @@
      <!-- BEGIN: Page Vendor JS-->
    
      <script src="{{asset('app-assets/vendors/js/charts/apexcharts.min.js')}}"></script>
-     {{-- <script src="{{asset('app-assets/vendors/js/extensions/toastr.min.js')}}"></script> --}}
+     <script src="{{asset('app-assets/vendors/js/extensions/toastr.min.js')}}"></script>
      <script src="{{asset('app-assets/vendors/js/tables/datatable/jquery.dataTables.min.js')}}"></script>
      <script src="{{asset('app-assets/vendors/js/tables/datatable/datatables.bootstrap4.min.js')}}"></script>
      <script src="{{asset('app-assets/vendors/js/tables/datatable/dataTables.responsive.min.js')}}"></script>
@@ -212,18 +213,19 @@
      <!-- BEGIN: Theme JS-->
      <script src="{{asset('app-assets/js/core/app-menu.js')}}"></script>
      <script src="{{asset('app-assets/js/core/app.js')}}"></script>
-     <script src="{{asset('app-assets/js/jquery.min.js')}}"></script>
      <script src="{{asset('app-assets/js/autonumeric.js')}}"></script>
      <!-- END: Theme JS-->
    
      <!-- BEGIN: Page JS-->
-     <script src="{{asset('app-assets/js/scripts/pages/dashboard-ecommerce.js')}}"></script>
+     {{-- <script src="{{asset('app-assets/js/scripts/pages/dashboard-ecommerce.js')}}"></script> --}}
+     {{-- <script src="{{asset('app-assets/js/scripts/pages/dashboard-analytics.js')}}"></script> --}}
+     
      <!-- END: Page JS-->
    
     <!-- BEGIN: Page JS-->
   
     <!-- END: Page JS-->
-
+    @yield('script')
     <script>
       $(window).on('load', function() {
             if (feather) {
