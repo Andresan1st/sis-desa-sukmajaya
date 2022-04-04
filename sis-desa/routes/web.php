@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\masdatajabatanController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,4 +15,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('layout.layout');
+});
+
+Route::controller(masdatajabatanController::class)->group(function(){
+    Route::get('/mas_data_jabatan','index');
+    Route::get('/mas_data_jabatan/apijabatan','apijabatan');
 });

@@ -32,7 +32,6 @@
        <!-- BEGIN: Page CSS-->
        <link rel="stylesheet" type="text/css" href="{{asset('app-assets/css/core/menu/menu-types/vertical-menu.css')}}">
        <link rel="stylesheet" type="text/css" href="{{asset('app-assets/css/pages/dashboard-ecommerce.css')}}">
-       <link rel="stylesheet" type="text/css" href="{{asset('app-assets/css/plugins/charts/chart-apex.css')}}">
        {{-- <link rel="stylesheet" type="text/css" href="{{asset('app-assets/css/plugins/extensions/ext-component-toastr.css')}}"> --}}
        <link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/css/tables/datatable/dataTables.bootstrap4.min.css')}}  ">
        <link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/css/tables/datatable/responsive.bootstrap4.min.css')}}  ">
@@ -199,8 +198,8 @@
    
      <!-- BEGIN: Page Vendor JS-->
    
-     <script src="{{asset('app-assets/vendors/js/charts/apexcharts.min.js')}}"></script>
-     {{-- <script src="{{asset('app-assets/vendors/js/extensions/toastr.min.js')}}"></script> --}}
+     <script src="{{asset('app-assets/js/jquery.min.js')}}"></script>
+     <script src="{{asset('app-assets/js/autonumeric.js')}}"></script>
      <script src="{{asset('app-assets/vendors/js/tables/datatable/jquery.dataTables.min.js')}}"></script>
      <script src="{{asset('app-assets/vendors/js/tables/datatable/datatables.bootstrap4.min.js')}}"></script>
      <script src="{{asset('app-assets/vendors/js/tables/datatable/dataTables.responsive.min.js')}}"></script>
@@ -212,12 +211,11 @@
      <!-- BEGIN: Theme JS-->
      <script src="{{asset('app-assets/js/core/app-menu.js')}}"></script>
      <script src="{{asset('app-assets/js/core/app.js')}}"></script>
-     <script src="{{asset('app-assets/js/jquery.min.js')}}"></script>
-     <script src="{{asset('app-assets/js/autonumeric.js')}}"></script>
+   
      <!-- END: Theme JS-->
    
      <!-- BEGIN: Page JS-->
-     <script src="{{asset('app-assets/js/scripts/pages/dashboard-ecommerce.js')}}"></script>
+     <script src="{{ asset('app-assets/js/scripts/tables/table-datatables-advanced.js')}}"></script>
      <!-- END: Page JS-->
    
     <!-- BEGIN: Page JS-->
@@ -234,6 +232,7 @@
             }
         })
     </script>
+       @yield('script')
 </body>
 <!-- END: Body-->
 
