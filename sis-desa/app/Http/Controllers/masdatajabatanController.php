@@ -3,7 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use DB;
+use Response;
+use PDF;
+use DataTables;
+use Validator;
+use Auth;
+use Carbon\Carbon;
+use App\Models\masdatajabtanModel;
 class masdatajabatanController extends Controller
 {
     /**
@@ -83,7 +90,7 @@ class masdatajabatanController extends Controller
     }
     
     public function apijabatan(){
-        $data = masdatajabatanModel::all();
+        $data = masdatajabtanModel::all();
 
         return DataTables::of($data)
         ->addIndexColumn()
