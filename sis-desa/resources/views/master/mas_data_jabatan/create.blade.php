@@ -1,4 +1,4 @@
-@extends('layouts.layout_utama')
+@extends('layout.layout')
 @section('content')
     <div class="content-header row">
         <div class="content-header-left col-md-9 col-12 mb-2">
@@ -64,12 +64,7 @@
                                                         <label class="font-weight-bolder">Mata Uang<span class="required">*</span></label>
                                                     </div>
                                                     <div class="col-md-4 controls">
-                                                        <select class="select2 form-control" id="Cur_Code"  name="Cur_Code" required>
-                                                            <option selected="" value="">Pilih Mata Uang ...</option>
-                                                            @foreach ($matauang as $data)
-                                                                <option value="{{ $data->Cur_Code }}">{{$data->Cur_Code."-".$data->Cur_Name}}</option>
-                                                            @endforeach
-                                                        </select>
+                                                       
                                                     </div>
                                                     <div class="col-md-2">
                                                         <label class="font-weight-bolder">Kurs<span
@@ -450,7 +445,7 @@
                                 <div class="col-12 d-flex justify-content-center">
                                     <button type="submit" id="btnDataMPF" class="btn btn-success">Save</button>
                                     &nbsp;
-                                    <a href="{{ url('pcin_tra_purchase_order') }}" class="btn btn-danger">Kembali</a>
+                                 
                                 </div>
                             </div>
                         </div>
@@ -1116,7 +1111,7 @@
                             }
                         }).then((result) => {
                             if (result.isConfirmed) {
-                                window.location.href = "{{ route('pcin_tra_purchase_order') }}";
+                               
                             } else if (result.isDenied) {
                                 return false;
                             }

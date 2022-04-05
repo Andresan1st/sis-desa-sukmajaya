@@ -21,7 +21,7 @@
                     <div class="card">
                         <div class="card-header border-bottom">
                             <h4 class="card-title">Data Jabatan</h4>
-                            <button id="addRow"  class="btn btn-success btn-sm mb-2"><i data-feather="plus"></i>&nbsp; Add new row</button>
+                            <button id="addRow"  class="btn btn-success btn-sm mb-2" onclick="window.location='{{ URL::route('mas_data_jabatan_create'); }}'"><i data-feather="plus"></i>&nbsp; Add new row</button>
                         </div>
                         <div class="card-datatable">
                             <table id="indextable" class="datatables-basic table">

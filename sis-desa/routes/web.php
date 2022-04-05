@@ -19,5 +19,6 @@ Route::get('/', function () {
 
 Route::controller(masdatajabatanController::class)->group(function(){
     Route::get('/mas_data_jabatan','index');
+    Route::get('/mas_data_jabatan/create','create')->name('mas_data_jabatan_create');
     Route::get('/mas_data_jabatan/apijabatan','apijabatan');
 });

@@ -30,7 +30,7 @@ class masdatajabatanController extends Controller
      */
     public function create()
     {
-        //
+        return  view('master.mas_data_jabatan.create');
     }
 
     /**
@@ -96,8 +96,8 @@ class masdatajabatanController extends Controller
         ->addIndexColumn()
         ->addColumn('action', function($data){
                $btn = '';
-                    $btn = $btn. '<a href="'. url('/mas_data_jabatan/edit/'.$op_number) .'" class="btn btn-icon btn-icon rounded-circle btn-info mr-1 mb-1"<i data-feather="edit" </a>&nbsp;';
-                     $btn = $btn. '<a href="'. url('/mas_data_jabatan/delete/'.$op_number) .'"  class="btn btn-icon btn-icon rounded-circle btn-danger mr-1 mb-1"><i data-feather="delete" </a>&nbsp;';
+                    $btn = $btn. '<a href="'. url('/mas_data_jabatan/edit/'.$data->id) .'" class="btn btn-icon btn-icon rounded-circle btn-info mr-1 mb-1"><span class="fa fa-light fa-pen-to-square"></span> </a>';
+                     $btn = $btn. '<a href="'. url('/mas_data_jabatan/delete/'.$data->id) .'"  class="btn btn-icon btn-icon rounded-circle btn-danger mr-1 mb-1"><span class="fa fa-light fa-trash-can"></span></a>';
                return $btn;
         })
         ->rawColumns(['action'])
