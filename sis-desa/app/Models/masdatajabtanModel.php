@@ -13,5 +13,7 @@ class masdatajabtanModel extends Model
     protected $fillable = ['nama_jabatan','status'];
     
     // public $timestamps = false;
-
+    function jabatan(){
+        return $this->hasMany('App\Models\MasdatapegawaiModel','id_jabatan','id'); 
+    }
 }

@@ -13,7 +13,7 @@
             </li>
             <li><a class="d-flex align-items-center" href="form-input-groups.html"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Input Groups">User Role</span></a>
             </li>
-            <li><a class="d-flex align-items-center" href="form-input.html"><i data-feather="users"></i><span class="menu-item text-truncate" data-i18n="Input">Data Pegawai</span></a>
+            <li><a class="d-flex align-items-center" href="mas_data_pegawai"><i data-feather="users"></i><span class="menu-item text-truncate" data-i18n="Input">Data Pegawai</span></a>
             </li>
             <li><a class="d-flex align-items-center" href="form-input-groups.html"><i data-feather="user"></i><span class="menu-item text-truncate" data-i18n="Input Groups">Data Masyarakat</span></a>
             </li>
