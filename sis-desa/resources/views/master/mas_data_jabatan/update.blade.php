@@ -56,8 +56,9 @@
                                 <br>
                                 <div class="col-12 d-flex justify-content-center">
                                     <button type="submit" id="btnDatasave" class="btn btn-primary">Save</button>
-                                    <button type="reset" id="ResetForm" class="btn btn-outline-secondary">Reset</button>
                                     &nbsp;
+                                    <button type="reset" id="ResetForm" class="btn btn-outline-secondary">Reset</button>
+                                  
                                  
                                 </div>
                             </div>
@@ -74,7 +75,7 @@
     <script>
         $(document).ready(function() {
             var dataupdate = {!! json_encode($datajabatan) !!};
-            
+
             var date = new Date();
             var day = date.getDate();
             var month = date.getMonth() + 1;
