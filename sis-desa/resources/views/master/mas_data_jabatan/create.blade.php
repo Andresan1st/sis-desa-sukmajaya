@@ -3,9 +3,15 @@
     <div class="content-header row">
         <div class="content-header-left col-md-9 col-12 mb-2">
             <div class="row breadcrumbs-top">
-                <div class="col-12">
+                <div class="col-12" style="margin-top: 30px">
                     <h2 class="content-header-title float-left mb-0">Data Jabatan</h2>
-                    <div class="breadcrumb-wrapper col-12">
+                    <div class="breadcrumb-wrapper">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/">Home</a>
+                            </li>
+                            <li class="breadcrumb-item active">Kelola Data Jabatan
+                            </li>
+                        </ol>
                     </div>
                 </div>
             </div>
@@ -58,7 +64,8 @@
                                     <button type="submit" id="btnDatasave" class="btn btn-primary">Save</button>
                                     &nbsp;
                                     <button type="reset" id="ResetForm" class="btn btn-outline-secondary">Reset</button>
-                                  
+                                    &nbsp;
+                                    <a href="{{ url('mas_data_jabatan_index') }}" class="btn btn-danger">Kembali</a>
                                  
                                 </div>
                             </div>

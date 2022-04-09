@@ -2,11 +2,15 @@
 @section('content')
     <div class="content-header row">
         <div class="content-header-left col-md-9 col-12 mb-2">
-            <div class="row breadcrumbs-top">
-                <div class="col-12">
-                    <h2 class="content-header-title float-left mb-0">Data Jabatan</h2>
-                    <div class="breadcrumb-wrapper col-12">
-                    </div>
+            <div class="col-12" style="margin-top: 30px">
+                <h2 class="content-header-title float-left mb-0">Data Jabatan</h2>
+                <div class="breadcrumb-wrapper">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/">Home</a>
+                        </li>
+                        <li class="breadcrumb-item active">Kelola Data Jabatan
+                        </li>
+                    </ol>
                 </div>
             </div>
         </div>
@@ -30,7 +34,7 @@
                                                             class="required">*</span></label></label>
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <input type="text" id="nama_jabatan" class="form-control" name="nama_jabatan" placeholder="Nama Jabatan" />
+                                                        <input type="text" id="nama_jabatan" value="{{$datajabatan->nama_jabatan}}" class="form-control" name="nama_jabatan" placeholder="Nama Jabatan" />
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
@@ -39,7 +43,7 @@
                                                                 class="required">*</span></label>
                                                     </div>
                                                     <div class="col-md-4 controls">
-                                                        <select class="select2 form-control" id="status"  name="status" readonly required>
+                                                        <select class="select2 form-control" id="status"  name="status"  required>
                                                             <option selected="" value="ACTIVE">ACTIVE</option>
                                                             <option value="INACTIVE">INACTIVE</option>
                                                         </select>
@@ -56,8 +60,10 @@
                                 <br>
                                 <div class="col-12 d-flex justify-content-center">
                                     <button type="submit" id="btnDatasave" class="btn btn-primary">Save</button>
+                                    &nbsp;
                                     <button type="reset" id="ResetForm" class="btn btn-outline-secondary">Reset</button>
                                     &nbsp;
+                                    <a href="{{ url('mas_data_jabatan_index') }}" class="btn btn-danger">Kembali</a>
                                  
                                 </div>
                             </div>
@@ -73,6 +79,8 @@
 @section('script')
     <script>
         $(document).ready(function() {
+            var dataupdate = {!! json_encode($datajabatan) !!};
+
             var date = new Date();
             var day = date.getDate();
             var month = date.getMonth() + 1;
