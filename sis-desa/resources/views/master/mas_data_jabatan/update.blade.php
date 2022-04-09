@@ -40,10 +40,8 @@
                                                     </div>
                                                     <div class="col-md-4 controls">
                                                         <select class="select2 form-control" id="status"  name="status"  required>
-                                                            @foreach ($status as $sts)
-                                                            <option @if($sts->status == $datajabatan->status) selected @endif value="{{ $sts->status }}">{{$datajabatan->status}}</option>
-                                                            
-                                                            @endforeach
+                                                            <option selected="" value="ACTIVE">ACTIVE</option>
+                                                            <option value="INACTIVE">INACTIVE</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -75,6 +73,8 @@
 @section('script')
     <script>
         $(document).ready(function() {
+            var dataupdate = {!! json_encode($datajabatan) !!};
+            
             var date = new Date();
             var day = date.getDate();
             var month = date.getMonth() + 1;

@@ -9,6 +9,17 @@
                     <div class="breadcrumb-wrapper col-12">
                     </div>
                 </div>
+                <div class="col-12" style="margin-top: 30px">
+                    <h2 class="content-header-title float-left mb-0">Data Jabatan</h2>
+                    <div class="breadcrumb-wrapper">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/">Home</a>
+                            </li>
+                            <li class="breadcrumb-item active">Kelola Data Jabatan
+                            </li>
+                        </ol>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -21,7 +32,7 @@
                         <div class="card-content">
                             <div class="card-body">
                                 <div class="card-header border-bottom">
-                                    <h4 class="card-title">Data Jabatan</h4>
+                                    <h4 class="card-title">Kelola Jabatan</h4>
                                     <button id="addRow"  class="btn btn-success btn-sm mb-2" onclick="window.location='{{ URL::route('mas_data_jabatan_create'); }}'"><i data-feather="plus"></i>&nbsp; Add new row</button>
                                 </div>
                                 <div class="table-responsive">

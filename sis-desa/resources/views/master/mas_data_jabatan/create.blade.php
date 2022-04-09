@@ -56,8 +56,9 @@
                                 <br>
                                 <div class="col-12 d-flex justify-content-center">
                                     <button type="submit" id="btnDatasave" class="btn btn-primary">Save</button>
-                                    <button type="reset" id="ResetForm" class="btn btn-outline-secondary">Reset</button>
                                     &nbsp;
+                                    <button type="reset" id="ResetForm" class="btn btn-outline-secondary">Reset</button>
+                                  
                                  
                                 </div>
                             </div>

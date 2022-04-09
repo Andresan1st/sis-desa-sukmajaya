@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\masdatajabatanController;
+use App\Http\Controllers\suratmasukController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,4 +24,11 @@ Route::controller(masdatajabatanController::class)->group(function(){
     Route::get('/mas_data_jabatan/apijabatan','apijabatan');
     Route::post('/mas_data_jabatan/store','store');
     Route::get('/mas_data_jabatan/edit/{id}','edit');
+});
+
+Route::controller(suratmasukController::class)->group(function(){
+    Route::get('/surat_masuk','index')->name('page.surat_masuk');
+    Route::post('/surat_masuk_store','store')->name('store.surat_masuk');
+    Route::get('/surat_masuk_table','table')->name('table.surat_masuk');
+    Route::post('/surat_masuk_delete','remove')->name('delete.surat_masuk');
 });

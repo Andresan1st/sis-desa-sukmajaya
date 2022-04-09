@@ -94,6 +94,7 @@ class masdatajabatanController extends Controller
     {
         $datajabatan = masdatajabtanModel::where('id',$id)->first();
         $status =  masdatajabtanModel::all();
+        dd($status);
         return view('master.mas_data_jabatan.update',compact('datajabatan','status'));
     }
 

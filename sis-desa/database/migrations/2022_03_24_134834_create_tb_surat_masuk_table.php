@@ -18,9 +18,10 @@ return new class extends Migration
             $table->string("nomor_surat_masuk",100)->unique();
             $table->string("perihal_surat",100)->nullable();
             $table->date("tanggal")->nullable();
-            $table->integer("lampiran")->nullable();
             $table->string("file_name",100)->nullable();
             $table->string("file_path",100)->nullable();
+            $table->string("file_size")->nullable();
+            $table->string("file_ekstensi",100)->nullable();
             $table->timestamps();
         });
     }
