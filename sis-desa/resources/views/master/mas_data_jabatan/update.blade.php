@@ -62,8 +62,8 @@
                                     <button type="submit" id="btnDatasave" class="btn btn-primary">Save</button>
                                     &nbsp;
                                     <button type="reset" id="ResetForm" class="btn btn-outline-secondary">Reset</button>
-                                  
-                                    <a href="{{ url('mas_data_jabatan_index') }}" class="btn btn-danger">Kembali</a>
+                                    &nbsp;
+                                    <a href="{{ url('mas_data_jabatan') }}" class="btn btn-danger">Kembali</a>
                                  
                                 </div>
                             </div>
@@ -80,7 +80,7 @@
     <script>
         $(document).ready(function() {
             var dataupdate = {!! json_encode($datajabatan) !!};
-
+            $("#status select").val(dataupdate.status);
             var date = new Date();
             var day = date.getDate();
             var month = date.getMonth() + 1;
@@ -118,7 +118,7 @@
 
             //console.log(pcin_tra_permintaan_pembelian);
             $.ajax({
-                url: "<?php echo url('/mas_data_jabatan/store'); ?>",
+                url: "<?php echo url('/mas_data_jabatan/update/') ?>"+"/"+$("#id").val(),
                 type: "POST",
                 data: dataarray,
                 dataType: "JSON",

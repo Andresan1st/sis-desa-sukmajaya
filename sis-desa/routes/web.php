@@ -23,7 +23,10 @@ Route::controller(masdatajabatanController::class)->group(function(){
     Route::get('/mas_data_jabatan/create','create')->name('mas_data_jabatan_create');
     Route::get('/mas_data_jabatan/apijabatan','apijabatan');
     Route::post('/mas_data_jabatan/store','store');
+    Route::post('/mas_data_jabatan/update/{id}','update');
     Route::get('/mas_data_jabatan/edit/{id}','edit');
+    Route::get('/mas_data_jabatan/show/{id}','show');
+    Route::get('/mas_data_jabatan/delete/{id}','destroy');
 });
 
 Route::controller(suratmasukController::class)->group(function(){

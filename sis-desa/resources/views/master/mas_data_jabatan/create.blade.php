@@ -28,6 +28,7 @@
                                 <form id="formdata" class="form form-horizontal">
                                     {{ csrf_field() }}
                                     <div class="form-body">
+                                        <input type="text" id="id" class="form-control" name="id" value={{$datajabatan->id}}placeholder="Nama Jabatan" hidden />
                                         <div class="row" style="margin-top: 10px">
                                             <div class="col-12">
                                                 <div class="form-group row">
@@ -65,7 +66,7 @@
                                     &nbsp;
                                     <button type="reset" id="ResetForm" class="btn btn-outline-secondary">Reset</button>
                                     &nbsp;
-                                    <a href="{{ url('mas_data_jabatan_index') }}" class="btn btn-danger">Kembali</a>
+                                    <a href="{{ url('mas_data_jabatan') }}" class="btn btn-danger">Kembali</a>
                                  
                                 </div>
                             </div>
@@ -118,7 +119,7 @@
 
             //console.log(pcin_tra_permintaan_pembelian);
             $.ajax({
-                url: "<?php echo url('/mas_data_jabatan/store'); ?>",
+                url: "<?php echo url('/mas_data_jabatan/update'); ?>",
                 type: "POST",
                 data: dataarray,
                 dataType: "JSON",

@@ -34,7 +34,7 @@
                                                             class="required">*</span></label></label>
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <input type="text" id="nama_jabatan" value="{{$datajabatan->nama_jabatan}}" class="form-control" name="nama_jabatan" placeholder="Nama Jabatan" />
+                                                        <input type="text" id="nama_jabatan" value="{{$datajabatan->nama_jabatan}}" class="form-control" name="nama_jabatan" placeholder="Nama Jabatan" disabled />
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
@@ -43,7 +43,7 @@
                                                                 class="required">*</span></label>
                                                     </div>
                                                     <div class="col-md-4 controls">
-                                                        <select class="select2 form-control" id="status"  name="status"  required>
+                                                        <select class="select2 form-control" id="status"  name="status"  disabled required>
                                                             <option selected="" value="ACTIVE">ACTIVE</option>
                                                             <option value="INACTIVE">INACTIVE</option>
                                                         </select>
@@ -59,11 +59,11 @@
                                 <br>
                                 <br>
                                 <div class="col-12 d-flex justify-content-center">
-                                    <button type="submit" id="btnDatasave" class="btn btn-primary">Save</button>
+                                    {{-- <button type="submit" id="btnDatasave" class="btn btn-primary">Save</button>
                                     &nbsp;
                                     <button type="reset" id="ResetForm" class="btn btn-outline-secondary">Reset</button>
-                                    &nbsp;
-                                    <a href="{{ url('mas_data_jabatan_index') }}" class="btn btn-danger">Kembali</a>
+                                    &nbsp; --}}
+                                    <a href="{{ url('mas_data_jabatan') }}" class="btn btn-danger">Kembali</a>
                                  
                                 </div>
                             </div>
@@ -80,7 +80,7 @@
     <script>
         $(document).ready(function() {
             var dataupdate = {!! json_encode($datajabatan) !!};
-
+            $("#status select").val(dataupdate.status);
             var date = new Date();
             var day = date.getDate();
             var month = date.getMonth() + 1;
@@ -118,7 +118,7 @@
 
             //console.log(pcin_tra_permintaan_pembelian);
             $.ajax({
-                url: "<?php echo url('/mas_data_jabatan/store'); ?>",
+                url: "<?php echo url('/mas_data_jabatan/update/') ?>"+"/"+$("#id").val(),
                 type: "POST",
                 data: dataarray,
                 dataType: "JSON",

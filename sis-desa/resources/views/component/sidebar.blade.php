@@ -21,7 +21,7 @@
             </li>
         </ul>
     </li>
-    <li class="open nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="copy"></i><span class="menu-title text-truncate" data-i18n="Form Elements">Modul Surat</span></a>
+    <li class="nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="copy"></i><span class="menu-title text-truncate" data-i18n="Form Elements">Modul Surat</span></a>
         <ul class="menu-content">
             <li class="{{ (request()->is('surat_masuk')) ? 'active' : '' }}" ><a class="d-flex align-items-center" href="{{route('page.surat_masuk')}}"><i data-feather="mail"></i><span class="menu-item text-truncate" data-i18n="Input">Surat Masuk</span></a>
             </li>

@@ -12,6 +12,6 @@ class masdatajabtanModel extends Model
     protected $guarded = ['id'];
     protected $fillable = ['nama_jabatan','status'];
     
-    public $timestamps = false;
+    // public $timestamps = false;
 
 }

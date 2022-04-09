@@ -81,7 +81,9 @@ class masdatajabatanController extends Controller
      */
     public function show($id)
     {
-        //
+        $datajabatan = masdatajabtanModel::where('id',$id)->first();
+        $status =  masdatajabtanModel::all();
+        return view('master.mas_data_jabatan.show',compact('datajabatan','status'));
     }
 
     /**
@@ -106,7 +108,36 @@ class masdatajabatanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        DB::beginTransaction();
+        try{
+            $messages = [
+                'nama_jabatan.required' => 'Field Jabatan harus diisi',
+            ];
+            $validator = Validator::make($request->all(), [
+                'nama_jabatan' => 'required',
+            ], $messages);
+            if ($validator->fails()) {
+                return response()->json(['errors' => $validator->errors()->all()]);
+            } else {
+                $datajabatan = masdatajabtanModel::where("id",$request->id)->update([
+                    "nama_jabatan"=> $request->nama_jabatan,
+                    "status"=>$request->status
+                ]);
+                // dd($item);
+             
+                    DB::commit();
+                return Response()->json([
+                    'message'=>"Berhasil Disimpan",
+                    'success'=>'True'
+                ]);
+            }
+        }catch(\Exception $e){
+            $success = "Gagal";
+            DB::rollback();
+            return Response()->json([
+                'errors' => "Backend Error Pada Line" . $e->getMessage()
+            ]);
+        }
     }
 
     /**
@@ -117,7 +148,18 @@ class masdatajabatanController extends Controller
      */
     public function destroy($id)
     {
-        //
+        DB::beginTransaction();
+        try{
+            masdatajabtanModel::where('id', '=', $id)->update(['status' => 'DELETED',
+            ]);
+            DB::commit();
+            $success = true;
+            return view('master.mas_data_jabatan.index');
+        }catch(\Exception $e){
+            //dd($e);
+            $success = false;
+            DB::rollback();
+        }
     }
     
     public function apijabatan(){
@@ -127,8 +169,9 @@ class masdatajabatanController extends Controller
         ->addIndexColumn()
         ->addColumn('action', function($data){
                $btn = '';
-                    $btn = $btn. '<a href="'. url('/mas_data_jabatan/edit/'.$data->id) .'" class="btn btn-icon btn-icon rounded-circle btn-info mr-1 mb-1"><span class="fa fa-light fa-pen-to-square"></span> </a>';
-                     $btn = $btn. '<a href="'. url('/mas_data_jabatan/delete/'.$data->id) .'"  class="btn btn-icon btn-icon rounded-circle btn-danger mr-1 mb-1"><span class="fa fa-light fa-trash-can"></span></a>';
+                $btn = $btn. '<a href="'. url('/mas_data_jabatan/edit/'.$data->id) .'" class="btn btn-icon btn-icon rounded-circle btn-info mr-1 mb-1"><span class="fa fa-light fa-pen-to-square"></span> </a>';
+                $btn = $btn. '<a href="'. url('/mas_data_jabatan/delete/'.$data->id) .'"  class="btn btn-icon btn-icon rounded-circle btn-danger mr-1 mb-1"><span class="fa fa-light fa-trash-can"></span></a>';
+                $btn = $btn. '<a href="'. url('/mas_data_jabatan/show/'.$data->id) .'"  class="btn btn-icon btn-icon rounded-circle btn-success mr-1 mb-1"><span class="fa fa-light fa-eye"></span></a>';
                return $btn;
         })
         ->rawColumns(['action'])
