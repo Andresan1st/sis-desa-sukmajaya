@@ -41,7 +41,36 @@ class masdatajabatanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        DB::beginTransaction();
+        try{
+            $messages = [
+                'nama_jabatan.required' => 'Field Jabatan harus diisi',
+            ];
+            $validator = Validator::make($request->all(), [
+                'nama_jabatan' => 'required',
+            ], $messages);
+            if ($validator->fails()) {
+                return response()->json(['errors' => $validator->errors()->all()]);
+            } else {
+                $datajabatan = masdatajabtanModel::create([
+                    "nama_jabatan"=> $request->nama_jabatan,
+                    "status"=>$request->status
+                ]);
+                // dd($item);
+             
+                    DB::commit();
+                return Response()->json([
+                    'message'=>"Berhasil Disimpan",
+                    'success'=>'True'
+                ]);
+            }
+        }catch(\Exception $e){
+            $success = "Gagal";
+            DB::rollback();
+            return Response()->json([
+                'errors' => "Backend Error Pada Line" . $e->getMessage()
+            ]);
+        }
     }
 
     /**
@@ -63,7 +92,9 @@ class masdatajabatanController extends Controller
      */
     public function edit($id)
     {
-        //
+        $datajabatan = masdatajabtanModel::where('id',$id)->first();
+        $status =  masdatajabtanModel::all();
+        return view('master.mas_data_jabatan.update',compact('datajabatan','status'));
     }
 
     /**
