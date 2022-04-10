@@ -33,7 +33,7 @@
                             <div class="card-body">
                                 <div class="card-header border-bottom">
                                     <h4 class="card-title">Kelola Pegawai</h4>
-                                    <button id="addRow"  class="btn btn-success btn-sm mb-2" onclick="window.location='{{ URL::route('mas_data_jabatan_create'); }}'"><i data-feather="plus"></i>&nbsp; Add new row</button>
+                                    <button id="addRow"  class="btn btn-success btn-sm mb-2" onclick="window.location='{{ URL::route('mas_data_pegawai_create'); }}'"><i data-feather="plus"></i>&nbsp; Add new row</button>
                                 </div>
                                 <div class="table-responsive">
                                     <table id="indextable" class="datatables-basic table">
@@ -46,6 +46,8 @@
                                                 <th>No Telpon</th>
                                                 <th>Jenkel</th>
                                                 <th>Jabatan</th>
+                                                <th>Status</th>
+                                                <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -60,6 +62,8 @@
                                                 <th>No Telpon</th>
                                                 <th>Jenkel</th>
                                                 <th>Jabatan</th>
+                                                <th>Status</th>
+                                                <th>Action</th>
                                             </tr>
                                         </tfoot>
                                     </table>
@@ -82,10 +86,15 @@
             var table = $('#indextable').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: '<?= url("mas_data_jabatan/apijabatan") ?>',
+                ajax: '<?= url("mas_data_pegawai/apipegawai") ?>',
                 columns: [
                     {data: 'DT_RowIndex',orderable: false,searchable: false},
-                    {data: 'nama_jabatan', name: 'nama_jabatan'},
+                    {data: 'nip', name: 'nip'},
+                    {data: 'nama', name: 'nama'},
+                    {data: 'alamat', name: 'alamat'},
+                    {data: 'no_telp', name: 'no_telp'},
+                    {data: 'jenkel', name: 'jenkel'},
+                    {data: 'jabatan.nama_jabatan', name: 'jabatan.nama_jabatan'},
                     {data: 'status', name: 'status'},
 	                 {data: 'action', name: 'action', orderable: false, searchable: false},
 	            ]

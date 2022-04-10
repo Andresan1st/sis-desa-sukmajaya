@@ -21,6 +21,7 @@
        <link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/css/tables/datatable/buttons.bootstrap4.min.css')}}">
        <link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/css/tables/datatable/rowGroup.bootstrap4.min.css')}}">
        <link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/css/pickers/flatpickr/flatpickr.min.css')}}">
+       <link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/css/forms/select/select2.min.css')}}">
        <!-- END: Vendor CSS-->
    
        <!-- BEGIN: Theme CSS-->
@@ -215,9 +216,14 @@
      <script src="{{ asset('app-assets/vendors/js/tables/datatable/buttons.print.min.js')}}"></script>
      <script src="{{ asset('app-assets/vendors/js/tables/datatable/dataTables.rowGroup.min.js')}}"></script>
      <script src="{{ asset('app-assets/vendors/js/pickers/flatpickr/flatpickr.min.js')}}"></script>
+     <script src="{{ asset('app-assets/vendors/js/forms/select/select2.full.min.js')}}"></script>
+     <script src="{{ asset('app-assets/vendors/js/forms/cleave/cleave.min.js')}}"></script>
+     <script src="{{ asset('app-assets/vendors/js/forms/cleave/addons/cleave-phone.id.js')}}"></script>
      <!-- BEGIN: Theme JS-->
      <script src="{{asset('app-assets/js/core/app-menu.js')}}"></script>
      <script src="{{asset('app-assets/js/core/app.js')}}"></script>
+     <script src="{{asset('app-assets/js/scripts/forms/form-select2.js')}}"></script>
+     <script src="{{asset('app-assets/js/scripts/forms/form-input-mask.js')}}"></script>
  
    
      <!-- END: Theme JS-->

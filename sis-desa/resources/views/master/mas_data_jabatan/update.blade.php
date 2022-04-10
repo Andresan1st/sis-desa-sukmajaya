@@ -26,6 +26,7 @@
                                 <form id="formdata" class="form form-horizontal">
                                     {{ csrf_field() }}
                                     <div class="form-body">
+                                        <input type="text" id="id" value="{{$datajabatan->id}}" class="form-control" name="id" hidden placeholder="Nama Jabatan" />
                                         <div class="row" style="margin-top: 10px">
                                             <div class="col-12">
                                                 <div class="form-group row">

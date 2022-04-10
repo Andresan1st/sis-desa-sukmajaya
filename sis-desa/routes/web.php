@@ -20,7 +20,7 @@ Route::get('/', function () {
 });
 
 Route::controller(masdatajabatanController::class)->group(function(){
-    Route::get('/mas_data_jabatan','index')->name('mas_data_jabatan_index');;
+    Route::get('/mas_data_jabatan','index')->name('mas_data_jabatan');;
     Route::get('/mas_data_jabatan/create','create')->name('mas_data_jabatan_create');
     Route::get('/mas_data_jabatan/apijabatan','apijabatan');
     Route::post('/mas_data_jabatan/store','store');
@@ -31,7 +31,7 @@ Route::controller(masdatajabatanController::class)->group(function(){
 });
 
 Route::controller(MasdatapegawaiController::class)->group(function(){
-    Route::get('/mas_data_pegawai','index')->name('mas_data_pegawai_index');;
+    Route::get('/mas_data_pegawai','index')->name('mas_data_pegawai');;
     Route::get('/mas_data_pegawai/create','create')->name('mas_data_pegawai_create');
     Route::get('/mas_data_pegawai/apipegawai','apipegawai');
     Route::post('/mas_data_pegawai/store','store');

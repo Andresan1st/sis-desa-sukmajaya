@@ -119,7 +119,7 @@
 
             //console.log(pcin_tra_permintaan_pembelian);
             $.ajax({
-                url: "<?php echo url('/mas_data_jabatan/update'); ?>",
+                url: "<?php echo url('/mas_data_jabatan/store'); ?>",
                 type: "POST",
                 data: dataarray,
                 dataType: "JSON",
