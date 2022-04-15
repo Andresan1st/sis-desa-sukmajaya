@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\masdatajabatanController;
 use App\Http\Controllers\MasdatapegawaiController;
+use App\Http\Controllers\MasdatamasyarakatController;
 use App\Http\Controllers\suratmasukController;
 /*
 |--------------------------------------------------------------------------
@@ -18,7 +19,7 @@ use App\Http\Controllers\suratmasukController;
 Route::get('/', function () {
     return view('layout.layout');
 });
-
+//ANDRE
 Route::controller(masdatajabatanController::class)->group(function(){
     Route::get('/mas_data_jabatan','index')->name('mas_data_jabatan');;
     Route::get('/mas_data_jabatan/create','create')->name('mas_data_jabatan_create');
@@ -40,6 +41,19 @@ Route::controller(MasdatapegawaiController::class)->group(function(){
     Route::get('/mas_data_pegawai/show/{id}','show');
     Route::get('/mas_data_pegawai/delete/{id}','destroy');
 });
+
+Route::controller(MasdatamasyarakatController::class)->group(function(){
+    Route::get('/mas_data_masyarakat','index')->name('mas_data_masyarakat');;
+    Route::get('/mas_data_masyarakat/create','create')->name('mas_data_masyarakat_create');
+    Route::get('/mas_data_masyarakat/apimasyarakat','apimasyarakat');
+    Route::post('/mas_data_masyarakat/store','store');
+    Route::post('/mas_data_masyarakat/update/{id}','update');
+    Route::get('/mas_data_masyarakat/edit/{id}','edit');
+    Route::get('/mas_data_masyarakat/show/{id}','show');
+    Route::get('/mas_data_masyarakat/delete/{id}','destroy');
+});
+
+//ANDRE
 
 Route::controller(suratmasukController::class)->group(function(){
     Route::get('/surat_masuk','index')->name('page.surat_masuk');

@@ -20,7 +20,8 @@
        <link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/css/tables/datatable/responsive.bootstrap4.min.css')}}">
        <link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/css/tables/datatable/buttons.bootstrap4.min.css')}}">
        <link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/css/tables/datatable/rowGroup.bootstrap4.min.css')}}">
-       <link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/css/pickers/flatpickr/flatpickr.min.css')}}">
+       <link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/css/pickers/pickadate/pickadate.css')}}">
+         <link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/css/pickers/flatpickr/flatpickr.min.css')}}">
        <link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/css/forms/select/select2.min.css')}}">
        <!-- END: Vendor CSS-->
    
@@ -32,7 +33,8 @@
        <link rel="stylesheet" type="text/css" href="{{asset('app-assets/css/themes/dark-layout.css')}}">
        <link rel="stylesheet" type="text/css" href="{{asset('app-assets/css/themes/bordered-layout.css')}}">
        <link rel="stylesheet" type="text/css" href="{{asset('app-assets/css/themes/semi-dark-layout.css')}}">
-   
+       <link rel="stylesheet" type="text/css" href="{{asset('app-assets/css/plugins/forms/pickers/form-flat-pickr.css')}}">
+       <link rel="stylesheet" type="text/css" href="{{asset('app-assets/css/plugins/forms/pickers/form-pickadate.css')}}">
        <!-- BEGIN: Page CSS-->
        <link rel="stylesheet" type="text/css" href="{{asset('app-assets/css/core/menu/menu-types/vertical-menu.css')}}">
        <link rel="stylesheet" href="{{asset('app-assets/sweetalert/sweetalert2.min.css')}}">
@@ -200,7 +202,11 @@
      <!-- BEGIN Vendor JS-->
    
      <!-- BEGIN: Page Vendor JS-->
-     <script src="{{asset('app-assets/vendors/js/pickers/flatpickr/flatpickr.min.js')}}"></script>
+     <script src="{{ asset('app-assets/vendors/js/pickers/pickadate/picker.js')}}"></script>
+    <script src="{{ asset('app-assets/vendors/js/pickers/pickadate/picker.date.js')}}"></script>
+    <script src="{{ asset('app-assets/vendors/js/pickers/pickadate/picker.time.js')}}"></script>
+    <script src="{{ asset('app-assets/vendors/js/pickers/pickadate/legacy.js')}}"></script>
+    <script src="{{ asset('app-assets/vendors/js/pickers/flatpickr/flatpickr.min.js')}}"></script>
      <script src="{{ asset('app-assets/sweetalert/sweetalert2.min.js')}}"></script>
      <!-- END: Page Vendor JS-->
      <script src="{{ asset('app-assets/vendors/js/tables/datatable/jquery.dataTables.min.js')}}"></script>
@@ -224,7 +230,7 @@
      <script src="{{asset('app-assets/js/core/app.js')}}"></script>
      <script src="{{asset('app-assets/js/scripts/forms/form-select2.js')}}"></script>
      <script src="{{asset('app-assets/js/scripts/forms/form-input-mask.js')}}"></script>
- 
+     <script src="{{asset('app-assets/js/scripts/forms/pickers/form-pickers.js')}}"></script>
    
      <!-- END: Theme JS-->
    

@@ -18,11 +18,14 @@ return new class extends Migration
             $table->string("nik",90)->unique();
             $table->string("nama",100)->nullable();
             $table->string("tempat_lahir",50)->nullable();
+            $table->date("tgl_lahir",50)->nullable();
+            $table->string("jenkel",50)->nullable();
             $table->string("alamat",225)->nullable();
             $table->string("rt_rw",10)->nullable();
             $table->string("agama",15)->nullable();
             $table->string("status_kawin",30)->nullable();
             $table->string("no_kk",100)->nullable();
+            $table->string("status",100)->nullable();
             $table->timestamps();
         });
     }
