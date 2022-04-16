@@ -12,6 +12,7 @@ use Auth;
 use Carbon\Carbon;
 use App\Models\MasdatapegawaiModel;
 use App\Models\masdatajabtanModel;
+use App\Models\MasstrukturoorModel;
 class MasdatapegawaiController extends Controller
 {
     /**
@@ -32,7 +33,8 @@ class MasdatapegawaiController extends Controller
     public function create()
     {
         $jabatan = masdatajabtanModel::whereRaw("status <> 'DELETED'")->get();
-        return  view('master.mas_data_pegawai.create',compact('jabatan'));
+        $organisasi = MasstrukturoorModel::whereRaw("status <> 'DELETED'")->get();
+        return  view('master.mas_data_pegawai.create',compact('jabatan','organisasi'));
     }
 
     /**
@@ -44,29 +46,31 @@ class MasdatapegawaiController extends Controller
     public function store(Request $request)
     {
        // dd($request->all());
-        DB::beginTransaction();
-        try{
-            $messages = [
-                'nama.required' => 'Field Nama harus diisi',
-                'nama.min' => 'Field nama tidak boleh kurang dari 3 kata',
-                'nama.regex' => 'Field nama tidak boleh angka',
-                'alamat.required' => 'Field Alamat harus diisi',
-                'alamat.min' => 'Field alamat tidak boleh 5 kata',
-                'no_telp.required' => 'Field no telpon harus diisi',
-                'no_telp.min' => 'Field no telpon Harus minimal 10 ',
-                'jenkel.required' => 'Field jenis kelamin Harus diisi ',
-                'id_jabatan.required' => 'Field jabatan harus diisi ',
-            ];
-            $validator = Validator::make($request->all(), [
-                'nama' => 'required|min:3|regex:/^[a-zA-Z]+(([\',. -][a-zA-Z ])?[a-zA-Z]*)*$/',
-                'alamat' => 'required|min:5',
-                'no_telp' => 'required|min:10',
-                'jenkel'=>'required',
-                'id_jabatan'=>'required'
-            ], $messages);
-            if ($validator->fails()) {
-                return response()->json(['errors' => $validator->errors()->all()]);
-            } else {
+       DB::beginTransaction();
+       try{
+           $messages = [
+               'nama.required' => 'Field Nama harus diisi',
+               'nama.min' => 'Field nama tidak boleh kurang dari 3 kata',
+               'nama.regex' => 'Field nama tidak boleh angka',
+               'alamat.required' => 'Field Alamat harus diisi',
+               'alamat.min' => 'Field alamat tidak boleh 5 kata',
+               'no_telp.required' => 'Field no telpon harus diisi',
+               'no_telp.min' => 'Field no telpon Harus minimal 10 ',
+               'jenkel.required' => 'Field jenis kelamin Harus diisi ',
+               'id_jabatan.required' => 'Field jabatan harus diisi ',
+               'id_organisasi.required' => 'Field orgnasisasi harus diisi ',
+           ];
+           $validator = Validator::make($request->all(), [
+               'nama' => 'required|min:3|regex:/^[a-zA-Z]+(([\',. -][a-zA-Z ])?[a-zA-Z]*)*$/',
+               'alamat' => 'required|min:5',
+               'no_telp' => 'required|min:10',
+               'jenkel'=>'required',
+               'id_jabatan'=>'required',
+               'id_organisasi'=>'required',
+           ], $messages);
+           if ($validator->fails()) {
+               return response()->json(['errors' => $validator->errors()->all()]);
+           } else {
                 $nip=$this->setCodeDraft();
                 //dd($nip);
                 $datajabatan = MasdatapegawaiModel::create([
@@ -76,6 +80,7 @@ class MasdatapegawaiController extends Controller
                     "no_telp"=>"+62".$request->no_telp,
                     "jenkel"=>$request->jenkel,
                     "id_jabatan"=>$request->id_jabatan,
+                    "id_organisasi"=>$request->id_organisasi,
                     "status"=>"ACTIVE"
                 ]);
                 // dd($item);
@@ -105,7 +110,8 @@ class MasdatapegawaiController extends Controller
     {
         $datapegawai = MasdatapegawaiModel::with('jabatan')->where('id',$id)->first();
         $jabatan =  masdatajabtanModel::all();
-        return view('master.mas_data_pegawai.show',compact('datapegawai','jabatan'));
+        $organisasi = MasstrukturoorModel::whereRaw("status <> 'DELETED'")->get();
+        return view('master.mas_data_pegawai.show',compact('datapegawai','jabatan','organisasi'));
     }
 
     /**
@@ -116,9 +122,11 @@ class MasdatapegawaiController extends Controller
      */
     public function edit($id)
     {
+      
         $datapegawai = MasdatapegawaiModel::with('jabatan')->where('id',$id)->first();
         $jabatan =  masdatajabtanModel::all();
-        return view('master.mas_data_pegawai.update',compact('datapegawai','jabatan'));
+        $organisasi = MasstrukturoorModel::whereRaw("status <> 'DELETED'")->get();
+        return view('master.mas_data_pegawai.update',compact('datapegawai','jabatan','organisasi'));
     }
 
     /**
@@ -142,13 +150,15 @@ class MasdatapegawaiController extends Controller
                 'no_telp.min' => 'Field no telpon Harus minimal 10 ',
                 'jenkel.required' => 'Field jenis kelamin Harus diisi ',
                 'id_jabatan.required' => 'Field jabatan harus diisi ',
+                'id_organisasi.required' => 'Field orgnasisasi harus diisi ',
             ];
             $validator = Validator::make($request->all(), [
                 'nama' => 'required|min:3|regex:/^[a-zA-Z]+(([\',. -][a-zA-Z ])?[a-zA-Z]*)*$/',
                 'alamat' => 'required|min:5',
                 'no_telp' => 'required|min:10',
                 'jenkel'=>'required',
-                'id_jabatan'=>'required'
+                'id_jabatan'=>'required',
+                'id_organisasi'=>'required',
             ], $messages);
             if ($validator->fails()) {
                 return response()->json(['errors' => $validator->errors()->all()]);
@@ -159,6 +169,7 @@ class MasdatapegawaiController extends Controller
                     "no_telp"=>"+62".$request->no_telp,
                     "jenkel"=>$request->jenkel,
                     "id_jabatan"=>$request->id_jabatan,
+                    "id_organisasi"=>$request->id_organisasi,
                     "status"=>$request->status
                 ]);
                 // dd($item);

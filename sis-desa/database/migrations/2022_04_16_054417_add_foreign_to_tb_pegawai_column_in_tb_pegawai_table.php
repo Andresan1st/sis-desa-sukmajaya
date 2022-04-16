@@ -13,11 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tbstrukturoor', function (Blueprint $table) {
-            $table->bigIncrements("id");
-            $table->string("nama_organisasi",90)->nullable();
-            $table->string("status",50)->nullable();
-            $table->timestamps();
+        Schema::table('tb_pegawai', function (Blueprint $table) {
+            $table->foreign('id_organisasi')->references('id')->on('tbstrukturoor')->onDelete('cascade')->onUpdate('cascade');			
         });
     }
 
@@ -28,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tbstrukturoor');
+        Schema::table('tb_pegawai_column_in_tb_pegawai', function (Blueprint $table) {
+            //
+        });
     }
 };
