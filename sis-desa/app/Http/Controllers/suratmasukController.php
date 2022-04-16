@@ -3,8 +3,14 @@
 namespace App\Http\Controllers;
 use Validator;
 use DataTables;
+use Storage;
 use App\Models\suratmasukModel;
 use App\Models\lampiransuratmasukModel;
+use File;
+use Exception;
+use Illuminate\Support\Facades\Log;
+use League\CommonMark\Inline\Element\Strong;
+
 use Illuminate\Http\Request;
 
 class suratmasukController extends Controller
@@ -89,7 +95,7 @@ class suratmasukController extends Controller
                     $ekstensi2   = $value->extension();
                     // store file in directory arsip/surat_masuk/lampiran
                     $filename2   = time().'_'.$value->getClientOriginalName();
-                    $value->move(public_path('arsip/surat_masuk/lampiran'), $filename);
+                    $value->move(public_path('arsip/surat_masuk/lampiran'), $filename2);
                     
                     // store file lampipran
                     $data2   = lampiransuratmasukModel::updateOrCreate(
@@ -216,7 +222,7 @@ class suratmasukController extends Controller
             return DataTables::of($data)
             ->addIndexColumn()
             ->addColumn('action', function($data){
-                $btn  = '<a href="javascript:void(0)" class="btn btn-icon btn-icon rounded-circle btn-info mr-1 mb-1"><span class="fa fa-light fa-download"></span> </a>';
+                $btn  = '<a href="javascript:void(0)" data-toggle="modal" data-id="'.$data->id.'" data-target="#modaldownload" class="btn btn-icon btn-icon rounded-circle btn-info mr-1 mb-1"><span class="fa fa-light fa-download"></span> </a>';
                 $btn .= '<a href="javascript:void(0)" data-id="'.$data->id.'" data-toggle="modal" data-target="#modaldel"  class="btn btn-icon btn-icon rounded-circle btn-danger mr-1 mb-1"><span class="fa fa-light fa-trash-can"></span></a>';
                 return $btn;
             })
@@ -245,5 +251,20 @@ class suratmasukController extends Controller
             ->make(true);
         }
         return view('surat.masuk.table');
+    }
+
+    public function download(Request $request)
+    {
+        $file_surat = suratmasukModel::find($request->id);
+        $myFile = public_path("arsip/surat_masuk/file_surat/".$file_surat->file_name);
+        $lampiran  = [];
+        if ($file_surat->lampiransuratmasukModel->count() > 0) {
+            # code...
+            foreach ($file_surat as $key => $value) {
+                # code...
+                $lampiran = public_path("arsip/surat_masuk/file_surat/".$file_surat->file_name); 
+            }
+        }
+        return response()->download($myFile,implode('',$lampiran));
     }
 }

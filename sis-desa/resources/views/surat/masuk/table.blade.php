@@ -12,8 +12,8 @@
     <div class="content-header row">
         <div class="content-header-left col-md-9 col-12 mb-2">
             <div class="row breadcrumbs-top">
-                <div class="col-xl-12">
-                    <div id="errList" class="text-capitalize"></div>
+                <div class="col-xl-12 col-12">
+                    <div id="errList" class="text-capitalize" style="padding: 2%"></div>
                 </div>
                 <div class="col-12" style="margin-top: 30px">
                     <h2 class="content-header-title float-left mb-0">Surat Masuk</h2>
@@ -510,6 +510,39 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade text-left" id="modaldownload" tabindex="-1" role="dialog" aria-labelledby="myModalLabel17"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: rgb(113, 139, 255)">
+                    <h4 class="modal-title " style="color: white" id="myModalLabel17">Download Doccument</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {{-- <form id="formdownload">@csrf --}}
+                    <form action="/surat_masuk_download" method="post" enctype="multipart/form-data"> @csrf
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div id="errList" class="text-uppercase"></div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <input type="hidden" id="id" name="id" class="form-control">
+                                    <hr><p>Download File Doccument ini ?</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit" class="btn btn-primary" id="btndownload" value="Ya Download!">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('script')
@@ -517,6 +550,12 @@
     <script src="{{asset('app-assets/vendors/js/extensions/toastr.min.js')}}"></script>
     <script>
         $('#modaldel').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget)
+            var id = button.data('id')
+            var modal = $(this)
+            modal.find('.modal-body #id').val(id);
+        })
+        $('#modaldownload').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget)
             var id = button.data('id')
             var modal = $(this)
@@ -598,6 +637,51 @@
                     } else {
                         $('#btnadd').val('Arsipkan!');
                         $('#btnadd').attr('disabled', false);
+                        toastr['error']('👋'+ response.message, 'Error!', {
+                        closeButton: true,
+                        tapToDismiss: false,
+                        });
+                        $('#errList').html("");
+                        $('#errList').addClass('alert alert-danger');
+                        $.each(response.errors, function(key, err_values) {
+                            $('#errList').append('<div>' + err_values + '</div>');
+                        });
+                    }
+                },
+                error: function(data) {
+                    console.log(data);
+                }
+            });
+        });
+        $('#formdownload').submit(function(e) {
+            e.preventDefault();
+            var formData = new FormData(this);
+            $.ajax({
+                type: 'POST',
+                url: "{{ route('download.surat_masuk') }}",
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                beforeSend: function() {
+                    $('#btndownload').attr('disabled', 'disabled');
+                    $('#btndownload').val('Proses Download');
+                },
+                success: function(response) {
+                    if (response.status == 200) {
+                        $('#modaldownload').modal('hide');
+                        $("#formdownload")[0].reset();
+                        var oTable = $('#indextable').dataTable();
+                        oTable.fnDraw(false);
+                        $('#btndownload').val('Ya Download!');
+                        $('#btndownload').attr('disabled', false);
+                        toastr['success']('👋'+ response.message, 'Success!', {
+                        closeButton: true,
+                        tapToDismiss: false,
+                        });
+                    } else {
+                        $('#btndownload').val('Ya Download!');
+                        $('#btndownload').attr('disabled', false);
                         toastr['error']('👋'+ response.message, 'Error!', {
                         closeButton: true,
                         tapToDismiss: false,
