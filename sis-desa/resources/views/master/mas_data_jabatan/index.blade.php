@@ -37,7 +37,7 @@
                                 </div>
                                 <div class="table-responsive">
                                     <table id="indextable" class="datatables-basic table">
-                                        <thead>
+                                        <thead class="thead-dark">
                                             <tr>
                                                 <th>No</th>
                                                 <th>Jabatan</th>

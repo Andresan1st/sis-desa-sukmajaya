@@ -120,7 +120,7 @@
                                     &nbsp;
                                     <button type="reset" id="ResetForm" class="btn btn-outline-secondary">Reset</button>
                                     &nbsp;
-                                    <a href="{{ url('mas_data_jabatan') }}" class="btn btn-danger">Kembali</a>
+                                    <a href="{{ url('mas_data_pegawai') }}" class="btn btn-danger">Kembali</a>
                                  
                                 </div>
                             </div>
