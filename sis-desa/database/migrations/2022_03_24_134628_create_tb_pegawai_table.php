@@ -21,8 +21,10 @@ return new class extends Migration
             $table->string("no_telp",225)->nullable();
             $table->string("jenkel",10)->nullable();
             $table->unsignedBigInteger("id_jabatan")->nullable();
+            $table->unsignedBigInteger("id_organisasi")->nullable();
             $table->string("status",10)->nullable();
-            $table->foreign('id_jabatan')->references('id')->on('tb_jabatan');					
+            $table->foreign('id_jabatan')->references('id')->on('tb_jabatan')->onDelete('cascade')->onUpdate('cascade');					
+            $table->foreign('id_organisasi')->references('id')->on('tbstrukturoor')->onDelete('cascade')->onUpdate('cascade');					
             $table->timestamps();
         });
     }

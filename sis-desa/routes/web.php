@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\masdatajabatanController;
 use App\Http\Controllers\MasdatapegawaiController;
 use App\Http\Controllers\MasdatamasyarakatController;
+use App\Http\Controllers\MasstrukturoorController;
 use App\Http\Controllers\suratmasukController;
 /*
 |--------------------------------------------------------------------------
@@ -51,6 +52,18 @@ Route::controller(MasdatamasyarakatController::class)->group(function(){
     Route::get('/mas_data_masyarakat/edit/{id}','edit');
     Route::get('/mas_data_masyarakat/show/{id}','show');
     Route::get('/mas_data_masyarakat/delete/{id}','destroy');
+});
+
+
+Route::controller(MasstrukturoorController::class)->group(function(){
+    Route::get('/mas_data_organisasi','index')->name('mas_data_organisasi');;
+    Route::get('/mas_data_organisasi/create','create')->name('mas_data_organisasi_create');
+    Route::get('/mas_data_organisasi/apiorganisasi','apiorganisasi');
+    Route::post('/mas_data_organisasi/store','store');
+    Route::post('/mas_data_organisasi/update/{id}','update');
+    Route::get('/mas_data_organisasi/edit/{id}','edit');
+    Route::get('/mas_data_organisasi/show/{id}','show');
+    Route::get('/mas_data_organisasi/delete/{id}','destroy');
 });
 
 //ANDRE

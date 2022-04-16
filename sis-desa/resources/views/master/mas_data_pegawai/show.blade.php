@@ -96,6 +96,21 @@
                                                 </div>
                                                 <div class="form-group row">
                                                     <div class="col-md-2">
+                                                        <label class="font-weight-bolder">Organisasi<span
+                                                                class="required">*</span></label>
+                                                    </div>
+                                                    <div class="col-md-4 controls">
+                                                        <select class="select2 form-control" id="id_organisasi"  name="id_organisasi"  required>
+                                                            <option selected="" value="">Pilih Organisasi ...</option>
+                                                            @foreach ($organisasi as $data)
+                                                                {{-- <option value="{{ $data->id }}">{{$data->nama_organisasi}}</option> --}}
+                                                                <option @if($data->id == $datapegawai->id_organisasi) selected @endif value="{{ $data->id }}">{{$data->nama_organisasi}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class="col-md-2">
                                                         <label class="font-weight-bolder">Status<span
                                                                 class="required">*</span></label>
                                                     </div>
