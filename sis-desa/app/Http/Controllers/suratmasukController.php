@@ -25,7 +25,18 @@ class suratmasukController extends Controller
     {
         $surat_masuk = suratmasukModel::orderBy('id','desc')->limit(50)->get();
         $lampiran    = lampiransuratmasukModel::orderBy('id','desc')->limit(50)->get();
-        return view('surat.masuk.index',compact('surat_masuk','lampiran'));
+
+        $total_docc     = suratmasukModel::all()->count();
+        $total_lampiran = lampiransuratmasukModel::all()->count();
+        $lampirans       = lampiransuratmasukModel::sum('file_size');
+        $doccument      = suratmasukModel::sum('file_size');
+        $total          = $lampirans+$doccument;
+        $size_lampiran  = round($lampirans/(1073741824*2));
+        $size_doccument = round($doccument/(1073741824*2));
+        $size_total     = round(($lampirans + $doccument)/(1073741824*4));
+        return view('surat.masuk.index',compact('surat_masuk','lampiran',
+        'size_lampiran','size_doccument',
+        'size_total','doccument','lampirans','total','total_docc','total_lampiran'));
     }
 
     /**
@@ -251,7 +262,17 @@ class suratmasukController extends Controller
             ->rawColumns(['action','lampiran','size'])
             ->make(true);
         }
-        return view('surat.masuk.table');
+        $total_docc     = suratmasukModel::all()->count();
+        $total_lampiran = lampiransuratmasukModel::all()->count();
+        $lampiran       = lampiransuratmasukModel::sum('file_size');
+        $doccument      = suratmasukModel::sum('file_size');
+        $total          = $lampiran+$doccument;
+        $size_lampiran  = round($lampiran/(1073741824*2));
+        $size_doccument = round($doccument/(1073741824*2));
+        $size_total     = round(($lampiran + $doccument)/(1073741824*4));
+        
+        return view('surat.masuk.table',compact('size_lampiran','size_doccument',
+        'size_total','doccument','lampiran','total','total_docc','total_lampiran'));
     }
 
     public function download(Request $request)

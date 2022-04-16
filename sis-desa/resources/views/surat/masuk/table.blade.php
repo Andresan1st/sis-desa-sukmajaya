@@ -88,10 +88,10 @@
                                         <div class="d-flex align-items-center cursor-pointer">
                                             <i data-feather="server" class="font-large-1"></i>
                                             <div class="file-manager-progress ml-1">
-                                                <span>68GB used of 100GB</span>
+                                                <span> {{convertsizeHelper($total)}} used of 4GB</span>
                                                 <div class="progress progress-bar-primary my-50" style="height: 6px">
-                                                    <div class="progress-bar" role="progressbar" aria-valuenow="80"
-                                                        aria-valuemin="80" aria-valuemax="100" style="width: 80%"></div>
+                                                    <div class="progress-bar" role="progressbar" aria-valuenow="100"
+                                                        aria-valuemin="0" aria-valuemax="100" style="width: {{$size_total}}%"></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -230,14 +230,14 @@
                                                             <h5>Online / Server Storage</h5>
                                                         </div>
                                                         <div class="d-flex justify-content-between mb-50">
-                                                            <span class="text-truncate">1.8GB Used</span>
-                                                            <small class="text-muted">2GB</small>
+                                                            <span class="text-truncate">{{convertsizeHelper($total)}} Used</span>
+                                                            <small class="text-muted">4GB</small>
                                                         </div>
                                                         <div class="progress progress-bar-info progress-md mb-0"
                                                             style="height: 10px">
                                                             <div class="progress-bar" role="progressbar"
                                                                 aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"
-                                                                style="width: 90%"></div>
+                                                                style="width: {{$size_total}}%"></div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -276,14 +276,14 @@
                                                             <h5>Dokumen Arsip</h5>
                                                         </div>
                                                         <div class="d-flex justify-content-between mb-50">
-                                                            <span class="text-truncate">500 file</span>
-                                                            <small class="text-muted">1GB from 2GB</small>
+                                                            <span class="text-truncate">{{$total_docc}} file</span>
+                                                            <small class="text-muted">{{convertsizeHelper($doccument)}} from 2GB</small>
                                                         </div>
                                                         <div class="progress progress-bar-success progress-md mb-0"
                                                             style="height: 10px">
                                                             <div class="progress-bar" role="progressbar"
-                                                                aria-valuenow="100" aria-valuemin="70" aria-valuemax="100"
-                                                                style="width: 68%"></div>
+                                                                aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"
+                                                                style="width: {{$size_doccument}}%"></div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -321,14 +321,14 @@
                                                             <h5>Dokumen Lampiran</h5>
                                                         </div>
                                                         <div class="d-flex justify-content-between mb-50">
-                                                            <span class="text-truncate">300 file</span>
-                                                            <small class="text-muted">1.8GB from 2GB</small>
+                                                            <span class="text-truncate">{{\App\Models\lampiransuratmasukModel::orderBy('desc')->count()}} file</span>
+                                                            <small class="text-muted">{{convertsizeHelper($lampiran)}} from 2GB</small>
                                                         </div>
                                                         <div class="progress progress-bar-primary progress-md mb-0"
                                                             style="height: 10px">
-                                                            <div class="progress-bar" role="progressbar"
-                                                                aria-valuenow="100" aria-valuemin="70" aria-valuemax="100"
-                                                                style="width: 80%"></div>
+                                                            <div class="progress-bar" id="lampiran_bar" role="progressbar"
+                                                                aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"
+                                                                style="width: {{$size_lampiran}}%"></div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -582,6 +582,11 @@
     <script src="{{ asset('app-assets/js/scripts/pages/app-file-manager.js') }}"></script>
     <script src="{{asset('app-assets/vendors/js/extensions/toastr.min.js')}}"></script>
     <script>
+        $(document).ready(function() {
+          // $('#telats').css('width',5+'%');
+        //   $('#lampiran_bar').css('width','10%');
+        })
+        
         $('#modaldel').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget)
             var id = button.data('id')
