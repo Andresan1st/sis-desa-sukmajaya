@@ -7,6 +7,7 @@ use Storage;
 use App\Models\suratmasukModel;
 use App\Models\lampiransuratmasukModel;
 use File;
+use ZipArchive;
 use Exception;
 use Illuminate\Support\Facades\Log;
 use League\CommonMark\Inline\Element\Strong;
@@ -95,7 +96,7 @@ class suratmasukController extends Controller
                     $ekstensi2   = $value->extension();
                     // store file in directory arsip/surat_masuk/lampiran
                     $filename2   = time().'_'.$value->getClientOriginalName();
-                    $value->move(public_path('arsip/surat_masuk/lampiran'), $filename2);
+                    $value->move(public_path('arsip/surat_masuk/lampiran/'.$data->file_name.'/'), $filename2);
                     
                     // store file lampipran
                     $data2   = lampiransuratmasukModel::updateOrCreate(
@@ -182,7 +183,7 @@ class suratmasukController extends Controller
                 # code...
                 foreach ($data->lampiransuratmasukModel as $key => $value) {
                     # code...
-                    unlink('arsip/surat_masuk/lampiran/'.$value->file_name);
+                    unlink('arsip/surat_masuk/lampiran/'.$data->file_name.'/'.$value->file_name);
                 }
             }
             # remove database
@@ -204,16 +205,6 @@ class suratmasukController extends Controller
         }
     }
 
-    function formatBytes($bytes) {
-        if ($bytes > 0) {
-            $i = floor(log($bytes) / log(1024));
-            $sizes = array('B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB');
-            return sprintf('%.02F', round($bytes / pow(1024, $i),1)) * 1 . ' ' . @$sizes[$i];
-        } else {
-            return 0;
-        }
-    }
-
     public function table(Request $request)
     {
         if ($request->ajax()) {
@@ -222,9 +213,19 @@ class suratmasukController extends Controller
             return DataTables::of($data)
             ->addIndexColumn()
             ->addColumn('action', function($data){
-                $btn  = '<a href="javascript:void(0)" data-toggle="modal" data-id="'.$data->id.'" data-target="#modaldownload" class="btn btn-icon btn-icon rounded-circle btn-info mr-1 mb-1"><span class="fa fa-light fa-download"></span> </a>';
-                $btn .= '<a href="javascript:void(0)" data-id="'.$data->id.'" data-toggle="modal" data-target="#modaldel"  class="btn btn-icon btn-icon rounded-circle btn-danger mr-1 mb-1"><span class="fa fa-light fa-trash-can"></span></a>';
-                return $btn;
+                if ($data->lampiransuratmasukModel->count() > 0) {
+                    # code...
+                    $btn  = '<a href="javascript:void(0)" data-toggle="modal" data-id="'.$data->id.'" data-target="#modaldownload2" class="btn btn-icon btn-icon rounded-circle btn-info mr-1 mb-1"><span class="fa fa-light fa-download"></span> </a>';
+                    $btn .= '<a href="javascript:void(0)" data-toggle="modal" data-id="'.$data->id.'" data-target="#modaldownload" class="btn btn-icon btn-icon rounded-circle btn-primary mr-1 mb-1"><span class="fa fa-light fa-download"></span> </a>';
+                    $btn .= '<a href="javascript:void(0)" data-id="'.$data->id.'" data-toggle="modal" data-target="#modaldel"  class="btn btn-icon btn-icon rounded-circle btn-danger mr-1 mb-1"><span class="fa fa-light fa-trash-can"></span></a>';
+                    return $btn;
+                }else {
+                    # code...
+                    $btn  = '<a href="javascript:void(0)" data-toggle="modal" data-id="'.$data->id.'" data-target="#modaldownload2" class="btn btn-icon btn-icon rounded-circle btn-info mr-1 mb-1"><span class="fa fa-light fa-download"></span> </a>';
+                    $btn .= '<a href="javascript:void(0)" data-id="'.$data->id.'" data-toggle="modal" data-target="#modaldel"  class="btn btn-icon btn-icon rounded-circle btn-danger mr-1 mb-1"><span class="fa fa-light fa-trash-can"></span></a>';
+                    return $btn;
+                }
+                
             })
             ->addColumn('lampiran', function($data){
                 $file_lampiran = $data->lampiransuratmasukModel->count();
@@ -256,15 +257,38 @@ class suratmasukController extends Controller
     public function download(Request $request)
     {
         $file_surat = suratmasukModel::find($request->id);
-        $myFile = public_path("arsip/surat_masuk/file_surat/".$file_surat->file_name);
-        $lampiran  = [];
-        if ($file_surat->lampiransuratmasukModel->count() > 0) {
-            # code...
-            foreach ($file_surat as $key => $value) {
-                # code...
-                $lampiran = public_path("arsip/surat_masuk/file_surat/".$file_surat->file_name); 
+        $myFile     = public_path("arsip/surat_masuk/file_surat/".$file_surat->file_name);
+        $zip        = new ZipArchive;
+        $fileName   = 'zipfile.zip';
+   
+        if ($zip->open(public_path("arsip/surat_masuk/lampiran/".$file_surat->file_name."/".$fileName), ZipArchive::CREATE) === TRUE)
+        {
+        	// Folder files to zip and download
+        	// files folder must be existing to your public folder
+            $files = File::files(public_path("arsip/surat_masuk/lampiran/".$file_surat->file_name."/"));
+   			
+   			// loop the files result
+            foreach ($files as $key => $value) {
+                $relativeNameInZipFile = basename($value);
+                $zip->addFile($value, $relativeNameInZipFile);
             }
+             
+            $zip->close();
         }
-        return response()->download($myFile,implode('',$lampiran));
+        $zip_dir = public_path("arsip/surat_masuk/lampiran/".$file_surat->file_name."/zipfile.zip");
+        if (file_exists($zip_dir)) {
+            # code...
+            return response()->download(public_path("arsip/surat_masuk/lampiran/".$file_surat->file_name."/".$fileName))->deleteFileAfterSend(true);
+        }else {
+            # code...
+            return 'kosong';
+        }
+    }
+
+    public function download2(Request $request)
+    {
+        $file_surat = suratmasukModel::find($request->id);
+        $myFile     = public_path("arsip/surat_masuk/file_surat/".$file_surat->file_name);
+        return response()->download($myFile);
     }
 }

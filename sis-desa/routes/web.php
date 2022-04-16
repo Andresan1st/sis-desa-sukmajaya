@@ -61,4 +61,8 @@ Route::controller(suratmasukController::class)->group(function(){
     Route::get('/surat_masuk_table','table')->name('table.surat_masuk');
     Route::post('/surat_masuk_delete','remove')->name('delete.surat_masuk');
     Route::post('/surat_masuk_download','download')->name('download.surat_masuk');
+    Route::post('/surat_masuk_download2','download2')->name('download2.surat_masuk');
 });
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

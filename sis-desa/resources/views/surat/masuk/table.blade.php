@@ -531,13 +531,46 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <input type="hidden" id="id" name="id" class="form-control">
-                                    <hr><p>Download File Doccument ini ?</p>
+                                    <hr><p>Download File Lampiran Doccument ini ?</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <input type="submit" class="btn btn-primary" id="btndownload" value="Ya Download!">
+                        <input type="submit" class="btn btn-primary" id="btndownload" value="Download File!">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade text-left" id="modaldownload2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel17"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: rgb(113, 139, 255)">
+                    <h4 class="modal-title " style="color: white" id="myModalLabel17">Download Doccument</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {{-- <form id="formdownload">@csrf --}}
+                    <form action="/surat_masuk_download2" method="post" enctype="multipart/form-data"> @csrf
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div id="errList" class="text-uppercase"></div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <input type="hidden" id="id" name="id" class="form-control">
+                                    <hr><p>Download File Doccument / Surat ini ?</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit" class="btn btn-primary" id="btndownload2" value="Download File!">
                     </div>
                 </form>
             </div>
@@ -556,6 +589,12 @@
             modal.find('.modal-body #id').val(id);
         })
         $('#modaldownload').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget)
+            var id = button.data('id')
+            var modal = $(this)
+            modal.find('.modal-body #id').val(id);
+        })
+        $('#modaldownload2').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget)
             var id = button.data('id')
             var modal = $(this)
