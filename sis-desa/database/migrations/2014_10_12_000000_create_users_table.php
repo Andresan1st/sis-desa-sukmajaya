@@ -23,6 +23,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_pegawai')->nullable();
             $table->foreign('id_pegawai')->references('id')->on('tb_pegawai');		
             $table->timestamps();
+            $table->string('status');
         });
     }
 

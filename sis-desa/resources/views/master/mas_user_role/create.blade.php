@@ -4,12 +4,12 @@
         <div class="content-header-left col-md-9 col-12 mb-2">
             <div class="row breadcrumbs-top">
                 <div class="col-12" style="margin-top: 30px">
-                    <h2 class="content-header-title float-left mb-0">Data Jabatan</h2>
+                    <h2 class="content-header-title float-left mb-0">Data Pegawai</h2>
                     <div class="breadcrumb-wrapper">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="/">Home</a>
                             </li>
-                            <li class="breadcrumb-item active">Kelola Data Jabatan
+                            <li class="breadcrumb-item active">Kelola Data Pegawai
                             </li>
                         </ol>
                     </div>
@@ -28,34 +28,65 @@
                                 <form id="formdata" class="form form-horizontal">
                                     {{ csrf_field() }}
                                     <div class="form-body">
-                                        {{-- <input type="text" id="id" class="form-control" name="id" value={{$datajabatan->id}}placeholder="Nama Jabatan" hidden /> --}}
                                         <div class="row" style="margin-top: 10px">
                                             <div class="col-12">
                                                 <div class="form-group row">
-                                                    <div class="col-md-2 col-form-label">
-                                                        <label for="font-weight-bolder">Nama Jabatan<span
-                                                            class="required">*</span></label></label>
+                                                    <div class="col-md-2">
+                                                        <label class="font-weight-bolder">Username<span class="required">*</span></label>
                                                     </div>
-                                                    <div class="col-md-4">
-                                                        <input type="text" id="nama_jabatan" class="form-control" name="nama_jabatan" placeholder="Nama Jabatan" />
+                                                    <div class="col-md-4 controls">
+                                                        <input type="text" id="name" class="form-control" name="name"  autocomplete="off">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
                                                     <div class="col-md-2">
-                                                        <label class="font-weight-bolder">Status<span
-                                                                class="required">*</span></label>
+                                                        <label class="font-weight-bolder">Email<span class="required">*</span></label>
                                                     </div>
                                                     <div class="col-md-4 controls">
-                                                        <select class="select2 form-control" id="status"  name="status" readonly required>
-                                                            <option selected="" value="ACTIVE">ACTIVE</option>
-                                                            <option value="INACTIVE">INACTIVE</option>
+                                                        <input type="email" id="email" class="form-control" name="email" data-validation-required-message="Harus Format Email!"  autocomplete="off">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class="col-md-2">
+                                                        <label class="font-weight-bolder">Password<span class="required">*</span></label>
+                                                    </div>
+                                                    <div class="col-md-4 controls">
+                                                        <input type="password" id="password" class="form-control" name="password"   autocomplete="off">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class="col-md-2">
+                                                        <label class="font-weight-bolder">Role</label>
+                                                    </div>
+                                                    <div class="col-md-4 controls">
+                                                        <select class="select2 form-control" id="role"  name="role" required>
+                                                            <option selected="" value="">Pilih Role ...</option>
+                                                            @foreach ($department as $data)
+                                                            <option value="{{ $data->nama_jabatan }}">{{$data->nama_jabatan}}</option>
+                                                            @endforeach
                                                         </select>
                                                     </div>
                                                 </div>
+                                                <div class="form-group row">
+                                                    <div class="col-md-2">
+                                                        <label class="font-weight-bolder">Pegawai</label>
+                                                    </div>
+                                                    <div class="col-md-4 controls">
+                                                        <select class="select2 form-control" id="id_pegawai"  name="id_pegawai" required>
+                                                            <option selected="" value="">Pilih Pegawai ...</option>
+                                                            @foreach ($pegawai as $data)
+                                                            <option value="{{ $data->id }}">{{$data->nama}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                {{-- <div class="col-12 d-flex justify-content-center">
+                                                    <button type="submit" id="btnData" class="btn btn-success">Save</button>
+                                                    &nbsp;
+                                                    <a href="{{ url('master-userrole') }}" class="btn btn-danger">Kembali</a>
+                                                </div> --}}
                                             </div>
-                                            
                                         </div>
-                                    
                                     </div>
                                 </form>
                                
@@ -66,7 +97,7 @@
                                     &nbsp;
                                     <button type="reset" id="ResetForm" class="btn btn-outline-secondary">Reset</button>
                                     &nbsp;
-                                    <a href="{{ url('mas_data_jabatan') }}" class="btn btn-danger">Kembali</a>
+                                    <a href="{{ url('mas_data_pegawai') }}" class="btn btn-danger">Kembali</a>
                                  
                                 </div>
                             </div>
@@ -91,6 +122,7 @@
             if (day < 10) day = "0" + day;
 
             var today = year + "-" + month + "-" + day;   
+            //$("#status").select2({disabled:'readonly'});
         });
        
        
@@ -119,7 +151,7 @@
 
             //console.log(pcin_tra_permintaan_pembelian);
             $.ajax({
-                url: "<?php echo url('/mas_data_jabatan/store'); ?>",
+                url: "<?php echo url('/mas_data_userrole/store'); ?>",
                 type: "POST",
                 data: dataarray,
                 dataType: "JSON",
@@ -135,7 +167,7 @@
                             }
                         }).then((result) => {
                             if (result.isConfirmed) {
-                                window.location.href = "{{ route('mas_data_jabatan') }}";
+                                window.location.href = "{{ route('mas_data_userrole') }}";
                             } else if (result.isDenied) {
                                 return false;
                             }
