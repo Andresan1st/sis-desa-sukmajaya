@@ -21,7 +21,7 @@ use App\Http\Controllers\UserroleController;
 // Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/',[LoginController::class,'index'])->name('loginform');
 Auth::routes();
-Route::group(['middleware'=> ['auth','cekrole:admin,staff']],function(){
+Route::group(['middleware'=> ['auth','cekrole:admin,kepala desa,wakil ketua,sekertaris,staff']],function(){
     Route::get('/dashboard', function () {
         return view('layout.layout');
     })->name('dashboard');

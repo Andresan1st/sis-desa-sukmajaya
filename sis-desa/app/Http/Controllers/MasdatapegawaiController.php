@@ -58,7 +58,7 @@ class MasdatapegawaiController extends Controller
                'no_telp.min' => 'Field no telpon Harus minimal 10 ',
                'jenkel.required' => 'Field jenis kelamin Harus diisi ',
                'id_jabatan.required' => 'Field jabatan harus diisi ',
-               'id_organisasi.required' => 'Field orgnasisasi harus diisi ',
+            
            ];
            $validator = Validator::make($request->all(), [
                'nama' => 'required|min:3|regex:/^[a-zA-Z]+(([\',. -][a-zA-Z ])?[a-zA-Z]*)*$/',
@@ -66,7 +66,7 @@ class MasdatapegawaiController extends Controller
                'no_telp' => 'required|min:10',
                'jenkel'=>'required',
                'id_jabatan'=>'required',
-               'id_organisasi'=>'required',
+              
            ], $messages);
            if ($validator->fails()) {
                return response()->json(['errors' => $validator->errors()->all()]);
@@ -150,7 +150,6 @@ class MasdatapegawaiController extends Controller
                 'no_telp.min' => 'Field no telpon Harus minimal 10 ',
                 'jenkel.required' => 'Field jenis kelamin Harus diisi ',
                 'id_jabatan.required' => 'Field jabatan harus diisi ',
-                'id_organisasi.required' => 'Field orgnasisasi harus diisi ',
             ];
             $validator = Validator::make($request->all(), [
                 'nama' => 'required|min:3|regex:/^[a-zA-Z]+(([\',. -][a-zA-Z ])?[a-zA-Z]*)*$/',
@@ -158,7 +157,6 @@ class MasdatapegawaiController extends Controller
                 'no_telp' => 'required|min:10',
                 'jenkel'=>'required',
                 'id_jabatan'=>'required',
-                'id_organisasi'=>'required',
             ], $messages);
             if ($validator->fails()) {
                 return response()->json(['errors' => $validator->errors()->all()]);
