@@ -8,6 +8,7 @@ use App\Http\Controllers\MasstrukturoorController;
 use App\Http\Controllers\suratmasukController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserroleController;
+use App\Http\Controllers\DashboardController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,9 +23,10 @@ use App\Http\Controllers\UserroleController;
 Route::get('/',[LoginController::class,'index'])->name('loginform');
 Auth::routes();
 Route::group(['middleware'=> ['auth','cekrole:admin,kepala desa,wakil ketua,sekertaris,staff']],function(){
-    Route::get('/dashboard', function () {
-        return view('layout.layout');
-    })->name('dashboard');
+    Route::controller(DashboardController::class)->group(function(){
+        Route::get('/dashboard','index')->name('dashboard_statistic');
+    });
+
     Route::get('logout',[LoginController::class,'logout'])->name('logoutform');
     //ANDRE
 

@@ -2,9 +2,7 @@
     @if(auth()->user()->role=='admin' || auth()->user()->role=='kepala desa'|| auth()->user()->role=='wakil ketua')
         <li class=" nav-item"><a class="d-flex align-items-center" href="index.html"><i data-feather="home"></i><span class="menu-title text-truncate" data-i18n="Dashboards">Dashboards</span><span class="badge badge-light-warning badge-pill ml-auto mr-1">2</span></a>
             <ul class="menu-content">
-                <li><a class="d-flex align-items-center" href="dashboard-analytics.html"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Analytics">Surat Masuk</span></a>
-                </li>
-                <li><a class="d-flex align-items-center" href="dashboard-ecommerce.html"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="eCommerce">Surat Keluar</span></a>
+                <li><a class="d-flex align-items-center" href="/dashboard"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Analytics">Dashboard Statisctic</span></a>
                 </li>
             </ul>
         </li>         

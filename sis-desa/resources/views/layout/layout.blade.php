@@ -42,7 +42,9 @@
    
        <!-- BEGIN: Custom CSS-->
        <link rel="stylesheet" type="text/css" href="{{asset('assets/css/style.css')}}">
-       <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+       {{-- <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+       --}}
+       <link rel="stylesheet" type="text/css" href="{{asset('app-assets/FontAwesome.Pro.5.15.1.Web/css/all.min.css')}}">
       
        @yield('css')
 </head>
