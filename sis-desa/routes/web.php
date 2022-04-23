@@ -25,6 +25,7 @@ Auth::routes();
 Route::group(['middleware'=> ['auth','cekrole:admin,kepala desa,wakil ketua,sekertaris,staff']],function(){
     Route::controller(DashboardController::class)->group(function(){
         Route::get('/dashboard','index')->name('dashboard_statistic');
+        Route::get('/dashboard/getdatadashboard','getdata');
     });
 
     Route::get('logout',[LoginController::class,'logout'])->name('logoutform');

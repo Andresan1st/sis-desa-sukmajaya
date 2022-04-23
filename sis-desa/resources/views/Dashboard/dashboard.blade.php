@@ -42,7 +42,7 @@
                                             </div>
                                         </div>
                                         <div class="media-body my-auto">
-                                            <h4 class="font-weight-bolder mb-0">230k</h4>
+                                            <h4 id="surat_masuk" class="font-weight-bolder mb-0"></h4>
                                             <p class="card-text font-small-3 mb-0">SURAT MASUK</p>
                                         </div>
                                     </div>
@@ -55,7 +55,7 @@
                                             </div>
                                         </div>
                                         <div class="media-body my-auto">
-                                            <h4 class="font-weight-bolder mb-0">8.549k</h4>
+                                            <h4 id="surat_keluar" class="font-weight-bolder mb-0">8.549k</h4>
                                             <p class="card-text font-small-3 mb-0">SURAT KELUAR</p>
                                         </div>
                                     </div>
@@ -68,7 +68,7 @@
                                             </div>
                                         </div>
                                         <div class="media-body my-auto">
-                                            <h4 class="font-weight-bolder mb-0">1.423k</h4>
+                                            <h4 id="pegawai" class="font-weight-bolder mb-0">1.423k</h4>
                                             <p class="card-text font-small-3 mb-0">Pegawai</p>
                                         </div>
                                     </div>
@@ -81,7 +81,7 @@
                                             </div>
                                         </div>
                                         <div class="media-body my-auto">
-                                            <h4 class="font-weight-bolder mb-0">$9745</h4>
+                                            <h4 id="masyarakat" class="font-weight-bolder mb-0">$9745</h4>
                                             <p class="card-text font-small-3 mb-0">Masyarakat</p>
                                         </div>
                                     </div>
@@ -109,69 +109,32 @@
 
             var today = year + "-" + month + "-" + day;   
             //$("#status").select2({disabled:'readonly'});
+
+            getdatadashboard();
+
+            
+            setInterval(function() {
+                getdatadashboard();
+            }, 10000);   
         });
        
-       
-       
-        $('#btnDatasave').click(function(e) {
-            e.preventDefault();
-            // Code goes here
-            save(); // your onclick function call here
 
-        });
-        $('#ResetForm').click(function(e) {
-            e.preventDefault();
-            // Code goes here
-            $('#formdata').trigger("reset");
-
-        });
-       
-        //save data
-        function save() {
-            //deklarasi data
-            var dataarray = $('#formdata').serialize({
-                // checkboxesAsBools: true
-            });
-            var url = "";
-            savemethod = "add"
-
-            //console.log(pcin_tra_permintaan_pembelian);
+        function getdatadashboard(){
             $.ajax({
-                url: "<?php echo url('/mas_data_pegawai/store'); ?>",
-                type: "POST",
-                data: dataarray,
+                url: "<?php echo url('dashboard/getdatadashboard'); ?>",
+                type: "GET",
                 dataType: "JSON",
-                success: function(data) {
-                    if (data.success == "True") {
-                        Swal.fire({
-                            text: 'Berhasil Simpan',
-                            icon: 'success',
-                            confirmButtonText: `Yes`,
-                            customClass: {
-                                confirmButton: 'order-2',
-                                denyButton: 'order-3',
-                            }
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                window.location.href = "{{ route('mas_data_pegawai') }}";
-                            } else if (result.isDenied) {
-                                return false;
-                            }
-                        });
-                    } else if (data.errors) {
-                        var values = '';
-                        for (var i = 0; i < data.errors.length; i++) {
-                            var replace = data.errors[i].replaceAll(" diisi", " diisi !!!! <br>");
-                            data.errors[i] = replace;
-                        }
-                        Swal.fire({
-                            html: data.errors,
-                            icon: 'warning',
-                            confirmButtonText: 'OK'
-                        })
-                    }
-                },
+                success: function(response) {
+                        
+                    var datadashboard = response.data;
+                    $("#surat_masuk").text(response.totalsuratmasuk);
+                        // $("#surat_keluar").text(response.pvcton);
+                    $("#pegawai").text(response.totalpegawai);
+                    $("#masyarakat").text(response.totalmasyarakat);
+                }
+                    
             });
         }
+       
     </script>
 @endsection
