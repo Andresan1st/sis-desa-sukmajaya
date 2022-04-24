@@ -169,8 +169,8 @@ class masdatajabatanController extends Controller
         ->addIndexColumn()
         ->addColumn('action', function($data){
                $btn = '';
-                $btn = $btn. '<a href="'. url('/mas_data_jabatan/edit/'.$data->id) .'" class="btn  btn-sm btn-icon btn-icon rounded-circle btn-info mr-1 mb-1"><span class="fa fa-light fa-pen-to-square"></span> </a>';
-                $btn = $btn. '<a href="'. url('/mas_data_jabatan/delete/'.$data->id) .'"  class="btn  btn-sm btn-icon btn-icon rounded-circle btn-danger mr-1 mb-1"><span class="fa fa-light fa-trash-can"></span></a>';
+                $btn = $btn. '<a href="'. url('/mas_data_jabatan/edit/'.$data->id) .'" class="btn  btn-sm btn-icon btn-icon rounded-circle btn-info mr-1 mb-1"><span class="fa fa-light fa-edit"></span> </a>';
+                $btn = $btn. '<a href="'. url('/mas_data_jabatan/delete/'.$data->id) .'"  class="btn  btn-sm btn-icon btn-icon rounded-circle btn-danger mr-1 mb-1"><span class="fa fa-light fa-trash-alt"></span></a>';
                 $btn = $btn. '<a href="'. url('/mas_data_jabatan/show/'.$data->id) .'"  class="btn  btn-sm btn-icon btn-icon rounded-circle btn-success mr-1 mb-1"><span class="fa fa-light fa-eye"></span></a>';
                return $btn;
         })

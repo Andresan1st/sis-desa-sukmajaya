@@ -13,6 +13,7 @@ use Carbon\Carbon;
 use App\Models\MasdatamasyarakatModel;
 use App\Models\MasdatapegawaiModel;
 use App\Models\suratmasukModel;
+use App\Models\suratkeluarModel;
 
 class DashboardController extends Controller
 {
@@ -99,7 +100,11 @@ class DashboardController extends Controller
         $month = (int)date("m");
         $suratmasuk = suratmasukModel::selectRaw("nomor_surat_masuk,count(*) as total")->whereMonth("tanggal",$month)->groupBy('nomor_surat_masuk')->get();
         $totalsuratmasuk = $suratmasuk->sum('total');
+        
+        $suratkeluar = suratkeluarModel::selectRaw("nomor_surat_keluar,count(*) as total")->whereMonth("created_at",$month)->groupBy('nomor_surat_keluar')->get();
+        $totalsuratkeluar = $suratkeluar->sum('total');
 
+        
         $pegawai = MasdatapegawaiModel::selectRaw("nama,count(*) as total")->groupBy('nama')->get();
         $totalpegawai = $pegawai->sum('total');
 
@@ -109,6 +114,7 @@ class DashboardController extends Controller
 
         return  Response()->json([
             "totalsuratmasuk"=>$totalsuratmasuk,
+            "totalsuratkeluar"=>$totalsuratkeluar,
             "totalpegawai"=>$totalpegawai,
             "totalmasyarakat"=>$totalmasyarakat,
          ]);

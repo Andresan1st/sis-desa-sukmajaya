@@ -128,7 +128,7 @@
                         
                     var datadashboard = response.data;
                     $("#surat_masuk").text(response.totalsuratmasuk);
-                        // $("#surat_keluar").text(response.pvcton);
+                     $("#surat_keluar").text(response.totalsuratkeluar);
                     $("#pegawai").text(response.totalpegawai);
                     $("#masyarakat").text(response.totalmasyarakat);
                 }
