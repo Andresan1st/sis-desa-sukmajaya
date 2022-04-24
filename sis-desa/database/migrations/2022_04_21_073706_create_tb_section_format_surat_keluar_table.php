@@ -13,8 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('tb_pegawai', function (Blueprint $table) {
-            // $table->foreign('id_organisasi')->references('id')->on('tbstrukturoor')->onDelete('cascade')->onUpdate('cascade');			
+        Schema::create('tb_section_format_surat_keluar', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('format_surat_keluar_id')->nullable();
+            $table->string('section_name')->nullable();
+            $table->string('status')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -25,8 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('tb_pegawai_column_in_tb_pegawai', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('tb_section_format_surat_keluar');
     }
 };

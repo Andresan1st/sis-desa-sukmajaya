@@ -6,6 +6,7 @@ use App\Http\Controllers\MasdatapegawaiController;
 use App\Http\Controllers\MasdatamasyarakatController;
 use App\Http\Controllers\MasstrukturoorController;
 use App\Http\Controllers\suratmasukController;
+use App\Http\Controllers\suratkeluarController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserroleController;
 /*
@@ -93,6 +94,27 @@ Route::group(['middleware'=> ['auth','cekrole:admin,staff']],function(){
         Route::post('/surat_masuk_delete','remove')->name('delete.surat_masuk');
         Route::post('/surat_masuk_download','download')->name('download.surat_masuk');
         Route::post('/surat_masuk_download2','download2')->name('download2.surat_masuk');
+    });
+
+    Route::controller(suratkeluarController::class)->group(function(){
+        Route::get('/surat_keluar','index')->name('page.surat_keluar');
+        Route::get('/surat_keluar/{id}','buat_surat');
+        Route::post('/surat_keluar_store','store')->name('store.surat_keluar');
+        // Jenis
+        Route::get('/jenis_surat_keluar','jenis_surat')->name('page.jenis_surat');
+        Route::post('/jenis_surat_keluar_store','store_jenis_surat')->name('store.jenis_surat');
+        Route::post('/jenis_surat_keluar_dell','dell_jenis_surat')->name('dell.jenis_surat');
+        // Format
+        Route::get('/format_surat_keluar','format_surat')->name('page.format_surat');
+        Route::post('/format_surat_keluar_store','store_format_surat')->name('store.format_surat');
+        Route::post('/format_surat_keluar_dell','dell_format_surat')->name('dell.format_surat');
+        Route::post('/struktur_format_surat_keluar_store','store_struktur_surat')->name('store.struktur_surat');
+        // Database
+        Route::get('/data_surat_keluar','database')->name('database.surat_keluar');
+        // Preview
+        Route::get('/preview_surat_keluar/{id}','preview')->name('preview.surat_keluar');
+        // Cetak
+        Route::get('/cetak_surat_keluar/{id}','cetak');
     });
 });
 

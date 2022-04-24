@@ -22,6 +22,7 @@ $(function () {
     datepicker = $('.date-picker'),
     dueDate = $('.due-date-picker'),
     select2 = $('.invoiceto'),
+    select22 = $('.listo'),
     countrySelect = $('#customer-country'),
     btnAddNewItem = $('.btn-add-new '),
     adminDetails = {
@@ -123,6 +124,15 @@ $(function () {
               '<span class="align-middle">Add New Customer</span></div>'
           );
       }
+    });
+    
+  }
+
+  // Select2
+  if (select22.length) {
+    select22.select2({
+      placeholder: '-',
+      dropdownParent: $('.add-list')
     });
   }
 

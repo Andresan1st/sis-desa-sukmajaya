@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('email')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('role')->nullable();
             $table->rememberToken();
             $table->unsignedBigInteger('id_pegawai')->nullable();
             $table->foreign('id_pegawai')->references('id')->on('tb_pegawai');		

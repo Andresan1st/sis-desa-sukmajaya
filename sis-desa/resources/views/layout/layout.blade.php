@@ -142,7 +142,7 @@
                 <li class="nav-item mr-auto"><a class="navbar-brand" href="../../../html/ltr/vertical-menu-template-semi-dark/index.html"><span class="brand-logo">
                 <img src="{{asset('asset/logo-desa.png')}}" alt="">            
                 </span>
-                        <p style="font-size:10pt;font-familty:arial;" class="brand-text">SIS DESA SUKMAYAJAYA</p style="font-size:12pt">
+                        <p style="font-size:10pt;font-familty:arial;" class="brand-text">DESA SUKARAYA</p style="font-size:12pt">
                     </a></li>
                 <li class="nav-item nav-toggle"><a class="nav-link modern-nav-toggle pr-0" data-toggle="collapse"><i class="d-block d-xl-none text-primary toggle-icon font-medium-4" data-feather="x"></i><i class="d-none d-xl-block collapse-toggle-icon font-medium-4  text-primary" data-feather="disc" data-ticon="disc"></i></a></li>
             </ul>
