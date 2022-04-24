@@ -66,37 +66,37 @@
                                     <u><h3>JENIS SURAT KETERANGAN</h3></u>
                                     <i>Manajemen Jenis dan Format surat keluar</i>
                                 </div>
-                                <div class="col-xl-12" style="font-size: 17px">
-                                    <div class="card-body">
-                                        <button class="btn btn-info" data-toggle="modal" data-target="#modaladd" style="margin-bottom: 10px"> <i class="fa fa-plus"></i> Jenis Surat Baru..</button>
-                                        <div class="card-datatable table-responsive">
-                                            <table id="indextable" class="datatables-basic table" style="font-size: 12px">
-                                                <thead>
-                                                    <tr>
-                                                        <th>No</th>
-                                                        <th>Jenis</th>
-                                                        <th>No. Surat</th>
-                                                        <th>Bagan</th>
-                                                        <th>Format</th>
-                                                        <th>Action</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody class="text-uppercase">
-                                
-                                                </tbody>
-                                                <tfoot>
-                                                    <tr>
-                                                        <th>No</th>
-                                                        <th>Jenis</th>
-                                                        <th>No. Surat</th>
-                                                        <th>Bagan</th>
-                                                        <th>Format</th>
-                                                        <th>Action</th>
-                                                    </tr>
-                                                </tfoot>
-                                            </table>
-                                        </div>
-                                    </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-12" style="font-size: 17px">
+                            <div class="card-body">
+                                <button class="btn btn-info" data-toggle="modal" data-target="#modaladd" style="margin-bottom: 10px"> <i class="fa fa-plus"></i> Jenis Surat Baru..</button>
+                                <div class="card-datatable table-responsive">
+                                    <table id="indextable" class="datatables-basic table" style="font-size: 12px">
+                                        <thead>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Jenis</th>
+                                                <th>No. Surat</th>
+                                                <th>Bagan</th>
+                                                <th>Format</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="text-uppercase">
+                        
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Jenis</th>
+                                                <th>No. Surat</th>
+                                                <th>Bagan</th>
+                                                <th>Format</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
                                 </div>
                             </div>
                         </div>

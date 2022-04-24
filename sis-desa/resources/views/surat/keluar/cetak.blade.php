@@ -57,49 +57,65 @@
                 <td style="width: 10%">{{$item->datasuratkeluarModel->count()}}</td>
                 <td style="width: 25%">Nama</td>
                 <td style="width: 5%">:</td>
-                <td style="width: 60%"><b>{{$item->datasuratkeluarModel->MasdatamasyarakatModel->nama}}</b></td>
+                <td style="width: 60%">
+                    <b>{{$item->datasuratkeluarModel->MasdatamasyarakatModel->nama}}</b>
+                </td>
             </tr>
             <tr>
                 <td style="width: 10%"></td>
                 <td style="width: 25%">NIK</td>
                 <td style="width: 5%">:</td>
-                <td style="width: 60%">{{$item->datasuratkeluarModel->MasdatamasyarakatModel->nik}}</td>
+                <td style="width: 60%">
+                    {{$item->datasuratkeluarModel->MasdatamasyarakatModel->nik}}
+                </td>
             </tr>
             <tr>
                 <td style="width: 10%"></td>
                 <td style="width: 25%">Tempat/ Tanggal Lahir</td>
                 <td style="width: 5%">:</td>
-                <td style="width: 60%">{{$item->datasuratkeluarModel->MasdatamasyarakatModel->tempat_lahir.' , '.\Carbon\Carbon::parse($item->datasuratkeluarModel->MasdatamasyarakatModel->tgl_lahir)->format('d-M-Y')}}</td>
+                <td style="width: 60%">
+                    {{$item->datasuratkeluarModel->MasdatamasyarakatModel->tempat_lahir.' , '.\Carbon\Carbon::parse($item->datasuratkeluarModel->MasdatamasyarakatModel->tgl_lahir)->format('d-M-Y')}}
+                </td>
             </tr>
             <tr>
                 <td style="width: 10%"></td>
                 <td style="width: 25%">Jenis Kelamin</td>
                 <td style="width: 5%">:</td>
-                <td style="width: 60%">{{$item->datasuratkeluarModel->MasdatamasyarakatModel->jenkel}}</td>
+                <td style="width: 60%">
+                    {{$item->datasuratkeluarModel->MasdatamasyarakatModel->jenkel}}
+                </td>
             </tr>
             <tr>
                 <td style="width: 10%"></td>
                 <td style="width: 25%">Agama</td>
                 <td style="width: 5%">:</td>
-                <td style="width: 60%">{{$item->datasuratkeluarModel->MasdatamasyarakatModel->agama}}</td>
+                <td style="width: 60%">
+                    {{$item->datasuratkeluarModel->MasdatamasyarakatModel->agama}}
+                </td>
             </tr>
             <tr>
                 <td style="width: 10%"></td>
                 <td style="width: 25%">Pekerjaan</td>
                 <td style="width: 5%">:</td>
-                <td style="width: 60%">{{$item->datasuratkeluarModel->MasdatamasyarakatModel->pekerjaan}}</td>
+                <td style="width: 60%">
+                    {{$item->datasuratkeluarModel->MasdatamasyarakatModel->pekerjaan}}
+                </td>
             </tr>
             <tr>
                 <td style="width: 10%"></td>
                 <td style="width: 25%">Status Perkawinan</td>
                 <td style="width: 5%">:</td>
-                <td style="width: 60%">{{$item->datasuratkeluarModel->MasdatamasyarakatModel->status_kawin}}</td>
+                <td style="width: 60%">
+                    {{$item->datasuratkeluarModel->MasdatamasyarakatModel->status_kawin}}
+                </td>
             </tr>
             <tr>
                 <td style="width: 10%"></td>
                 <td style="width: 25%">Alamat</td>
                 <td style="width: 5%">:</td>
-                <td style="width: 60%">{{$item->datasuratkeluarModel->MasdatamasyarakatModel->alamat}}</td>
+                <td style="width: 60%">
+                    {{$item->datasuratkeluarModel->MasdatamasyarakatModel->alamat}}
+                </td>
             </tr>
             <tr>
                 <td style="height: 10px"></td>
@@ -109,7 +125,9 @@
             </tr>
         @elseif($item->status == 'object')
             <tr>
-                <td><b>{{$item->objectsectionModel->value}}</b></td>
+                <td>
+                    <b>{{$item->objectsectionModel->value}}</b>
+                </td>
             </tr>
             <tr>
                 <td style="height: 10px"></td>

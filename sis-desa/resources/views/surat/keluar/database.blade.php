@@ -66,34 +66,34 @@
                                     <u><h3>DATABASE SURAT KELUAR</h3></u>
                                     <i>Data seluruh surat yang pernah dikeluarkan</i>
                                 </div>
-                                <div class="col-xl-12" style="font-size: 17px">
-                                    <div class="card-body">
-                                        <div class="card-datatable table-responsive">
-                                            <table id="indextable" class="datatables-basic table" style="font-size: 12px">
-                                                <thead>
-                                                    <tr>
-                                                        <th>No</th>
-                                                        <th>Nomor Surat</th>
-                                                        <th>Jenis Surat</th>
-                                                        <th>Nama Pemohon</th>
-                                                        <th>Action</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody class="text-uppercase">
-                                
-                                                </tbody>
-                                                <tfoot>
-                                                    <tr>
-                                                        <th>No</th>
-                                                        <th>Nomor Surat</th>
-                                                        <th>Jenis Surat</th>
-                                                        <th>Nama Pemohon</th>
-                                                        <th>Action</th>
-                                                    </tr>
-                                                </tfoot>
-                                            </table>
-                                        </div>
-                                    </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-12" style="font-size: 17px">
+                            <div class="card-body">
+                                <div class="card-datatable table-responsive">
+                                    <table id="indextable" class="datatables-basic table" style="font-size: 12px">
+                                        <thead>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Nomor Surat</th>
+                                                <th>Jenis Surat</th>
+                                                <th>Nama Pemohon</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="text-uppercase">
+                        
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Nomor Surat</th>
+                                                <th>Jenis Surat</th>
+                                                <th>Nama Pemohon</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
                                 </div>
                             </div>
                         </div>

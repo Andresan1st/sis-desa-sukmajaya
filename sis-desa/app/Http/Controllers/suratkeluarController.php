@@ -215,7 +215,7 @@ class suratkeluarController extends Controller
             ->addIndexColumn()
             ->addColumn('action', function($data){
                 $btn  = '<a href="javascript:void(0)" data-toggle="modal" data-id="'.$data->id.'" data-jenis_surat_name="'.$data->jenis_surat_name.'" data-nomor="'.$data->nomor.'" data-bagan="'.$data->bagan.'" data-target="#modaledit" class="btn btn-icon btn-icon rounded-circle btn-info mr-1 mb-1"><span class="fa fa-light fa-edit"></span> </a>';
-                $btn .= '<a href="javascript:void(0)" data-id="'.$data->id.'" data-toggle="modal" data-target="#modaldel"  class="btn btn-icon btn-icon rounded-circle btn-danger mr-1 mb-1"><span class="fa fa-light fa-trash-can"></span></a>';
+                $btn .= '<a href="javascript:void(0)" data-id="'.$data->id.'" data-toggle="modal" data-target="#modaldel"  class="btn btn-icon btn-icon rounded-circle btn-danger mr-1 mb-1"><span class="fa fa-light fa-trash"></span></a>';
                 return $btn;
                 
             })
@@ -413,7 +413,7 @@ class suratkeluarController extends Controller
             ->addIndexColumn()
             ->addColumn('action', function($data){
                 $btn  = '<a href="javascript:void(0)" data-toggle="modal" data-id="'.$data->id.'" data-jenis_surat_name="'.$data->jenis_surat_name.'" data-nomor="'.$data->nomor.'" data-bagan="'.$data->bagan.'" data-target="#modaledit" class="btn btn-icon btn-icon rounded-circle btn-info mr-1 mb-1"><span class="fa fa-light fa-plus"></span> </a>';
-                $btn .= '<a href="javascript:void(0)" data-id="'.$data->id.'" data-toggle="modal" data-target="#modaldel"  class="btn btn-icon btn-icon rounded-circle btn-danger mr-1 mb-1"><span class="fa fa-light fa-trash-can"></span></a>';
+                $btn .= '<a href="javascript:void(0)" data-id="'.$data->id.'" data-toggle="modal" data-target="#modaldel"  class="btn btn-icon btn-icon rounded-circle btn-danger mr-1 mb-1"><span class="fa fa-light fa-trash"></span></a>';
                 return $btn;
                 
             })
