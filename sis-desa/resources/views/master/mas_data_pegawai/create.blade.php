@@ -100,7 +100,7 @@
                                                     </div>
                                                     <div class="col-md-4 controls">
                                                         <select class="select2 form-control" id="id_organisasi"  name="id_organisasi"  required>
-                                                            <option selected="" value="null">Pilih Organisasi ...</option>
+                                                            <option selected="" value="">Pilih Organisasi ...</option>
                                                             @foreach ($organisasi as $data)
                                                                 <option value="{{ $data->id }}">{{$data->nama_organisasi}}</option>
                                                             @endforeach

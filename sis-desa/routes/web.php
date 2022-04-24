@@ -9,6 +9,8 @@ use App\Http\Controllers\suratmasukController;
 use App\Http\Controllers\suratkeluarController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserroleController;
+use App\Http\Controllers\RepsuratController;
+use App\Http\Controllers\DashboardController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,10 +24,12 @@ use App\Http\Controllers\UserroleController;
 // Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/',[LoginController::class,'index'])->name('loginform');
 Auth::routes();
-Route::group(['middleware'=> ['auth','cekrole:admin,staff']],function(){
-    Route::get('/dashboard', function () {
-        return view('layout.layout');
-    })->name('dashboard');
+Route::group(['middleware'=> ['auth','cekrole:admin,kepala desa,wakil ketua,sekertaris,staff']],function(){
+    Route::controller(DashboardController::class)->group(function(){
+        Route::get('/dashboard','index')->name('dashboard_statistic');
+        Route::get('/dashboard/getdatadashboard','getdata');
+    });
+
     Route::get('logout',[LoginController::class,'logout'])->name('logoutform');
     //ANDRE
 
@@ -85,6 +89,12 @@ Route::group(['middleware'=> ['auth','cekrole:admin,staff']],function(){
         Route::get('/mas_data_organisasi/delete/{id}','destroy');
     });
 
+
+    Route::controller(RepsuratController::class)->group(function(){
+        // Route::get('/mas_data_userrole','index')->name('mas_data_userrole');;
+        // Route::get('/mas_data_userrole/create','create')->name('mas_data_userrole_create');
+        Route::get('/rep_surat/apisurat','apisearch');
+    });
     //ANDRE
 
     Route::controller(suratmasukController::class)->group(function(){
