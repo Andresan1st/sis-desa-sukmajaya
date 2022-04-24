@@ -8,6 +8,7 @@ use App\Http\Controllers\MasstrukturoorController;
 use App\Http\Controllers\suratmasukController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserroleController;
+use App\Http\Controllers\RepsuratController;
 use App\Http\Controllers\DashboardController;
 /*
 |--------------------------------------------------------------------------
@@ -87,6 +88,12 @@ Route::group(['middleware'=> ['auth','cekrole:admin,kepala desa,wakil ketua,seke
         Route::get('/mas_data_organisasi/delete/{id}','destroy');
     });
 
+
+    Route::controller(RepsuratController::class)->group(function(){
+        // Route::get('/mas_data_userrole','index')->name('mas_data_userrole');;
+        // Route::get('/mas_data_userrole/create','create')->name('mas_data_userrole_create');
+        Route::get('/rep_surat/apisurat','apisearch');
+    });
     //ANDRE
 
     Route::controller(suratmasukController::class)->group(function(){
