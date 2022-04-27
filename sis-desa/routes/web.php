@@ -91,9 +91,9 @@ Route::group(['middleware'=> ['auth','cekrole:admin,kepala desa,wakil ketua,seke
 
 
     Route::controller(RepsuratController::class)->group(function(){
-        // Route::get('/mas_data_userrole','index')->name('mas_data_userrole');;
+        Route::get('/rep_surat','index');
         // Route::get('/mas_data_userrole/create','create')->name('mas_data_userrole_create');
-        Route::get('/rep_surat/apisurat','apisearch');
+        Route::post('/rep_surat/apisurat','apisearch');
     });
     //ANDRE
 

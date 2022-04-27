@@ -20,7 +20,7 @@ class RepsuratController extends Controller
      */
     public function index()
     {
-        //
+        return view('surat.report.rep_suratkeluar_masuk');
     }
 
     /**
@@ -104,16 +104,20 @@ class RepsuratController extends Controller
             if ($validator->fails()) {
                 return response()->json(['errors' => $validator->errors()->all()]);
             } else {
-                $datefrom = Carbon::createFromFormat('d-m-Y',  $request->date_from)->format('Y-m-d');
-                $dateto = Carbon::createFromFormat('d-m-Y', $request->date_to)->format('Y-m-d');
-                $datareportdtl="";
+                // dd($request->all());
+                $datefrom =  $request->date_from;
+                $dateto =$request->date_to;
                 if($request->type=="surat_masuk" ){
 
                     $datareport = suratmasukModel::where("tanggal",">=",$datefrom)
                     ->where("tanggal","<=",$dateto)
                     ->get();
                 }else if($request->type=="surat_keluar"){
-                   
+                    $datareport = db::table('tb_surat_keluar')->selectRaw("nomor_surat_keluar,nama_pemohon,jenis.jenis_surat_name,tb_surat_keluar.created_at as tanggal")
+                    ->leftJoin('tb_jenis_surat_keluar as jenis','tb_surat_keluar.jenis_surat_id','jenis.id')
+                    ->where("tb_surat_keluar.created_at",">=",$datefrom)
+                    ->where("tb_surat_keluar.created_at","<=",$dateto)
+                    ->get();
                 }
             }
           
