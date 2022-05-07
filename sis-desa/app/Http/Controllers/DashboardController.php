@@ -14,6 +14,7 @@ use App\Models\MasdatamasyarakatModel;
 use App\Models\MasdatapegawaiModel;
 use App\Models\suratmasukModel;
 use App\Models\suratkeluarModel;
+use App\Models\ColorThemeModel;
 
 class DashboardController extends Controller
 {
@@ -119,5 +120,11 @@ class DashboardController extends Controller
             "totalmasyarakat"=>$totalmasyarakat,
          ]);
       
+    }
+
+    public function home()
+    {
+        $color = ColorThemeModel::first();
+        return view('layout.home',compact('color'));
     }
 }

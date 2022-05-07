@@ -11,6 +11,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserroleController;
 use App\Http\Controllers\RepsuratController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ColorController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,8 +25,10 @@ use App\Http\Controllers\DashboardController;
 // Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/',[LoginController::class,'index'])->name('loginform');
 Auth::routes();
+
 Route::group(['middleware'=> ['auth','cekrole:admin,kepala desa,wakil ketua,sekertaris,staff']],function(){
     Route::controller(DashboardController::class)->group(function(){
+        Route::get('/home','home')->name('home');
         Route::get('/dashboard','index')->name('dashboard_statistic');
         Route::get('/dashboard/getdatadashboard','getdata');
     });
@@ -110,6 +113,8 @@ Route::group(['middleware'=> ['auth','cekrole:admin,kepala desa,wakil ketua,seke
         Route::get('/surat_keluar','index')->name('page.surat_keluar');
         Route::get('/surat_keluar/{id}','buat_surat');
         Route::post('/surat_keluar_store','store')->name('store.surat_keluar');
+        Route::get('/surat_keluar/{jenis_surat_keluar_id}/{format_surat_keluar_id}','buat_surat2');
+        Route::post('/surat_keluar_dell','dell_surat_keluar')->name('dell.surat_keluar');
         // Jenis
         Route::get('/jenis_surat_keluar','jenis_surat')->name('page.jenis_surat');
         Route::post('/jenis_surat_keluar_store','store_jenis_surat')->name('store.jenis_surat');
@@ -118,13 +123,21 @@ Route::group(['middleware'=> ['auth','cekrole:admin,kepala desa,wakil ketua,seke
         Route::get('/format_surat_keluar','format_surat')->name('page.format_surat');
         Route::post('/format_surat_keluar_store','store_format_surat')->name('store.format_surat');
         Route::post('/format_surat_keluar_dell','dell_format_surat')->name('dell.format_surat');
-        Route::post('/struktur_format_surat_keluar_store','store_struktur_surat')->name('store.struktur_surat');
+        Route::post('/section_format_surat_keluar_store','store_struktur_surat')->name('store.struktur_surat');
+        Route::post('/section_format_surat_keluar_dell','dell_struktur_surat')->name('dell.struktur_surat');
         // Database
         Route::get('/data_surat_keluar','database')->name('database.surat_keluar');
         // Preview
-        Route::get('/preview_surat_keluar/{id}','preview')->name('preview.surat_keluar');
+        Route::get('/preview_surat_keluar/{id}/{format_surat_id}','preview')->name('preview.surat_keluar');
         // Cetak
         Route::get('/cetak_surat_keluar/{id}','cetak');
+        // Cek masyarakat terdaftar yang akan mengurus surat
+        Route::get('/cek_nik','cek_nik')->name('cek_nik');
+        Route::get('/get_data_masyarakat/{id_masyarakat}','get_data');
     });
+
+    Route::controller(ColorController::class)->group(function(){
+        Route::post('/submit_color','submit_color')->name('submit.color');
+    }); 
 });
 

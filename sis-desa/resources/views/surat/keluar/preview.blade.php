@@ -64,6 +64,7 @@
                                 <div class="col-xl-12" style="text-align: center; margin-bottom: 20px">
                                     <u><h3 class="text-uppercase">SURAT KETERANGAN 
                                     @if ($data->formatsuratkeluarModel->count() > 1)
+                                        {{$format->format_name}}
                                         </h3>
                                     @else
                                         {{$data->jenis_surat_name}}</h3>
@@ -76,13 +77,13 @@
                                 
                                 <input type="hidden" id="nomor_surat_keluar" name="nomor_surat_keluar">
                                 <input type="hidden" value="{{$data->id}}" name="jenis_surat_id">
-                                @if ($data->formatsuratkeluarModel->count() > 0 && $data->formatsuratkeluarModel->count() == 1)
-                                    <?php $format = $data->formatsuratkeluarModel->first() ?>
+                                
+                                    
                                     <input type="hidden" value="{{$format->id}}" name="format_surat_id">
                                     @foreach ($format->sectionformatsuratkeluarModel as $item)
                                         @if ($item->status == 'static')
                                             <div class="col-xl-12" style="padding-left: 10%;padding-right: 10%; font-size: 17px; text-align: justify;margin-top: 40px">
-                                                {{$item->staticsectionModel->value}}
+                                                {!!$item->staticsectionModel->value!!}
                                             </div>
                                         @elseif ($item->status == 'subject' && $item->section_name == 'subject_1')
                                             <input type="hidden" name="section_format_subject_id" value="{{$item->id}}">
@@ -91,21 +92,21 @@
                                                     <tr>
                                                         <td style="width: 25%">Nama</td>
                                                         <th style="width: 5%;text-align: center">:</th>
-                                                        <th style="width: 50%">
+                                                        <th style="width: 50%" class="text-uppercase">
                                                             {{$item->datasuratkeluarModel->MasdatamasyarakatModel->nama}}
                                                         </th>
                                                     </tr>
                                                     <tr>
                                                         <td style="width: 25%">NIK</td>
                                                         <th style="width: 5%;text-align: center">:</th>
-                                                        <th style="width: 50%">
+                                                        <th style="width: 50%" class="text-capitalize">
                                                             {{$item->datasuratkeluarModel->MasdatamasyarakatModel->nik}}
                                                         </th>
                                                     </tr>
                                                     <tr>
                                                         <td style="width: 25%">Tempat/ Tanggal Lahir</td>
                                                         <th style="width: 5%;text-align: center">:</th>
-                                                        <th style="width: 50%">
+                                                        <th style="width: 50%" class="text-capitalize">
                                                             <div class="row">
                                                                 <div class="col-sm-4" style="margin: 0;">
                                                                     {{$item->datasuratkeluarModel->MasdatamasyarakatModel->tempat_lahir}}
@@ -120,42 +121,42 @@
                                                     <tr>
                                                         <td style="width: 25%">Kewarganegaraan</td>
                                                         <th style="width: 5%;text-align: center">:</th>
-                                                        <th style="width: 50%">
+                                                        <th style="width: 50%" class="text-capitalize">
                                                             {{$item->datasuratkeluarModel->MasdatamasyarakatModel->kewarganegaraan}}
                                                         </th>
                                                     </tr>
                                                     <tr>
                                                         <td style="width: 25%">Jenis Kelamin</td>
                                                         <th style="width: 5%;text-align: center">:</th>
-                                                        <th style="width: 50%">
+                                                        <th style="width: 50%" class="text-capitalize">
                                                             {{$item->datasuratkeluarModel->MasdatamasyarakatModel->jenkel}}
                                                         </th>
                                                     </tr>
                                                     <tr>
                                                         <td style="width: 25%">Agama</td>
                                                         <th style="width: 5%;text-align: center">:</th>
-                                                        <th style="width: 50%">
+                                                        <th style="width: 50%" class="text-capitalize">
                                                             {{$item->datasuratkeluarModel->MasdatamasyarakatModel->agama}}
                                                         </th>
                                                     </tr>
                                                     <tr>
                                                         <td style="width: 25%">Pekerjaan</td>
                                                         <th style="width: 5%;text-align: center">:</th>
-                                                        <th style="width: 50%">
+                                                        <th style="width: 50%" class="text-capitalize">
                                                             {{$item->datasuratkeluarModel->MasdatamasyarakatModel->pekerjaan}}
                                                         </th>
                                                     </tr>
                                                     <tr>
                                                         <td style="width: 25%">Status Perkawinan</td>
                                                         <th style="width: 5%;text-align: center">:</th>
-                                                        <th style="width: 50%">
+                                                        <th style="width: 50%" class="text-capitalize">
                                                             {{$item->datasuratkeluarModel->MasdatamasyarakatModel->status_kawin}}
                                                         </th>
                                                     </tr>
                                                     <tr>
                                                         <td style="width: 25%; vertical-align: top">Alamat</td>
                                                         <th style="width: 5%;text-align: center;vertical-align: top">:</th>
-                                                        <th style="width: 50%;">
+                                                        <th style="width: 50%;" class="text-capitalize">
                                                             {{$item->datasuratkeluarModel->MasdatamasyarakatModel->alamat}}
                                                         </th>
                                                     </tr>
@@ -165,7 +166,7 @@
                                             <input type="hidden" value="{{$item->id}}" name="section_format_id">
                                             <div class="col-xl-12" style="padding-left:10%;;padding-right:10%;font-size: 17px">
                                                 <div class="form-group mb-2">
-                                                    <b>{{$item->objectsectionModel->value}}</b>
+                                                    <b>{!!$item->objectsectionModel->value!!}</b>
                                                 </div>
                                             </div>
                                         @elseif($item->status == 'subject' && $item->section_name == 'subject_ttd_ybs_&_kepala')
@@ -182,7 +183,7 @@
                                                     <td style="width: 30%; text-align: justify">Kepala Desa Sukaraya</td>
                                                 </tr>
                                                 <tr>
-                                                    <td style="width: 30%; height: 150px;">{{$surat->nama_pemohon}}</td>
+                                                    <td style="width: 30%; height: 150px;" class="text-uppercase"><b>{{$surat->nama_pemohon}}</b></td>
                                                     <td style="width: 30%;height: 150px;"></td>
                                                     <td style="width: 30%; text-align: justify;height: 150px;">.....</td>
                                                 </tr>
@@ -210,7 +211,7 @@
                                         </div>
                                         @endif
                                     @endforeach
-                                @endif
+                                
                                 <hr class="invoice-spacing mt-0" />
 
                                 <div class="row row-bill-to invoice-spacing">
@@ -245,7 +246,7 @@
                                     <a href="{{route('page.jenis_surat')}}" class="btn btn-outline-primary btn-block mb-75" >Jenis</a>
                                 </div>
                                 <div class="col-md-6 col-6">
-                                    <a href="{{route('page.jenis_surat')}}" class="btn btn-outline-primary btn-block mb-75">Format</a>
+                                    <a href="{{route('page.format_surat')}}" class="btn btn-outline-primary btn-block mb-75">Format</a>
                                 </div>
                             </div>
                         </div>

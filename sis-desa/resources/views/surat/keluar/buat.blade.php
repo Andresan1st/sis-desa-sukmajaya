@@ -6,6 +6,7 @@
 <link rel="stylesheet" type="text/css" href="{{asset('app-assets/css/pages/app-invoice.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/css/extensions/toastr.min.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('app-assets/css/plugins/extensions/ext-component-toastr.css')}}">
+
 <style>
     *{
         font-family: 'Times New Roman', Times, serif;
@@ -62,50 +63,75 @@
                         <!-- Address and Contact starts -->
                         <div class="card-body invoice-padding pt-0">
                             <div class="row row-bill-to invoice-spacing">
-                                <div class="col-xl-12" style="text-align: center; margin-bottom: 20px">
-                                    <u><h3 class="text-uppercase">SURAT KETERANGAN 
+                                <div class="col-xl-12" style="margin-bottom: 20px;">
                                     @if ($data->formatsuratkeluarModel->count() > 1)
-                                        </h3>
+                                    <div class="col-xl-12" style="margin-bottom: 20px">
+                                        <div class="row">
+                                            <div class="col-xl-12">
+                                                <div class="form-group">
+                                                    <h5 style="margin-bottom: 0; padding-bottom: 0;" class="text-uppercase">SURAT <b>{{$data->jenis_surat_name}}</b> MEMILIKI BEBERAPA JENIS FORMAT SURAT</h5>
+                                                </div>
+                                            </div>
+                                            @foreach ($data->formatsuratkeluarModel as $key=>$item)
+                                            <div class="col-xl-3">
+                                                <div class="form-group">
+                                                    <div class="custom-control custom-radio">
+                                                        <input type="radio" class="custom-control-input pilih_format_surat" value="{{$item->id}}" id="{{$item->id}}" name="pilih_format_surat">
+                                                        <label class="custom-control-label text-uppercase" for="{{$item->id}}">{{$item->format_name}}</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            @endforeach
+                                            <div class="col-xl-12" style="margin-top: 50px">
+                                                <div class="form-group">
+                                                    <code>memilih salah satu jenis surat diatas terlebih dahulu</code>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     @else
-                                        {{$data->jenis_surat_name}}</h3>
-                                        Nomor:<i id="head_nomor_surat"> {{$data->nomor}} / {{$urut}} / {{strtoupper($data->bagan)}} / {{$bulan}} / {{date('Y')}}</i>
+                                    <div class="col-xl-12" style="margin-bottom: 20px; text-align: center">
+                                        <u class="text-center"><h3 class="text-uppercase">SURAT KETERANGAN {{$data->jenis_surat_name}}</h3>
+                                        Nomor:<i id="head_nomor_surat"> {{$data->nomor}} / {{$urut}} / {{strtoupper($data->bagan)}} / {{$bulan}} / {{date('Y')}}</i></u>
+                                    </div>
                                     @endif    
-                                    </u>
                                 </div>
-                                
-                            <form method="POST" id="formadd">@csrf
-                                
-                                <input type="hidden" id="nomor_surat_keluar" name="nomor_surat_keluar">
-                                <input type="hidden" value="{{$data->id}}" name="jenis_surat_id">
+
+                                <form method="POST" id="formadd">@csrf                            
+                                    <input type="hidden" id="nomor_surat_keluar" name="nomor_surat_keluar">
+                                    <input type="hidden" value="{{$data->id}}" id="jenis_surat_id" name="jenis_surat_id">
                                 @if ($data->formatsuratkeluarModel->count() > 0 && $data->formatsuratkeluarModel->count() == 1)
                                     <?php $format = $data->formatsuratkeluarModel->first() ?>
                                     <input type="hidden" value="{{$format->id}}" name="format_surat_id">
                                     @foreach ($format->sectionformatsuratkeluarModel as $key=>$item)
                                         @if ($item->status == 'static')
                                             <div class="col-xl-12" style="padding-left: 10%;padding-right: 10%; font-size: 17px; text-align: justify">
-                                                {{$item->staticsectionModel->value}}
+                                                {!!$item->staticsectionModel->value!!}
                                             </div>
                                         @elseif ($item->status == 'subject' && $item->section_name == 'subject_1')
                                             <input type="hidden" name="section_format_subject_id[]" value="{{$item->id}}">
-                                            <div class="col-xl-12" style="padding-left: 10%;padding-right: 10%; font-size: 17px;margin-bottom: 20px;text-align: right">
-                                                <label>Check Subject</label>
-                                                <input type="text" class="form-control" placeholder="CEK NIK APABILA SUDAH TERDATA PADA DATABASE">
+                                            <div class="col-xl-12" style="padding-left: 10%;padding-right: 10%; font-size: 17px;margin-bottom: 20px;">
+                                                <div style="text-align: right">
+                                                    <label>Check Subject</label>
+                                                </div>
+                                                <select id="cek_nik{{$item->id}}" class="form-control" style="max-width: 100%;">
+                                                    <option value="" style="max-width: 100%;">CEK DATA MASYARAKAT APABILA SUDAH TERDATA PADA DATABASE</option>
+                                                </select>
                                             </div>
-                                            {{-- <input type="text" name="masyarakat_id" value="{{$item->id}}"> --}}
                                             <div class="col-xl-12" style="padding-left: 17%;padding-top: 3%; font-size: 17px">
                                                 <table>
                                                     <tr>
                                                         <td style="width: 25%">Nama</td>
                                                         <th style="width: 5%;text-align: center">:</th>
                                                         <th style="width: 50%">
-                                                            <input type="text" name="nama[]" id="nama1" class="text-uppercase"  style="width: 70%; border: none" placeholder="....." required>
+                                                            <input type="text" name="nama[]" id="nama{{$item->id}}" class="text-uppercase"  style="width: 70%; border: none" placeholder="....." required>
                                                         </th>
                                                     </tr>
                                                     <tr>
                                                         <td style="width: 25%">NIK</td>
                                                         <th style="width: 5%;text-align: center">:</th>
                                                         <th style="width: 50%">
-                                                            <input type="number" name="nik[]" class="text-capitalize"  style="width: 70%; border: none" placeholder="....." required>
+                                                            <input type="number" name="nik[]" id="nik{{$item->id}}" class="text-capitalize"  style="width: 70%; border: none" placeholder="....." required>
                                                         </th>
                                                     </tr>
                                                     <tr>
@@ -113,9 +139,9 @@
                                                         <th style="width: 5%;text-align: center">:</th>
                                                         <th style="width: 50%">
                                                             <div class="row">
-                                                                <div class="col-sm-4" style="margin: 0;"><input type="text" name="tempat_lahir[]" class="text-capitalize" style="border: none; width: 90%" placeholder="....." required></div>
+                                                                <div class="col-sm-4" style="margin: 0;"><input type="text" id="tempat_lahir{{$item->id}}" name="tempat_lahir[]" class="text-capitalize" style="border: none; width: 90%" placeholder="....." required></div>
                                                                 <div class="col-sm-1" style="margin: 0;">,</div>
-                                                                <div class="col-sm-5" style="margin: 0;"><input type="date" name="tgl_lahir[]" class="text-capitalize" style="border: none" value="{{date('1996-m-d')}}" id="" style="width: 91%" required></div>
+                                                                <div class="col-sm-5" style="margin: 0;"><input type="date" id="tgl_lahir{{$item->id}}" name="tgl_lahir[]" class="text-capitalize" style="border: none" value="{{date('1996-m-d')}}" id="" style="width: 91%" required></div>
                                                             </div>
                                                         </th>
                                                     </tr>
@@ -123,14 +149,14 @@
                                                         <td style="width: 25%">Kewarganegaraan</td>
                                                         <th style="width: 5%;text-align: center">:</th>
                                                         <th style="width: 50%">
-                                                            <input type="text" name="kewarganegaraan[]" class="text-capitalize" style="width: 70%; border: none" placeholder="....." value="Indonesia" required>
+                                                            <input type="text" name="kewarganegaraan[]" id="kewarganegaraan{{$item->id}}" class="text-capitalize" style="width: 70%; border: none" placeholder="....." value="Indonesia" required>
                                                         </th>
                                                     </tr>
                                                     <tr>
                                                         <td style="width: 25%">Jenis Kelamin</td>
                                                         <th style="width: 5%;text-align: center">:</th>
                                                         <th style="width: 50%">
-                                                            <select name="jenkel[]" id="" style="border: none" class="text-capitalize" required>
+                                                            <select name="jenkel[]" id="jenkel{{$item->id}}" style="border: none" class="text-capitalize" required>
                                                                 <option value="Laki-laki">Laki-laki</option>
                                                                 <option value="Perempuan">Perempuan</option>
                                                             </select>
@@ -140,38 +166,38 @@
                                                         <td style="width: 25%">Agama</td>
                                                         <th style="width: 5%;text-align: center">:</th>
                                                         <th style="width: 50%">
-                                                            <input type="text" name="agama[]" class="text-capitalize" style="width: 70%; border: none" placeholder="....." required>
+                                                            <input type="text" name="agama[]" id="agama{{$item->id}}" class="text-capitalize" style="width: 70%; border: none" placeholder="....." required>
                                                         </th>
                                                     </tr>
                                                     <tr>
                                                         <td style="width: 25%">Pekerjaan</td>
                                                         <th style="width: 5%;text-align: center">:</th>
                                                         <th style="width: 50%">
-                                                            <input type="text" name="pekerjaan[]" class="text-capitalize" style="width: 70%; border: none" placeholder="....." required>
+                                                            <input type="text" name="pekerjaan[]" id="pekerjaan{{$item->id}}" class="text-capitalize" style="width: 70%; border: none" placeholder="....." required>
                                                         </th>
                                                     </tr>
                                                     <tr>
                                                         <td style="width: 25%">Status Perkawinan</td>
                                                         <th style="width: 5%;text-align: center">:</th>
                                                         <th style="width: 50%">
-                                                            <input type="text" name="status_kawin[]" class="text-capitalize"  style="width: 70%; border: none" placeholder="....." required>
+                                                            <input type="text" name="status_kawin[]" id="status_kawin{{$item->id}}" class="text-capitalize"  style="width: 70%; border: none" placeholder="....." required>
                                                         </th>
                                                     </tr>
                                                     <tr>
                                                         <td style="width: 25%; vertical-align: top">Alamat</td>
                                                         <th style="width: 5%;text-align: center;vertical-align: top">:</th>
                                                         <th style="width: 50%;">
-                                                            <textarea name="alamat[]" class="text-capitalize" style="border: 0" id="" cols="30" rows="2" placeholder="....." required></textarea>
+                                                            <textarea name="alamat[]" id="alamat{{$item->id}}" class="text-capitalize" style="border: 0" id="" cols="30" rows="2" placeholder="....." required></textarea>
                                                         </th>
                                                     </tr>
                                                 </table>
                                             </div>
                                         @elseif($item->status == 'object')
-                                            <input type="hidden" value="{{$item->id}}" name="section_format_id">
+                                            <input type="hidden" value="{{$item->id}}" name="section_format_id[]">
                                             <div class="col-xl-12" style="padding-left:10%;;padding-right:10%;font-size: 17px">
                                                 <div class="form-group mb-2">
                                                     <label for="note" class="form-label font-weight-bold">Keterangan Object Secara Detail:</label>
-                                                    <textarea class="form-control text-capitalize" name="object_value" rows="2" id="note" placeholder="....." style="border: none" required></textarea>
+                                                    <textarea class="form-control text-capitalize" name="object_value[]" rows="2" id="note" placeholder="....." style="border: none" required></textarea>
                                                 </div>
                                             </div>
                                         @elseif($item->status == 'subject' && $item->section_name == 'subject_ttd_ybs_&_kepala')
@@ -217,15 +243,16 @@
                                         @endif
                                     @endforeach
                                 @endif
-                                <hr class="invoice-spacing mt-0" />
-
-                                <div class="row row-bill-to invoice-spacing">
-                                    <div class="col-xl-12" style="padding-left:10%;;padding-right:10%;font-size: 17px;">
-                                        <div class="form-group" style="text-align: right">
-                                            <input type="submit" id="btnadd" value="Buat Surat!" class="btn btn-primary">
+                                @if ($data->formatsuratkeluarModel->count() == 1)
+                                    <hr class="invoice-spacing mt-0" />
+                                    <div class="row row-bill-to invoice-spacing">
+                                        <div class="col-xl-12" style="padding-left:10%;;padding-right:10%;font-size: 17px;">
+                                            <div class="form-group" style="text-align: right">
+                                                <input type="submit" id="btnadd" value="Buat Surat!" class="btn btn-primary">
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                @endif
                             </form>
                             </div>
                         </div>
@@ -346,11 +373,13 @@
             var val = this.value;
             window.location.href = '/surat_keluar/'+val;
         })
-        $('#nama1').keyup(function () {
-            var nama = this.value;
-            $('#nama_pemohon').val(nama);
-            console.log(nama);
+
+        $('.pilih_format_surat').change(function(){
+            var val_format  = this.value;
+            var val_jenis   = $('#jenis_surat_id').val();
+            window.location.href = '/surat_keluar/'+val_jenis+'/'+val_format;
         })
+
         $(document).ready(function() {
             var num = $('#head_nomor_surat').html();
             $('#nomor_surat_keluar').val(num);
@@ -382,6 +411,7 @@
                         closeButton: true,
                         tapToDismiss: false,
                         });
+                        window.location.href = '/data_surat_keluar/';
                     } else {
                         $('#btnadd').val('Arsipkan!');
                         $('#btnadd').attr('disabled', false);
@@ -401,5 +431,67 @@
                 }
             });
         });
+
+        
+
+        $(document).ready(function() {
+            // query dari db untuk dapetin data dinamis pada var woi
+            var woi     = <?php
+                $format = $data->formatsuratkeluarModel->first();
+                $cek    = $format->sectionformatsuratkeluarModel->where('section_name','subject_1');
+                echo $cek;
+            ?>;
+            // mendapatkan id selected berdasarkan data woi
+            results:  $.map(woi, function (items) {
+                // select
+                $('#cek_nik'+items.id).select2({
+                    ajax: {
+                        url: "{{route('cek_nik')}}",
+                        dataType: 'json',
+                        delay: 250,
+                        processResults: function (data) {
+                            return {
+                            results:  $.map(data, function (item) {
+                                    return {
+                                        text: item.nik+' - '+item.nama+' - '+item.tempat_lahir+', '+item.tgl_lahir,
+                                        id: item.id
+                                    }
+                                })
+                            };
+                        },
+                        cache: true
+                    }
+                });
+
+                // get value on change setelah datanya ditemukan / dipilih woi
+                // and set it to the form
+                $('#cek_nik'+items.id).on('change', function () {
+                    var ada = $(this).val();
+                    $.ajax({
+                            url: '/get_data_masyarakat/'+ada,
+                            type: "GET",
+                            dataType: "json",
+                            success:function(data) {      
+                                $('#nama'+items.id).val(data.nama);
+                                $('#nik'+items.id).val(data.nik);
+                                $('#tempat_lahir'+items.id).val(data.tempat_lahir);
+                                $('#tgl_lahir'+items.id).val(data.tgl_lahir);
+                                $('#kewarganegaraan'+items.id).val(data.kewarganegaraan);
+                                $('#agama'+items.id).val(data.agama);
+                                $('#pekerjaan'+items.id).val(data.pekerjaan);
+                                $('#status_kawin'+items.id).val(data.status_kawin);
+                                $('#alamat'+items.id).val(data.alamat);
+                                $('#nama_pemohon').val(data.nama);
+                            }
+                        })
+                })
+
+                $('#nama'+items.id).keyup(function () {
+                    var nama_pemohon = this.value;
+                    $('#nama_pemohon').val(nama_pemohon);
+                    
+                })
+            })
+        })
     </script>
 @endsection

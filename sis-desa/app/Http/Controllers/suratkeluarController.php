@@ -45,24 +45,6 @@ class suratkeluarController extends Controller
      */
     public function store(Request $request)
     {
-        // $validator = Validator::make($request->all(), [
-        //     'jenis_surat_name'  => 'required',
-        //     'nomor'             => 'required',
-        //     'bagan'             => 'required'
-        // ]);
-
-        // if ($validator->fails()) {
-
-        //     return response()->json([
-        //         'status'    => 400,
-        //         'message'   => 'Periksa Kembali Inputan Anda',
-        //         'errors'    => $validator->messages(),
-        //     ]);
-
-        // }else {
-            
-            
-        // }
 
         $check  = MasdatamasyarakatModel::where('nik', $request->nik)->first();
         if ($check == null) {
@@ -79,28 +61,7 @@ class suratkeluarController extends Controller
                     'format_surat_id'       => $request->format_surat_id
                 ]
             );
-            // foreach (count($request->nama) as $key => $value) {
-            //     # code...
-            //     // store data masyarakat multiple dari input surat
-            //     $data2  = MasdatamasyarakatModel::updateOrCreate(
-            //         [
-            //             'id' => $value->id // null create new one first
-            //         ],
-            //         [
-            //             'nik' => $value->nik,
-            //             'nama' => $value->nama,
-            //             'tempat_lahir' => $value->tempat_lahir,
-            //             'tgl_lahir' => $value->tgl_lahir,
-            //             'kewarganegaraan' => $value->kewarganegaraan,
-            //             'jenkel' => $value->jenkel,
-            //             'alamat' => $value->alamat,
-            //             'agama' => $value->agama,
-            //             'pekerjaan' => $value->pekerjaan,
-            //             'status_kawin' => $value->status_kawin,
-            //         ]
-            //     );
-
-            // }
+            
             for ($subject = 0; $subject < count($request->nama); $subject++) { 
                 # code...
                 $data2 = array(
@@ -126,33 +87,59 @@ class suratkeluarController extends Controller
             }
             $dataz = MasdatamasyarakatModel::insert($insert_data2);
             $datay = datasuratkeluarModel::insert($insert_data3);
-            // store penghubung antara surat dan masyarakat
-            // $data3  = datasuratkeluarModel::updateOrCreate(
-            //     [
-            //         'id' => $request->id,
-            //     ],
-            //     [
-            //         'masyarakat_id' => $data2->id,
-            //         'section_format_id' => $request->section_format_subject_id,
-            //     ]
-            // );
+            
 
-            if ($request->section_format_id !== null) {
+            if (count($request->section_format_id) > 0) {
                 # ada object isian code...
-                $datax  = objectsectionModel::updateOrCreate(
-                    [
-                        'id' => $request->id,
-                    ],
-                    [
-                        'section_format_id' => $request->section_format_id,
-                        'value'             => $request->object_value
-                    ]
+                for ($object=0; $object < count($request->object_value); $object++) { 
+                    # code...
+                    $data4 = array(
+                        'section_format_id' => $request->section_format_id[$object],
+                        'value'             => $request->object_value[$object]
+                    );
+                    $insert_data4[] = $data4;
+                }
+                $datax = objectsectionModel::insert($insert_data4);
+            }
+
+        }else {
+            # code sudah terdaftar dan membuat surat...
+            $data   = suratkeluarModel::updateOrCreate(
+                [
+                    'id' => $request->id // null create new one first
+                ],
+                [
+                    'nomor_surat_keluar'      => $request->nomor_surat_keluar,
+                    'nama_pemohon'          => $request->nama_pemohon,
+                    'jenis_surat_id'          => $request->jenis_surat_id,
+                    'format_surat_id'       => $request->format_surat_id
+                ]
+            );
+            
+            for ($subject = 0; $subject < count($request->section_format_subject_id); $subject++) { 
+                # code...
+                $data3 = array(
+                    'masyarakat_id' => $check->nik,
+                    'section_format_id' => $request->section_format_subject_id[$subject],
                 );
+                $insert_data3[] = $data3;
+            }
+            $datay = datasuratkeluarModel::insert($insert_data3);
+
+            if (count($request->section_format_id) > 0) {
+                # ada object isian code...
+                for ($object=0; $object < count($request->object_value); $object++) { 
+                    # code...
+                    $data4 = array(
+                        'section_format_id' => $request->section_format_id[$object],
+                        'value'             => $request->object_value[$object]
+                    );
+                    $insert_data4[] = $data4;
+                }
+                $datax = objectsectionModel::insert($insert_data4);
             }
         }
         
-        
-
         return response()->json(
             [
               'status'  => 200,
@@ -204,6 +191,35 @@ class suratkeluarController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function dell_surat_keluar(Request $request)
+    {   
+        $section_subject= sectionformatsuratkeluarModel::where('format_surat_keluar_id',$request->format_surat_id)->where('section_name','subject_1')->get();
+        $section_object= sectionformatsuratkeluarModel::where('format_surat_keluar_id',$request->format_surat_id)->where('section_name','object')->get();
+        
+        if ($section_subject->count() > 0) {
+            # code ada subect (lepas dan sisakan data masyarakat)...
+            foreach ($section_subject as $key => $value) {
+                # code...
+                $value->datasuratkeluarModel->delete();
+            }
+        }
+        if ($section_object->count() > 0) {
+            # code ada object (lepas)...
+            foreach ($section_object as $key => $value2) {
+                # code...
+                $value2->objectsectionModel->delete();
+            }
+        }
+        $data   = suratkeluarModel::find($request->id)->delete();
+
+        return response()->json(
+            [
+              'status'  => 200,
+              'message' => 'Dokumen Surat telah dihapus dari database'
+            ]
+        );
     }
 
     public function jenis_surat(Request $request)
@@ -376,6 +392,33 @@ class suratkeluarController extends Controller
         }
     }
 
+    public function dell_struktur_surat(Request $request)
+    {
+        sectionformatsuratkeluarModel::find($request->id)->delete();
+
+        // jika dia subject format
+        if (datasuratkeluarModel::where('section_format_id', $request->id)->first() !== null) {
+            # code...
+            datasuratkeluarModel::where('section_format_id', $request->id)->delete();
+        }
+        // jika dia static format
+        if ($request->static_id !== null) {
+            # code...
+            staticsectionModel::find($request->static_id)->delete();
+        }
+        // jika dia object format
+        if (objectsectionModel::where('section_format_id', $request->id)->first() !== null) {
+            # code...
+            objectsectionModel::where('section_format_id', $request->id)->delete();
+        }
+        return response()->json(
+            [
+              'status'  => 200,
+              'message' => 'Struktur Format Surat Berhasil Dihapus'
+            ]
+        );
+    }
+
     public function dell_jenis_surat(Request $request)
     {
         $id   = $request->id; 
@@ -408,7 +451,8 @@ class suratkeluarController extends Controller
     {
         if ($request->ajax()) {
             # code...
-            $data = formatsuratkeluarModel::orderBy('id','desc')->with('jenissuratkeluarModel');
+            $data = formatsuratkeluarModel::orderBy('id','desc')->with(['jenissuratkeluarModel','sectionformatsuratkeluarModel']);
+            // $data = formatsuratkeluarModel::orderBy('id','desc');
             return DataTables::of($data)
             ->addIndexColumn()
             ->addColumn('action', function($data){
@@ -427,7 +471,21 @@ class suratkeluarController extends Controller
                     foreach ($data->sectionformatsuratkeluarModel as $key => $value) {
                         # code...
                         // $struktur[] = '<a data-id="'.$value->id.'" data-section_name="'.$value->section_name.'" data-format_surat_keluar_id="'.$value->format_surat_keluar_id.'" data-toggle="modal" data-target="#modalstruktur" class="text-primary">'.$value->section_name.'</a>';
-                        $struktur[] = '<a data-id="'.$value->id.'" data-section_name="'.$value->section_name.'" data-format_surat_keluar_id="'.$value->format_surat_keluar_id.'" data-toggle="modal" class="text-primary">'.$value->section_name.'</a>';
+                        if ($value->status == 'static') {
+                            # code...
+                            $struktur[] = '<a data-id_static="'.$value->staticsectionModel->id.'" data-value="'.strip_tags($value->staticsectionModel->value).'" data-id_section="'.$value->id.'" data-section_name="'.$value->section_name.'" data-status="'.$value->status.'" data-format_surat_keluar_id="'.$value->format_surat_keluar_id.'" data-toggle="modal" data-target="#modalstatic2" class="text-primary">'.$value->section_name.'</a>';
+                        }elseif($value->status == 'subject') {
+                            # code...
+                            $struktur[] = '<a data-id_section="'.$value->id.'" data-status="'.$value->status.'" data-section_name="'.$value->section_name.'" data-format_surat_keluar_id="'.$value->format_surat_keluar_id.'" data-toggle="modal" 
+                            data-target="#modalsubject2" 
+                            class="text-info">'.$value->section_name.'</a>';
+                        }else {
+                            # code...
+                            $struktur[] = '<a data-id_section="'.$value->id.'" data-status="'.$value->status.'" data-section_name="'.$value->section_name.'" data-format_surat_keluar_id="'.$value->format_surat_keluar_id.'" data-toggle="modal" 
+                            data-target="#modaldel_object" 
+                            class="text-muted">'.$value->section_name.'</a>';
+                        }
+
                     }
                     return implode('<br>',$struktur);
                 }else {
@@ -474,8 +532,9 @@ class suratkeluarController extends Controller
             return DataTables::of($data)
             ->addIndexColumn()
             ->addColumn('action', function($data){
-                $btn = '<a href="/preview_surat_keluar/'.$data->id.'" data-id="'.$data->id.'" class="btn btn-icon btn-icon rounded-circle btn-info mr-1 mb-1"><span class="fa fa-light fa-eye"></span> </a>';
+                $btn = '<a href="/preview_surat_keluar/'.$data->id.'/'.$data->format_surat_id.'" data-id="'.$data->id.'" class="btn btn-icon btn-icon rounded-circle btn-info mr-1 mb-1"><span class="fa fa-light fa-eye"></span> </a>';
                 $btn .= '<a target="_blank" href="/cetak_surat_keluar/'.$data->id.'" data-id="'.$data->id.'" class="btn btn-icon btn-icon rounded-circle btn-primary mr-1 mb-1"><span class="fa fa-light fa-print"></span> </a>';
+                $btn .= '<a data-id="'.$data->id.'" data-format_surat_id="'.$data->format_surat_id.'" data-toggle="modal" data-target="#modaldel" class="btn btn-icon btn-icon rounded-circle btn-danger mr-1 mb-1"><span class="fa fa-light fa-trash"></span> </a>';
                 return $btn;
                 
             })
@@ -490,22 +549,71 @@ class suratkeluarController extends Controller
         return view('surat.keluar.database',compact('jenis'));
     }
 
-    public function preview(Request $request,$id)
+    public function preview(Request $request,$id,$format_surat_id)
     {
         $surat = suratkeluarModel::find($id);
+        $format= formatsuratkeluarModel::find($format_surat_id);
         $jenis = jenissuratkeluarModel::all();
         $data  = $surat->jenissuratkeluarModel;
         $bulan = bulanromawiHelper(date('m'));
         
-        return view('surat.keluar.preview',compact('jenis','data','bulan','surat'));
+        return view('surat.keluar.preview',compact('jenis','data','bulan','surat','format'));
     }
 
     public function cetak(Request $request, $id)
     {
         $surat  = suratkeluarModel::find($id);
-        $jenis = jenissuratkeluarModel::all();
+        $jenis  = jenissuratkeluarModel::all();
         $data   = $surat->jenissuratkeluarModel;
         $pdf    = PDF::loadview('surat.keluar.cetak',compact('surat','data','jenis'));
         return $pdf->stream($data->jenis_surat_name.'.pdf','I');
+    }
+
+    public function cek_nik(Request $request)
+    {
+        $data = [];
+
+        if($request->has('q')){
+            $search = $request->q;
+            $data = MasdatamasyarakatModel::where('nik','LIKE','%' .$search . '%')
+                    ->orWhere('nama', 'LIKE', '%' .$search . '%')
+                    ->orWhere('tempat_lahir', 'LIKE', '%' .$search . '%')
+                    ->orWhere('tgl_lahir', 'LIKE', '%' .$search . '%')
+                    ->orWhere('alamat', 'LIKE', '%' .$search . '%')
+                    ->get();
+        }else{
+            $data = MasdatamasyarakatModel::limit(5)->get();
+        }
+        return response()->json($data);
+    }
+
+    public function get_data($id_masyarakat)
+    {
+        $data = MasdatamasyarakatModel::find($id_masyarakat);
+        return json_encode($data);
+    }
+
+    public function buat_surat2($jenis_surat_keluar_id, $format_surat_keluar_id)
+    {
+        $jenis = jenissuratkeluarModel::all();
+        $data  = jenissuratkeluarModel::find($jenis_surat_keluar_id);
+        $format= formatsuratkeluarModel::find($format_surat_keluar_id);
+        $surat = suratkeluarModel::where('jenis_surat_id',$jenis_surat_keluar_id);
+        $masya = MasdatamasyarakatModel::all()->count();
+        $bulan = bulanromawiHelper(date('m'));
+        $len   = strlen($surat->count()+1);
+        $urut;
+        if ($len == 1) {
+            # code...
+            $urut = '00'.$surat->count()+1;
+        }elseif ($len == 2) {
+            # code...
+            $urut = '0'.$surat->count()+1;
+        }else {
+            # code...
+            $urut = $surat->count();
+        }
+        
+        return view('surat.keluar.buat2',compact('jenis','data','urut','bulan','masya','format'));
     }
 }

@@ -71,22 +71,22 @@
                         <div class="col-xl-12" style="font-size: 17px">
                             <div class="card-body">
                                 <div class="card-datatable table-responsive">
-                                    <table id="indextable" class="datatables-basic table" style="font-size: 12px">
-                                        <thead>
+                                    <table id="indextable" class="datatables-basic table" >
+                                        <thead style="font-size: 12px">
                                             <tr>
-                                                <th>No</th>
+                                                <th style="width: 5%">No</th>
                                                 <th>Nomor Surat</th>
                                                 <th>Jenis Surat</th>
                                                 <th>Nama Pemohon</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
-                                        <tbody class="text-uppercase">
+                                        <tbody class="text-uppercase" style="font-size: 11px">
                         
                                         </tbody>
-                                        <tfoot>
+                                        <tfoot style="font-size: 12px">
                                             <tr>
-                                                <th>No</th>
+                                                <th style="width: 5%">No</th>
                                                 <th>Nomor Surat</th>
                                                 <th>Jenis Surat</th>
                                                 <th>Nama Pemohon</th>
@@ -189,6 +189,7 @@
                     </button>
                 </div>
                 <form id="formdel">@csrf
+                {{-- <form action="/surat_keluar_dell" method="POST">@csrf --}}
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-xl-12">
@@ -197,6 +198,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <input type="hidden" id="id" name="id" class="form-control">
+                                    <input type="hidden" id="format_surat_id" name="format_surat_id" class="form-control">
                                     <code>Doccument ini akan dihapus dari dserver / direktori utama beserta dengan isi seluruh surat keluar yang ada didalamnya</code>
                                     <hr><p>Anda yakin tetap ingin menghapus jenis doccument ini ?</p>
                                 </div>
@@ -273,8 +275,10 @@
         $('#modaldel').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget)
             var id = button.data('id')
+            var format_surat_id = button.data('format_surat_id')
             var modal = $(this)
             modal.find('.modal-body #id').val(id);
+            modal.find('.modal-body #format_surat_id').val(format_surat_id);
         })
 
         $('#modaledit').on('show.bs.modal', function(event) {
@@ -296,6 +300,7 @@
                 ajax: "{{route('database.surat_keluar')}}",
                 columns: [
                    {
+                       "width" : "5%",
                        "data" : "id",
                        render : function(data, type, row, meta){
                            return meta.row + meta.settings._iDisplayStart + 1;
@@ -420,7 +425,7 @@
             var formData = new FormData(this);
             $.ajax({
                 type: 'POST',
-                url: "{{route('dell.jenis_surat')}}",
+                url: "{{route('dell.surat_keluar')}}",
                 data: formData,
                 cache: false,
                 contentType: false,

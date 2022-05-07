@@ -1,11 +1,14 @@
 @extends('layout.layout')
-
 @section('css')
 <link rel="stylesheet" type="text/css" href="{{asset('app-assets/css/core/menu/menu-types/vertical-menu.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('app-assets/css/plugins/forms/pickers/form-flat-pickr.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('app-assets/css/pages/app-invoice.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/css/extensions/toastr.min.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('app-assets/css/plugins/extensions/ext-component-toastr.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('app-assets/css/plugins/extensions/ext-component-toastr.css')}}">
+
+{{-- summernote --}}
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 <style>
     *{
         font-family: 'Times New Roman', Times, serif;
@@ -266,13 +269,7 @@
     <script src="{{asset('app-assets/js/scripts/pages/app-invoice.js')}}"></script>
 
     <script>
-        // $('document').ready(function () {
-        //     $("#close-1").on("click", function(){
-                
-        //     }); 
-            
-        //     $("#close-1").click(); //trigger event after listening to it.
-        // });
+        
         $('#modaldel').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget)
             var id = button.data('id')
