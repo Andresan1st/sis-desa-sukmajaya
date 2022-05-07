@@ -28,6 +28,12 @@
                 <li class="{{ (request()->is('surat_keluar')) ? 'active' : '' }}"><a class="d-flex align-items-center" href="{{route('page.surat_keluar')}}"><i data-feather="mail"></i><span class="menu-item text-truncate" data-i18n="Input Groups">Surat Keluar</span></a>
                 </li>
             </ul>
+            <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="copy"></i><span class="menu-title text-truncate" data-i18n="Form Elements">Report</span></a>
+                <ul class="menu-content">
+                    <li><a class="d-flex align-items-center" href="/rep_surat"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Input Groups">Report Surat</span></a>
+                    </li>
+                </ul>
+            </li>
         </li>
     @endif
     @if(auth()->user()->role=='sekertaris') 

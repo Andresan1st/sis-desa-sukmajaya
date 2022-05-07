@@ -55,7 +55,7 @@
                                             </div>
                                         </div>
                                         <div class="media-body my-auto">
-                                            <h4 id="surat_keluar" class="font-weight-bolder mb-0">8.549k</h4>
+                                            <h4 id="surat_keluar" class="font-weight-bolder mb-0"></h4>
                                             <p class="card-text font-small-3 mb-0">SURAT KELUAR</p>
                                         </div>
                                     </div>
@@ -68,7 +68,7 @@
                                             </div>
                                         </div>
                                         <div class="media-body my-auto">
-                                            <h4 id="pegawai" class="font-weight-bolder mb-0">1.423k</h4>
+                                            <h4 id="pegawai" class="font-weight-bolder mb-0"></h4>
                                             <p class="card-text font-small-3 mb-0">Pegawai</p>
                                         </div>
                                     </div>
@@ -81,7 +81,7 @@
                                             </div>
                                         </div>
                                         <div class="media-body my-auto">
-                                            <h4 id="masyarakat" class="font-weight-bolder mb-0">$9745</h4>
+                                            <h4 id="masyarakat" class="font-weight-bolder mb-0"></h4>
                                             <p class="card-text font-small-3 mb-0">Masyarakat</p>
                                         </div>
                                     </div>

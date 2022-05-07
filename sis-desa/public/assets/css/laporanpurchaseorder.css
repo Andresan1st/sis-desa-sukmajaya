@@ -1,0 +1,36 @@
+#indextable{
+    border: 1px solid !important;
+    border-collapse: collapse !important;
+  }
+  table th.judul {
+    border: solid 1px black !important;
+    text-align: center;
+    border-collapse: collapse;
+    
+  }
+
+  table td.tb1td{
+    border: 1px solid !important;
+    border-collapse: collapse !important;
+    color: black;
+    white-space:nowrap;
+    font-family: sans-serif;
+  }
+  table td.isidata {
+    /* border: solid 1px black !important;
+    text-align: center;
+    border-collapse: collapse; */
+    
+  }
+  
+  
+  td {
+    padding: 0.5em;
+  }
+  
+  [colspan="4"][rowspan="2"] {
+    height: 6em;
+  }
+  
+  
+  
