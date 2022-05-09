@@ -182,6 +182,9 @@ class MasdatamasyarakatController extends Controller
                 'no_kk.regex' => 'Field no_kk tidak boleh huruf',
                 'jenkel.required' => 'Field jenis kelamin harus diisi ',
                 'no_kk.required' => 'Field no_kk harus diisi ',
+                'kewarganegaraan'=>'Field Kewarganegaraan harus diisi',
+                'pekerjaan'=>'Field pekerjaan harus diisi',
+                
             ];
             $validator = Validator::make($request->all(), [
                 'nik' => 'required|min:16|regex:/^[0-9]+$/',
@@ -193,6 +196,8 @@ class MasdatamasyarakatController extends Controller
                 'rt' => 'required|regex:/^[0-9]+$/',
                 'rw' => 'required|regex:/^[0-9]+$/',
                 'jenkel'=>'required',
+                'kewarganegaraan'=>'required',
+                'pekerjaan'=>'required',
                 'no_kk'=>'required|regex:/^[0-9]+$/'
             ], $messages);
             if ($validator->fails()) {
@@ -209,6 +214,8 @@ class MasdatamasyarakatController extends Controller
                         "alamat"=>$request->alamat,
                         "jenkel"=>$request->jenkel,
                         "agama"=>$request->agama,
+                        "kewarganegaraan"=>$request->kewarganegaraan,
+                        "pekerjaan"=>$request->pekerjaan,
                         "rt_rw"=>$request->rt."/".$request->rw,
                         "status_kawin"=>$request->status_kawin,
                         "no_kk"=>$request->no_kk,
