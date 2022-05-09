@@ -56,7 +56,7 @@
                                                         <label class="font-weight-bolder">Status Kawin</label>
                                                     </div>
                                                     <div class="col-md-4 controls">
-                                                        <select disabled class="select form-control" id="status_kawin"  name="status_kawin" aria-readonly="true">
+                                                        <select  readonly disabled class="select form-control" id="status_kawin"  name="status_kawin" aria-readonly="true">
                                                             <option selected="" value="BELUM MENIKAH">BELUM MENIKAH</option>
                                                             <option value="SUDAH MENIKAH">SUDAH MENIKAH</option>
                                                          
@@ -69,32 +69,28 @@
                                                         <label class="font-weight-bolder">Tempat Lahir</label></label>
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <input  readonly type="text" id="tempat_lahir"  value={{$datams->tempat_lahir}} class="form-control" name="tempat_lahir" placeholder="Tempat Lahir" />
+                                                        <input readonly type="text" id="tempat_lahir"  value={{$datams->tempat_lahir}} class="form-control" name="tempat_lahir" placeholder="Tempat Lahir" />
                                                     </div>
                                                     <div class="col-md-2 col-form-label">
-                                                        <label class="font-weight-bolder">NO KK</label></label>
+                                                        <label class="font-weight-bolder">Kewarganegaraan</label></label>
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <input  readonly type="text" id="no_kk"  value={{$datams->no_kk}} class="form-control" name="no_kk" placeholder="NO KK" />
+                                                        <input readonly type="text" id="kewarganegaraan" class="form-control"  value={{$datams->kewarganegaraan}} name="kewarganegaraan" placeholder="Kewarganegaraan" />
                                                     </div>
+                                                   
                                                 </div>
                                                 <div class="form-group row">
                                                     <div class="col-md-2 col-form-label">
                                                         <label class="font-weight-bolder">Tanggal Lahir</label></label>
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <input disabled readonly type="text" id="tgl_lahir"  value={{$datams->tgl_lahir}} name="tgl_lahir" class="form-control flatpickr-basic" placeholder="YYYY-MM-DD" />
+                                                        <input readonly type="text" id="tgl_lahir"  value={{$datams->tgl_lahir}} name="tgl_lahir" class="form-control flatpickr-basic" placeholder="YYYY-MM-DD" />
                                                     </div>
-                                                   
-                                                    <div class="col-md-2">
-                                                            <label class="font-weight-bolder">Status<span
-                                                                    class="required">*</span></label>
+                                                    <div class="col-md-2 col-form-label">
+                                                        <label class="font-weight-bolder">Pekerjaan</label></label>
                                                     </div>
-                                                    <div class="col-md-4 controls">
-                                                            <select readonly  class="select form-control" id="status"  name="status" aria-readonly="true">
-                                                                <option selected="" value="ACTIVE">ACTIVE</option>
-                                                                <option value="INACTIVE">INACTIVE</option>
-                                                            </select>
+                                                    <div class="col-md-4">
+                                                        <input readonly type="text" id="pekerjaan" class="form-control"  value={{$datams->kewarganegaraan}} name="pekerjaan" placeholder="Agama" />
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
@@ -102,10 +98,16 @@
                                                         <label class="font-weight-bolder">Jenis Kelamin</label></label>
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <select class="select form-control" id="jenkel"  name="jenkel"  readonly required>
+                                                        <select class="select form-control" id="jenkel"  name="jenkel" required>
                                                             <option selected="" value="Pria">Pria</option>
                                                             <option value="Wanita">Wanita</option>
                                                         </select>
+                                                    </div>
+                                                    <div class="col-md-2 col-form-label">
+                                                        <label class="font-weight-bolder">NO KK</label></label>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <input readonly type="text" id="no_kk"  value={{$datams->no_kk}} class="form-control" name="no_kk" placeholder="NO KK" />
                                                     </div>
                                                 </div>
                                             
@@ -114,22 +116,31 @@
                                                         <label class="font-weight-bolder">Alamat</label></label>
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <textarea   readonly class="form-control" id="alamat"  name="alamat" rows="3" placeholder="Alamat"> {{$datams->alamat}}</textarea>
+                                                        <textarea disabled class="form-control" id="alamat"  name="alamat" rows="3" placeholder="Alamat"> {{$datams->alamat}}</textarea>
                                                     </div>
-                                                    
+                                                      
+                                                    <div class="col-md-2">
+                                                        <label class="font-weight-bolder">Status<span
+                                                                class="required">*</span></label>
+                                                    </div>
+                                                    <div class="col-md-4 controls">
+                                                            <select readonly class="select2 form-control" id="status"  name="status" aria-readonly="true">
+                                                                <option selected="" value="ACTIVE">ACTIVE</option>
+                                                                <option value="INACTIVE">INACTIVE</option>
+                                                            </select>
+                                                    </div>
                                                 </div>
                                                 <div class="form-group row">
                                                     <div class="col-md-2 col-form-label">
                                                         <label class="font-weight-bolder">RT RW</label></label>
                                                     </div>
                                                     <div class="col-2">
-                                                        <input  readonly type="text" id="rt" class="form-control" name="rt"  placeholder="RT" />
+                                                        <input readonly type="text" id="rt" class="form-control" name="rt"  placeholder="RT" />
                                                     </div>
-                                                    <div class="col-2">  <input  readonly type="text" id="rw" class="form-control" name="rw" placeholder="RW" />
+                                                        <div  class="col-2">  <input  readonly type="text" id="rw" class="form-control" name="rw" placeholder="RW" />
                                                     </div>
                                                     
                                                 </div>
-                                            </div>
                                            
                                         </div>
                                     

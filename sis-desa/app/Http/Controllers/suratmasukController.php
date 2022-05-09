@@ -228,12 +228,12 @@ class suratmasukController extends Controller
                     # code...
                     $btn  = '<a href="javascript:void(0)" data-toggle="modal" data-id="'.$data->id.'" data-target="#modaldownload2" class="btn btn-icon btn-icon rounded-circle btn-info mr-1 mb-1"><span class="fa fa-light fa-download"></span> </a>';
                     $btn .= '<a href="javascript:void(0)" data-toggle="modal" data-id="'.$data->id.'" data-target="#modaldownload" class="btn btn-icon btn-icon rounded-circle btn-primary mr-1 mb-1"><span class="fa fa-light fa-download"></span> </a>';
-                    $btn .= '<a href="javascript:void(0)" data-id="'.$data->id.'" data-toggle="modal" data-target="#modaldel"  class="btn btn-icon btn-icon rounded-circle btn-danger mr-1 mb-1"><span class="fa fa-light fa-trash-can"></span></a>';
+                    $btn .= '<a href="javascript:void(0)" data-id="'.$data->id.'" data-toggle="modal" data-target="#modaldel"  class="btn btn-icon btn-icon rounded-circle btn-danger mr-1 mb-1"><span class="fa fa-light fa-trash"></span></a>';
                     return $btn;
                 }else {
                     # code...
                     $btn  = '<a href="javascript:void(0)" data-toggle="modal" data-id="'.$data->id.'" data-target="#modaldownload2" class="btn btn-icon btn-icon rounded-circle btn-info mr-1 mb-1"><span class="fa fa-light fa-download"></span> </a>';
-                    $btn .= '<a href="javascript:void(0)" data-id="'.$data->id.'" data-toggle="modal" data-target="#modaldel"  class="btn btn-icon btn-icon rounded-circle btn-danger mr-1 mb-1"><span class="fa fa-light fa-trash-can"></span></a>';
+                    $btn .= '<a href="javascript:void(0)" data-id="'.$data->id.'" data-toggle="modal" data-target="#modaldel"  class="btn btn-icon btn-icon rounded-circle btn-danger mr-1 mb-1"><span class="fa fa-light fa-trash"></span></a>';
                     return $btn;
                 }
                 

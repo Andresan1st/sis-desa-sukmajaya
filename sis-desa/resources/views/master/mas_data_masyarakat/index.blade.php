@@ -48,6 +48,8 @@
                                                 <th width="10%">Tanggal Lahir</th>
                                                 <th width="10%">Alamat</th>
                                                 <th width="10%">Agama</th>
+                                                <th width="10%">Kewarganegaraan</th>
+                                                <th width="10%">Pekerjaan</th>
                                                 <th width="10%">Status Kawin</th>
                                                 <th width="10%">Nomor KK</th>
                                                 <th width="10%">Action</th>
@@ -65,6 +67,8 @@
                                                 <th width="10%">Tanggal Lahir</th>
                                                 <th width="10%">Alamat</th>
                                                 <th width="10%">Agama</th>
+                                                <th width="10%">Kewarganegaraan</th>
+                                                <th width="10%">Pekerjaan</th>
                                                 <th width="10%">Status Kawin</th>
                                                 <th width="10%">Nomor KK</th>
                                                 <th width="10%">Action</th>
@@ -99,6 +103,8 @@
                     {data: 'tgl_lahir', name: 'tgl_lahir'},
                     {data: 'alamat', name: 'alamat'},
                     {data: 'agama', name: 'agama'},
+                    {data: 'kewarganegaraan', name: 'kewarganegaraan'},
+                    {data: 'pekerjaan', name: 'pekerjaan'},
                     {data: 'status_kawin', name: 'status_kawin'},
                     {data: 'no_kk', name: 'no_kk'},
 	                 {data: 'action', name: 'action', orderable: false, searchable: false},

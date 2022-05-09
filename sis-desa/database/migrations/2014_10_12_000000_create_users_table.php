@@ -13,19 +13,21 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('username');
-            $table->string('email')->nullable();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->string('role')->nullable();
-            $table->rememberToken();
-            $table->unsignedBigInteger('id_pegawai')->nullable();
-            $table->foreign('id_pegawai')->references('id')->on('tb_pegawai');		
-            $table->timestamps();
-            $table->string('status');
-        });
+        if (!Schema::hasTable('users')) {
+            Schema::create('users', function (Blueprint $table) {
+                $table->id();
+                $table->string('username');
+                $table->string('email')->nullable();
+                $table->timestamp('email_verified_at')->nullable();
+                $table->string('password');
+                $table->string('role')->nullable();
+                $table->rememberToken();
+                $table->unsignedBigInteger('id_pegawai')->nullable();
+                $table->foreign('id_pegawai')->references('id')->on('tb_pegawai');		
+                $table->timestamps();
+                $table->string('status');
+            });
+        }
     }
 
     /**

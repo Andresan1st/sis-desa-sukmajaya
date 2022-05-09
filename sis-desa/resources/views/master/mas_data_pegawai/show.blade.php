@@ -96,8 +96,7 @@
                                                 </div>
                                                 <div class="form-group row">
                                                     <div class="col-md-2">
-                                                        <label class="font-weight-bolder">Organisasi<span
-                                                                class="required">*</span></label>
+                                                        <label class="font-weight-bolder">Organisasi</label>
                                                     </div>
                                                     <div class="col-md-4 controls">
                                                         <select class="select2 form-control" id="id_organisasi"  name="id_organisasi"  required>

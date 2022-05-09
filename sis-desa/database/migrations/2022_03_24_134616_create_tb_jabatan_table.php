@@ -13,12 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tb_jabatan', function (Blueprint $table) {
-            $table->bigIncrements("id");
-            $table->string("nama_jabatan",90)->nullable();
-            $table->string("status",20)->nullable();
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('tb_jabatan')) {
+            Schema::create('tb_jabatan', function (Blueprint $table) {
+                $table->bigIncrements("id");
+                $table->string("nama_jabatan",90)->nullable();
+                $table->string("status",20)->nullable();
+                $table->timestamps();
+            });
+        }
     }
 
     /**

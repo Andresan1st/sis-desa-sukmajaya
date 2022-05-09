@@ -72,11 +72,12 @@
                                                             <input type="text" id="tempat_lahir" class="form-control" name="tempat_lahir" placeholder="Tempat Lahir" />
                                                         </div>
                                                         <div class="col-md-2 col-form-label">
-                                                            <label class="font-weight-bolder">NO KK</label></label>
+                                                            <label class="font-weight-bolder">Kewarganegaraan</label></label>
                                                         </div>
                                                         <div class="col-md-4">
-                                                            <input type="text" id="no_kk" class="form-control" name="no_kk" placeholder="NO KK" />
+                                                            <input type="text" id="kewarganegaraan" class="form-control" name="kewarganegaraan" placeholder="Kewarganegaraan" />
                                                         </div>
+                                                     
                                                     </div>
                                                     <div class="form-group row">
                                                         <div class="col-md-2 col-form-label">
@@ -84,6 +85,12 @@
                                                         </div>
                                                         <div class="col-md-4">
                                                             <input type="text" id="tgl_lahir" name="tgl_lahir" class="form-control flatpickr-basic" placeholder="YYYY-MM-DD" />
+                                                        </div>
+                                                        <div class="col-md-2 col-form-label">
+                                                            <label class="font-weight-bolder">Pekerjaan</label></label>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <input type="text" id="pekerjaan" class="form-control" name="pekerjaan" placeholder="Pekerjaan" />
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
@@ -95,6 +102,12 @@
                                                                 <option selected="" value="Pria">Pria</option>
                                                                 <option value="Wanita">Wanita</option>
                                                             </select>
+                                                        </div>
+                                                        <div class="col-md-2 col-form-label">
+                                                            <label class="font-weight-bolder">NO KK</label></label>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <input type="text" id="no_kk" class="form-control" name="no_kk" placeholder="NO KK" />
                                                         </div>
                                                     </div>
                                                 

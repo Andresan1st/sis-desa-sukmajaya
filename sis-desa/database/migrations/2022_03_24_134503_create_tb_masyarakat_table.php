@@ -24,6 +24,8 @@ return new class extends Migration
             $table->string("rt_rw",10)->nullable();
             $table->string("agama",15)->nullable();
             $table->string("status_kawin",30)->nullable();
+            $table->string("kewarganegaraan",30)->nullable();
+            $table->string("pekerjaan",100)->nullable();
             $table->string("no_kk",100)->nullable();
             $table->string("status",100)->nullable();
             $table->timestamps();

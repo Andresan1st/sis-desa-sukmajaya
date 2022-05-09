@@ -134,7 +134,7 @@
                             }
                         }).then((result) => {
                             if (result.isConfirmed) {
-                                window.location.href = "{{ route('mas_data_jabatan_index') }}";
+                                window.location.href = "{{ route('mas_data_jabatan') }}";
                             } else if (result.isDenied) {
                                 return false;
                             }

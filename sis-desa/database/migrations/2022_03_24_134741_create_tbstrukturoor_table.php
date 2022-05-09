@@ -13,12 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tbstrukturoor', function (Blueprint $table) {
-            $table->bigIncrements("id");
-            $table->string("nama_organisasi",90)->nullable();
-            $table->string("status",50)->nullable();
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('tb_pegawai')) {
+            Schema::create('tb_pegawai', function (Blueprint $table) {
+                $table->bigIncrements("id");
+                $table->string("nama_organisasi",90)->nullable();
+                $table->string("status",50)->nullable();
+                $table->timestamps();
+            });
+        }
     }
 
     /**
