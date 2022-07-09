@@ -32,7 +32,7 @@
                                 <p class="card-text mr-25 mb-0"> Perbulan</p>
                             </div>
                         </div>
-                        <div class="card-body statistics-body">
+                        <div class="card-body statistics-body ">
                             <div class="row">
                                 <div class="col-md-3 col-sm-6 col-12 mb-2 mb-md-0">
                                     <div class="media">
@@ -60,29 +60,36 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-3 col-sm-6 col-12 mb-2 mb-sm-0">
-                                    <div class="media">
-                                        <div class="avatar bg-light-danger mr-2">
-                                            <div class="avatar-content">
-                                                <i class="fa fa-solid  fa-users-cog"></i>
-                                            </div>
+                                
+                            </div>
+                            <br>
+                            <br>
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="card">
+                                        <div
+                                            class="card-header d-flex justify-content-center align-items-end bg-primary" style="text-align:center">
+                                            <h4 class="card-title" style="color: #ecf0f1"
+                                                style="margin-bottom: 70px; ">GRAFIK PENDUDUK</h4>
                                         </div>
-                                        <div class="media-body my-auto">
-                                            <h4 id="pegawai" class="font-weight-bolder mb-0"></h4>
-                                            <p class="card-text font-small-3 mb-0">Pegawai</p>
+                                        <div class="card-content">
+                                            <div class="card-body pb-0">
+                                                <canvas id="bar-multichart" height="250"></canvas>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-3 col-sm-6 col-12">
-                                    <div class="media">
-                                        <div class="avatar bg-light-success mr-2">
-                                            <div class="avatar-content">
-                                                <i class="fa fa-solid  fa-users"></i>
-                                            </div>
+                                <div class="col-lg-4">
+                                    <div class="card">
+                                        <div
+                                            class="card-header d-flex justify-content-center align-items-end bg-primary" style="text-align:center">
+                                            <h4 class="card-title" style="color: #ecf0f1"
+                                                style="margin-bottom: 70px; ">GRAFIK PENDUDUK YANG BISA MENGAMBIL SUARA</h4>
                                         </div>
-                                        <div class="media-body my-auto">
-                                            <h4 id="masyarakat" class="font-weight-bolder mb-0"></h4>
-                                            <p class="card-text font-small-3 mb-0">Masyarakat</p>
+                                        <div class="card-content">
+                                            <div class="card-body pb-0">
+                                                <canvas id="bar-multichart2" height="250"></canvas>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -112,7 +119,99 @@
 
             getdatadashboard();
 
-            
+            var multibarchart=[];
+            $.ajax({
+                url:  "<?php echo url('dashboard/statistikpenduduk') ?>",
+                type: "get",
+                dataType: "JSON",
+                success: function (data) {
+                    var ctxmultichart = document.getElementById('bar-multichart').getContext('2d');
+                    var label =[];
+                    var total=[];
+                    var masyarakat = data.chart
+                    for(var i in masyarakat){
+                        total.push(masyarakat[i].total);
+                        label.push(masyarakat[i].jenkel);
+                    }
+                    var data = {
+                        labels: label,
+                        datasets: [
+                            {
+                                label:  'STATISTIK',
+                                data:total,
+                                backgroundColor:'#74b9ff',
+                                borderWidth: 1
+                            }
+                        ]
+                    };
+
+                    var myBarChart = new Chart(ctxmultichart, {
+                        type: 'bar',
+                        data: data,
+                        options: {
+                            barValueSpacing: 20,
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        min: 0,
+                                    }
+                                }]
+                            }
+                        }
+                    });
+                   
+                    refreshIntervalId = setInterval(function() {
+                        statistik_penduduk()
+                     
+                    }, 60000); //request every x seconds
+                }
+            });
+             
+            $.ajax({
+                url:  "<?php echo url('dashboard/statistiksuara') ?>",
+                type: "get",
+                dataType: "JSON",
+                success: function (data) {
+                    var ctxmultichart2 = document.getElementById('bar-multichart2').getContext('2d');
+                    var label2 =[];
+                    var total2=[];
+                    var suara = data.chart
+                    for(var i in suara){
+                        total2.push(suara[i].total);
+                        label2.push("TOTAL SUARA");
+                    }
+                    //console.log(total2,label2)
+                    var data2 = {
+                        labels: label2,
+                        datasets: [
+                            {
+                                label:  'STATISTIK',
+                                data:total2,
+                                backgroundColor:'#00b894',
+                                borderWidth: 1
+                            }
+                        ]
+                    };
+
+                    var myBarChart = new Chart(ctxmultichart2, {
+                        type: 'bar',
+                        data: data2,
+                        options: {
+                            barValueSpacing: 20,
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        min: 0,
+                                    }
+                                }]
+                            }
+                        }
+                    });
+                    refreshIntervalId = setInterval(function() {
+                        statistik_suara()
+                    }, 60000); //request every x seconds
+                }
+            });
             setInterval(function() {
                 getdatadashboard();
             }, 10000);   
@@ -135,6 +234,99 @@
                     
             });
         }
-       
+       function statistik_penduduk(){
+        var multibarchart=[];
+            $.ajax({
+                url:  "<?php echo url('dashboard/statistikpenduduk') ?>",
+                type: "get",
+                dataType: "JSON",
+                success: function (data) {
+                    console.log("masuk statistik penduduk")
+                    $('#bar-multichart').replaceWith($('<canvas id="bar-multichart" height="250"></canvas>'));
+                    var newctxmultichart = document.getElementById('bar-multichart').getContext('2d');
+                    var label =[];
+                    var total=[];
+                    var masyarakat = data.chart
+                    for(var i in masyarakat){
+                        total.push(masyarakat[i].total);
+                        label.push(masyarakat[i].jenkel);
+                    }
+                    console.log(total,label);
+                    var data = {
+                        labels: label,
+                        datasets: [
+                            {
+                                label:  'STATISTIK',
+                                data:total,
+                                backgroundColor:'#74b9ff',
+                                borderWidth: 1
+                            }
+                        ]
+                    };
+                   
+                    var myBarChart = new Chart(newctxmultichart, {
+                        type: 'bar',
+                        data: data,
+                        options: {
+                            barValueSpacing: 20,
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        min: 0,
+                                    }
+                                }]
+                            }
+                        }
+                    });
+                    console.log(myBarChart);
+                }
+            });
+       }
+       function statistik_suara(){
+        var multibarchart=[];
+            $.ajax({
+                url:  "<?php echo url('dashboard/statistiksuara') ?>",
+                type: "get",
+                dataType: "JSON",
+                success: function (data) {
+                    $('#bar-multichart2').replaceWith($('<canvas id="bar-multichart2" height="250"></canvas>'));
+                    var ctxmultichart2 = document.getElementById('bar-multichart2').getContext('2d');
+                    var label2 =[];
+                    var total2=[];
+                    var suara = data.chart
+                    for(var i in suara){
+                        total2.push(suara[i].total);
+                        label2.push("TOTAL SUARA");
+                    }
+                    //console.log(total2,label2)
+                    var data2 = {
+                        labels: label2,
+                        datasets: [
+                            {
+                                label:  'STATISTIK',
+                                data:total2,
+                                backgroundColor:'#00b894',
+                                borderWidth: 1
+                            }
+                        ]
+                    };
+
+                    var myBarChart2 = new Chart(ctxmultichart2, {
+                        type: 'bar',
+                        data: data2,
+                        options: {
+                            barValueSpacing: 20,
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        min: 0,
+                                    }
+                                }]
+                            }
+                        }
+                    });
+                }
+            });
+       }
     </script>
 @endsection

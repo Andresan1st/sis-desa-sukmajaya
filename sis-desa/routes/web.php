@@ -31,6 +31,8 @@ Route::group(['middleware'=> ['auth','cekrole:admin,kepala desa,wakil ketua,seke
         Route::get('/home','home')->name('home');
         Route::get('/dashboard','index')->name('dashboard_statistic');
         Route::get('/dashboard/getdatadashboard','getdata');
+        Route::get('/dashboard/statistikpenduduk','getpenduduk');
+        Route::get('/dashboard/statistiksuara','getsuara');
     });
 
     Route::get('logout',[LoginController::class,'logout'])->name('logoutform');
@@ -140,4 +142,3 @@ Route::group(['middleware'=> ['auth','cekrole:admin,kepala desa,wakil ketua,seke
         Route::post('/submit_color','submit_color')->name('submit.color');
     }); 
 });
-

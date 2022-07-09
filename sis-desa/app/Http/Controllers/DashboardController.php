@@ -122,6 +122,35 @@ class DashboardController extends Controller
       
     }
 
+    public function getpenduduk(){
+        set_time_limit(0);
+        $month = (int)date("m");
+    
+        $masyarakat = MasdatamasyarakatModel::selectRaw("jenkel,count(*) as total")->groupBy('jenkel')->get();
+        
+       //dd($masyarakat);
+
+        return  Response()->json([
+            "chart"=>$masyarakat,
+            
+         ]);
+      
+    }
+
+    public function getsuara(){
+        set_time_limit(0);
+      
+        $masyarakat = MasdatamasyarakatModel::selectRaw("count(*) as total")->whereRaw("TIMESTAMPDIFF(YEAR, tgl_lahir, CURDATE()) > 17")->get();
+        
+       //dd($masyarakat);
+
+        return  Response()->json([
+            "chart"=>$masyarakat,
+            
+         ]);
+      
+    }
+
     public function home()
     {
         $color = ColorThemeModel::first();
