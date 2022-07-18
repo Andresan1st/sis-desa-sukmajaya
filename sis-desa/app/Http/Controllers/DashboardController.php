@@ -11,6 +11,8 @@ use Validator;
 use Auth;
 use Carbon\Carbon;
 use App\Models\MasdatamasyarakatModel;
+use App\Models\MasdanabantuanModel;
+use App\Models\MasdatakeuanganModel;
 use App\Models\MasdatapegawaiModel;
 use App\Models\suratmasukModel;
 use App\Models\suratkeluarModel;
@@ -113,11 +115,17 @@ class DashboardController extends Controller
         $totalmasyarakat = $masyarakat->sum('total');
 
 
+        
+        $total_keuangan = MasdatakeuanganModel::selectRaw("sum(total_keuangan) as total_keuangan")->pluck('total_keuangan')->first();
+
+        // dd($total_keuangan);
+
         return  Response()->json([
             "totalsuratmasuk"=>$totalsuratmasuk,
             "totalsuratkeluar"=>$totalsuratkeluar,
             "totalpegawai"=>$totalpegawai,
             "totalmasyarakat"=>$totalmasyarakat,
+            "totalkeuangan"=>number_format(  $total_keuangan,2,',','.'),
          ]);
       
     }
@@ -146,6 +154,23 @@ class DashboardController extends Controller
 
         return  Response()->json([
             "chart"=>$masyarakat,
+            
+         ]);
+      
+    }
+
+    public function getdanabantuan(){
+        set_time_limit(0);
+        $month = (int)date("m");
+        $year = (int)date("y");
+        $danabantuan = MasdanabantuanModel::selectRaw("count(*) as total")
+        // ->whereMonth("tanggal",$month)
+        // ->whereYear("tanggal",$year)
+        ->get();
+       // dd($danabantuan);
+        // dd($danabantuan->total);
+        return  Response()->json([
+            "danabantuan"=>$danabantuan,
             
          ]);
       

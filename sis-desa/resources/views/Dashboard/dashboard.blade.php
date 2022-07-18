@@ -60,7 +60,19 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+                                <div class="col-md-3 col-sm-6 col-12 mb-2 mb-md-0">
+                                    <div class="media">
+                                        <div class="avatar bg-light-info mr-2">
+                                            <div class="avatar-content">
+                                                <i class="fa fa-solid fa-money-bill"></i>
+                                            </div>
+                                        </div>
+                                        <div class="media-body my-auto">
+                                            <h4 id="total_keuangan" class="font-weight-bolder mb-0"></h4>
+                                            <p class="card-text font-small-3 mb-0">TOTAL KEUANGAN</p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <br>
                             <br>
@@ -84,7 +96,7 @@
                                         <div
                                             class="card-header d-flex justify-content-center align-items-end bg-primary" style="text-align:center">
                                             <h4 class="card-title" style="color: #ecf0f1"
-                                                style="margin-bottom: 70px; ">GRAFIK PENDUDUK YANG BISA MENGAMBIL SUARA</h4>
+                                                style="margin-bottom: 70px; ">GRAFIK  SUARA</h4>
                                         </div>
                                         <div class="card-content">
                                             <div class="card-body pb-0">
@@ -93,6 +105,21 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-lg-4">
+                                    <div class="card">
+                                        <div
+                                            class="card-header d-flex justify-content-center align-items-end bg-primary" style="text-align:center">
+                                            <h4 class="card-title" style="color: #ecf0f1"
+                                                style="margin-bottom: 70px; ">GRAFIK DANA BANTUAN</h4>
+                                        </div>
+                                        <div class="card-content">
+                                            <div class="card-body pb-0">
+                                                <canvas id="bar-multichart3" height="250"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            
                             </div>
                         </div>
                     </div>
@@ -212,6 +239,55 @@
                     }, 60000); //request every x seconds
                 }
             });
+
+            $.ajax({
+                url:  "<?php echo url('dashboard/statistikdanabantuan') ?>",
+                type: "get",
+                dataType: "JSON",
+                success: function (data) {
+                    var ctxmultichart3 = document.getElementById('bar-multichart3').getContext('2d');
+                    var label3 =[];
+                    var total3=[];
+                    var danabantuan = data.danabantuan
+                    for(var i in danabantuan){
+                        console.log(danabantuan[i].total,"co");
+                        total3.push(danabantuan[i].total);
+                        label3.push("TOTAL DANA");
+                    }
+                    var data3 = {
+                        labels: label3,
+                        datasets: [
+                            {
+                                label:  'STATISTIK',
+                                data:total3,
+                                backgroundColor:'#74b9ff',
+                                borderWidth: 1
+                            }
+                        ]
+                    };
+
+                    var myBarChart3 = new Chart(ctxmultichart3, {
+                        type: 'bar',
+                        data: data3,
+                        options: {
+                            barValueSpacing: 20,
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        min: 0,
+                                    }
+                                }]
+                            }
+                        }
+                    });
+                   
+                    refreshIntervalId = setInterval(function() {
+                        statistik_dana()
+                     
+                    }, 60000); //request every x seconds
+                }
+            });
+            
             setInterval(function() {
                 getdatadashboard();
             }, 10000);   
@@ -230,6 +306,7 @@
                      $("#surat_keluar").text(response.totalsuratkeluar);
                     $("#pegawai").text(response.totalpegawai);
                     $("#masyarakat").text(response.totalmasyarakat);
+                    $("#total_keuangan").text(response.totalkeuangan);
                 }
                     
             });
@@ -314,6 +391,53 @@
                     var myBarChart2 = new Chart(ctxmultichart2, {
                         type: 'bar',
                         data: data2,
+                        options: {
+                            barValueSpacing: 20,
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        min: 0,
+                                    }
+                                }]
+                            }
+                        }
+                    });
+                }
+            });
+       }
+
+       function statistik_dana(){
+        var multibarchart=[];
+            $.ajax({
+                url:  "<?php echo url('dashboard/statistikdana') ?>",
+                type: "get",
+                dataType: "JSON",
+                success: function (data) {
+                    $('#bar-multichart3').replaceWith($('<canvas id="bar-multichart3" height="250"></canvas>'));
+                    var ctxmultichart3 = document.getElementById('bar-multichart3').getContext('2d');
+                    var label3 =[];
+                    var total3=[];
+                    var danabantuan = data.danabantuan
+                    for(var i in danabantuan){
+                        total3.push(danabantuan[i].total);
+                        label3.push("TOTAL SUARA");
+                    }
+                    //console.log(total2,label2)
+                    var data3 = {
+                        labels: label3,
+                        datasets: [
+                            {
+                                label:  'STATISTIK',
+                                data:total3,
+                                backgroundColor:'#00b894',
+                                borderWidth: 1
+                            }
+                        ]
+                    };
+
+                    var myBarChart3 = new Chart(ctxmultichart3, {
+                        type: 'bar',
+                        data: data3,
                         options: {
                             barValueSpacing: 20,
                             scales: {

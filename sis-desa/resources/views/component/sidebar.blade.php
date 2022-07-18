@@ -18,7 +18,10 @@
                 </li>
                 <li><a class="d-flex align-items-center" href="/mas_data_masyarakat"><i data-feather="user"></i><span class="menu-item text-truncate" data-i18n="Input Groups">Data Masyarakat</span></a>
                 </li>
-            
+                <li><a class="d-flex align-items-center" href="/mas_data_bantuan"><i data-feather="user"></i><span class="menu-item text-truncate" data-i18n="Input Groups">Data Bantuan Masyarakat</span></a>
+                </li>
+                <li><a class="d-flex align-items-center" href="/mas_data_keuangan"><i data-feather="user"></i><span class="menu-item text-truncate" data-i18n="Input Groups">Data Keuangan</span></a>
+                </li>
             </ul>
         </li>
         <li class="nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="copy"></i><span class="menu-title text-truncate" data-i18n="Form Elements">Modul Surat</span></a>
@@ -45,6 +48,10 @@
                 </li>
                 <li><a class="d-flex align-items-center" href="/mas_data_masyarakat"><i data-feather="user"></i><span class="menu-item text-truncate" data-i18n="Input Groups">Data Masyarakat</span></a>
                 </li>
+                <li><a class="d-flex align-items-center" href="/mas_data_bantuan"><i data-feather="user"></i><span class="menu-item text-truncate" data-i18n="Input Groups">Data Bantuan Masyarakat</span></a>
+                </li>
+                <li><a class="d-flex align-items-center" href="/mas_data_keuangan"><i data-feather="user"></i><span class="menu-item text-truncate" data-i18n="Input Groups">Data Keuangan</span></a>
+                </li>
             </ul>
         </li>
         <li class="nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="copy"></i><span class="menu-title text-truncate" data-i18n="Form Elements">Modul Surat</span></a>
@@ -61,7 +68,8 @@
         <ul class="menu-content">
             <li><a class="d-flex align-items-center" href="/mas_data_masyarakat"><i data-feather="user"></i><span class="menu-item text-truncate" data-i18n="Input Groups">Data Masyarakat</span></a>
             </li>
-        
+            <li><a class="d-flex align-items-center" href="/mas_data_bantuan"><i data-feather="user"></i><span class="menu-item text-truncate" data-i18n="Input Groups">Data Bantuan Masyarakat</span></a>
+            </li>
         </ul>
     </li>
     <li class="nav-item open"><a class="d-flex align-items-center" href="#"><i data-feather="copy"></i><span class="menu-title text-truncate" data-i18n="Form Elements">Modul Surat</span></a>

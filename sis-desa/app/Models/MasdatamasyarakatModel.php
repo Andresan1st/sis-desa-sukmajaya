@@ -16,4 +16,8 @@ class MasdatamasyarakatModel extends Model
     {
         return $this->hasMany(datasuratkeluarModel::class,'masyarakat_id','nik');
     }
+
+    function masyarakat(){
+        return $this->hasOne('App\Models\MasdanabantuanModel','id_masyarakat','id'); 
+    }
 }

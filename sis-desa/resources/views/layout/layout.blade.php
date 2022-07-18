@@ -181,6 +181,7 @@
     <script src="{{asset('app-assets/js/jquery.min.js')}}"></script>
     <script src="{{asset('app-assets/js/chart.min.js')}}"></script>
      <script src="{{asset('app-assets/vendors/js/vendors.min.js')}}"></script>
+     <script src="{{asset('app-assets/js/autonumeric.js')}}"></script>
      <!-- BEGIN Vendor JS-->
    
      <!-- BEGIN: Page Vendor JS-->

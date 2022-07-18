@@ -12,6 +12,8 @@ use App\Http\Controllers\UserroleController;
 use App\Http\Controllers\RepsuratController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ColorController;
+use App\Http\Controllers\MasdanabantuanController;
+use App\Http\Controllers\MaskeuangandesaController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -33,6 +35,7 @@ Route::group(['middleware'=> ['auth','cekrole:admin,kepala desa,wakil ketua,seke
         Route::get('/dashboard/getdatadashboard','getdata');
         Route::get('/dashboard/statistikpenduduk','getpenduduk');
         Route::get('/dashboard/statistiksuara','getsuara');
+        Route::get('/dashboard/statistikdanabantuan','getdanabantuan');
     });
 
     Route::get('logout',[LoginController::class,'logout'])->name('logoutform');
@@ -80,6 +83,30 @@ Route::group(['middleware'=> ['auth','cekrole:admin,kepala desa,wakil ketua,seke
         Route::get('/mas_data_masyarakat/edit/{id}','edit');
         Route::get('/mas_data_masyarakat/show/{id}','show');
         Route::get('/mas_data_masyarakat/delete/{id}','destroy');
+    });
+
+
+    Route::controller(MasdanabantuanController::class)->group(function(){
+        Route::get('/mas_data_bantuan','index')->name('mas_data_bantuan');;
+        Route::get('/mas_data_bantuan/create','create')->name('mas_data_bantuan_create');
+        Route::get('/mas_data_bantuan/apibantuan','apibantuan');
+        Route::post('/mas_data_bantuan/store','store');
+        Route::post('/mas_data_bantuan/update/{id}','update');
+        Route::get('/mas_data_bantuan/edit/{id}','edit');
+        Route::get('/mas_data_bantuan/show/{id}','show');
+        Route::get('/mas_data_bantuan/delete/{id}','destroy');
+    });
+
+
+    Route::controller(MaskeuangandesaController::class)->group(function(){
+        Route::get('/mas_data_keuangan','index')->name('mas_data_keuangan');;
+        Route::get('/mas_data_keuangan/create','create')->name('mas_data_keuangan_create');
+        Route::get('/mas_data_keuangan/apikeuangan','apikeuangan');
+        Route::post('/mas_data_keuangan/store','store');
+        Route::post('/mas_data_keuangan/update/{id}','update');
+        Route::get('/mas_data_keuangan/edit/{id}','edit');
+        Route::get('/mas_data_keuangan/show/{id}','show');
+        Route::get('/mas_data_keuangan/delete/{id}','destroy');
     });
 
 
