@@ -36,6 +36,7 @@ Route::group(['middleware'=> ['auth','cekrole:admin,kepala desa,wakil ketua,seke
         Route::get('/dashboard/statistikpenduduk','getpenduduk');
         Route::get('/dashboard/statistiksuara','getsuara');
         Route::get('/dashboard/statistikdanabantuan','getdanabantuan');
+        Route::get('/dashboard/listpegawaioor','getdataorganisasi');
     });
 
     Route::get('logout',[LoginController::class,'logout'])->name('logoutform');

@@ -17,7 +17,11 @@ class MasdatapegawaiModel extends Model
         return $this->belongsTo('App\Models\masdatajabtanModel','id_jabatan','id'); 
     }
 
+    // function organisasi(){
+    //     return $this->hasMany('App\Models\MasstrukturoorModel','id_organisasi','id'); 
+    // }
+    
     function organisasi(){
-        return $this->hasMany('App\Models\MasstrukturoorModel','id_organisasi','id'); 
+        return $this->belongsTo('App\Models\MasstrukturoorModel','id_organisasi','id'); 
     }
 }

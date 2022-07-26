@@ -17,6 +17,7 @@ use App\Models\MasdatapegawaiModel;
 use App\Models\suratmasukModel;
 use App\Models\suratkeluarModel;
 use App\Models\ColorThemeModel;
+use App\Models\MasstrukturoorModel;
 
 class DashboardController extends Controller
 {
@@ -171,6 +172,18 @@ class DashboardController extends Controller
         // dd($danabantuan->total);
         return  Response()->json([
             "danabantuan"=>$danabantuan,
+            
+         ]);
+      
+    }
+
+    public function getdataorganisasi(){
+        set_time_limit(0);
+        $danabantuan = MasstrukturoorModel::with(['organisasi'])->get();
+       // dd($danabantuan);
+        // dd($danabantuan->total);
+        return  Response()->json([
+            "dataoor"=>$danabantuan,
             
          ]);
       

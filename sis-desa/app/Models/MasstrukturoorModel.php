@@ -13,8 +13,12 @@ class MasstrukturoorModel extends Model
     protected $fillable = ['nama_organisasi','status'];
 
 
+    // function organisasi(){
+    //     return $this->belongsTo('App\Models\MasdatapegawaiModel','id_organisasi','id'); 
+    // }
+
     function organisasi(){
-        return $this->belongsTo('App\Models\MasdatapegawaiModel','id_organisasi','id'); 
+        return $this->hasMany('App\Models\MasdatapegawaiModel','id_organisasi','id'); 
     }
 
 }
