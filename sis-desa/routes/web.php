@@ -168,13 +168,13 @@ Route::group(['middleware'=> ['auth','cekrole:admin,kepala desa,wakil ketua,seke
         Route::get('/get_data_masyarakat/{id_masyarakat}','get_data');
     });
 
+
     Route::controller(MasabsensiController::class)->group(function(){
         Route::get('/mas_data_absensi','index')->name('mas_data_absensi');;
         Route::get('/mas_data_absensi/Qrcode','qrcodescan');
-        Route::post('/mas_data_absensi/store','store');
+        Route::get('/mas_data_absensi/store/{id}','store');
     });
 
-    
     Route::controller(ColorController::class)->group(function(){
         Route::post('/submit_color','submit_color')->name('submit.color');
     }); 

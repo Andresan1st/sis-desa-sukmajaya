@@ -102,16 +102,40 @@
     })
 
     function onScanSuccess(qrCodeMessage) {
-        // document.getElementById('result').innerHTML = '<span class="result">'+qrCodeMessage+'</span>';
         Swal.fire({
-                html: "Absen Sukses",
-                icon: 'success',
-                confirmButtonText: 'OK'
-            }).then(okay => {
-                if (okay) {
-                    window.location.href = qrCodeMessage;
-                }
-            });
+            text: 'SILAHKAN KLIK TOMBOL OK UNTUK ABSEN',
+            icon: 'success',
+            confirmButtonText: `Yes`,
+            customClass: {
+                confirmButton: 'order-2',
+                denyButton: 'order-3',
+            }
+        }).then((result) => {
+            
+            if (result.isConfirmed) {
+                $.ajax({
+                url: "<?php echo url('mas_data_absensi/store/') ?>"+"/"+qrCodeMessage,
+                    type: "GET",
+                    dataType: "JSON",
+                    success: function(data) {
+                        if (data.success == "True") {
+                        
+                        } else if (data.errors) {
+                            Swal.fire({
+                                html: "Absen Sukses",
+                                icon: 'success',
+                                confirmButtonText: 'OK'
+                            })
+                        }
+                    },
+                });
+                window.location.href = "{{ route('scan.absensi') }}";
+            } else if (result.isDenied) {
+                return false;
+            }
+        });
+        
+            
     }
     function onScanError(errorMessage) {
     //handle scan error

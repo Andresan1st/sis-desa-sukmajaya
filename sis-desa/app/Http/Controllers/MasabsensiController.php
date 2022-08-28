@@ -40,16 +40,17 @@ class MasabsensiController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store($params)
     {
        DB::beginTransaction();
        try{
        
             $pg = db::table('users')->selectRaw("users.username,pg.nip,pg.nama")
-            ->leftJoin("mst_pegawai as pg","users.id_pegawai","pg.id")
+            ->leftJoin("tb_pegawai as pg","users.id_pegawai","pg.id")
             ->where("users.id", Auth::user()->id)
             ->first();
             
+            //dd($pg);
 
             $searchdata = MasabsenModel::where("nip",$pg->nip)->where('tanggal',date("Y-m-d"))->first();
 
@@ -57,12 +58,12 @@ class MasabsensiController extends Controller
                 $absen = MasabsenModel::create([
                     "nip"=>$pg->nip,
                     "tanggal"=>date("Y-m-d"),
-                    "jam_masuk"=>$request->jam_masuk,
+                    "jam_masuk"=>$params,
                     "status"=>"ACTIVE"
                 ]);
             }else{
                 $absen = MasabsenModel::where("nip",$pg->nip)->where('tanggal',date("Y-m-d"))->update([
-                    "jam_keluar"=>$request->jam_masuk,
+                    "jam_keluar"=>$params,
                 ]);
             }
 
