@@ -172,6 +172,8 @@ Route::group(['middleware'=> ['auth','cekrole:admin,kepala desa,wakil ketua,seke
         Route::get('/mas_data_absensi/Qrcode','qrcodescan');
         Route::post('/mas_data_absensi/store','store');
     });
+
+    
     Route::controller(ColorController::class)->group(function(){
         Route::post('/submit_color','submit_color')->name('submit.color');
     }); 
