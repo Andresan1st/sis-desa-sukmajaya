@@ -170,14 +170,11 @@ Route::group(['middleware'=> ['auth','cekrole:admin,kepala desa,wakil ketua,seke
 
     Route::controller(MasabsensiController::class)->group(function(){
         Route::get('/mas_data_absensi','index')->name('mas_data_absensi');;
-        Route::get('/mas_data_absensi/create','create')->name('mas_data_absensi_create');
-        Route::get('/mas_data_absensi/apiuserrole','apiuserrole');
+        Route::get('/mas_data_absensi/Qrcode','qrcodescan');
         Route::post('/mas_data_absensi/store','store');
-        Route::post('/mas_data_absensi/update/{id}','update');
-        Route::get('/mas_data_absensi/edit/{id}','edit');
-        Route::get('/mas_data_absensi/show/{id}','show');
-        Route::get('/mas_data_absensi/delete/{id}','destroy');
     });
+
+    
     Route::controller(ColorController::class)->group(function(){
         Route::post('/submit_color','submit_color')->name('submit.color');
     }); 
