@@ -15,6 +15,7 @@ use App\Http\Controllers\ColorController;
 use App\Http\Controllers\AbsensiController;
 use App\Http\Controllers\MasdanabantuanController;
 use App\Http\Controllers\MaskeuangandesaController;
+use App\Http\Controllers\MasabsensiController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -167,6 +168,16 @@ Route::group(['middleware'=> ['auth','cekrole:admin,kepala desa,wakil ketua,seke
         Route::get('/get_data_masyarakat/{id_masyarakat}','get_data');
     });
 
+    Route::controller(MasabsensiController::class)->group(function(){
+        Route::get('/mas_data_absensi','index')->name('mas_data_absensi');;
+        Route::get('/mas_data_absensi/create','create')->name('mas_data_absensi_create');
+        Route::get('/mas_data_absensi/apiuserrole','apiuserrole');
+        Route::post('/mas_data_absensi/store','store');
+        Route::post('/mas_data_absensi/update/{id}','update');
+        Route::get('/mas_data_absensi/edit/{id}','edit');
+        Route::get('/mas_data_absensi/show/{id}','show');
+        Route::get('/mas_data_absensi/delete/{id}','destroy');
+    });
     Route::controller(ColorController::class)->group(function(){
         Route::post('/submit_color','submit_color')->name('submit.color');
     }); 
