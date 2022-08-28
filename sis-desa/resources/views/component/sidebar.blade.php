@@ -81,4 +81,11 @@
         </ul>
     </li>
     @endif
+
+    <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="copy"></i><span class="menu-title text-truncate" data-i18n="Form Elements">Absensi</span></a>
+        <ul class="menu-content">
+            <li><a class="d-flex align-items-center" href="/scan_absensi"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Input Groups">Scan Absensi</span></a>
+            </li>
+        </ul>
+    </li>
 </ul>

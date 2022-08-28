@@ -12,6 +12,7 @@ use App\Http\Controllers\UserroleController;
 use App\Http\Controllers\RepsuratController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ColorController;
+use App\Http\Controllers\AbsensiController;
 use App\Http\Controllers\MasdanabantuanController;
 use App\Http\Controllers\MaskeuangandesaController;
 /*
@@ -169,4 +170,8 @@ Route::group(['middleware'=> ['auth','cekrole:admin,kepala desa,wakil ketua,seke
     Route::controller(ColorController::class)->group(function(){
         Route::post('/submit_color','submit_color')->name('submit.color');
     }); 
+
+    Route::controller(AbsensiController::class)->group(function(){
+        Route::get('/scan_absensi','scan_absensi')->name('scan.absensi');
+    });
 });
