@@ -21,10 +21,7 @@ class MasabsensiController extends Controller
      */
     public function index()
     {
-        $jam =  date("Y-m-d h:i:sa");
-        $qrcode = base64_encode(QrCode::format('svg')->size(200)->errorCorrection('H')->generate($jam));
-        $data = "data:image/png;base64,".$qrcode;
-        return view('absensi.generate_qr.index',compact('qrcode','data'));
+        return view('absensi.generate_qr.index');
     }
 
     /**
@@ -130,8 +127,11 @@ class MasabsensiController extends Controller
     }
 
     public function qrcodescan(){
-        $jam =  date("Y-m-d h:i:sa");
-        $qrcode = base64_encode(QrCode::format('svg')->size(200)->errorCorrection('H')->generate($jam));
+        date_default_timezone_set('Asia/Jakarta');
+        $jam =  date("Y-m-d h:i:s");
+        //dd($jam);
+        //dd(QrCode::format('svg')->size(200)->errorCorrection('H')->generate($jam));
+        $qrcode = base64_encode(QrCode::size(250)->generate($jam));
 
         return Response()->json([
             'message'=>"Success Get Data",

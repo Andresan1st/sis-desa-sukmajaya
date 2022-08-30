@@ -137,7 +137,6 @@ return [
     */
 
     'providers' => [
-        SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
         /*
          * Laravel Framework Service Providers...
          */
@@ -177,7 +176,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
-
+        SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
     ],
 
     /*

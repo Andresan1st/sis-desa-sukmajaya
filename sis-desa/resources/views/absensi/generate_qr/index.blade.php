@@ -49,8 +49,8 @@
                 <div class="col-xl-4 col-md-4 col-12">
                     <div class="card invoice-preview-card">
                         <div class="card-body row" >
-                            <div style="max-width: 100%">
-                                <img src="data:image/png;base64,{!!  $qrcode  !!}"/>
+                            <div style="max-width: 100%" id="qrsini">
+                               
                             </div>
                         </div>
                         <hr class="invoice-spacing" style="padding: 0; margin: 0;"/>
@@ -59,7 +59,7 @@
 
                 <div class="col-xl-9 col-md-9 col-12">
                     <div class="card invoice-preview-card">
-                        {!! $qrcode !!}
+                      
                     </div>
                 </div>
         </section>
@@ -69,17 +69,24 @@
 
 @section('script')
 <script>
-    $.ajax({
-        url: "/mas_data_absensi/Qrcode",
-        type: "GET",
-        dataType: "JSON",
-        success: function(data) {
-            if (data.success == "True") {                        
-                // document.getElementById("qr_code").src = 'data:image/png;base64,'+data.data+'';
-            } else if (data.errors) {
-                
-            }
-        },
-    });
+    $(document).ready(function() {
+        $.ajax({
+            url:  "<?php echo url('mas_data_absensi/Qrcode')?>",
+            type: "GET",
+            dataType: "JSON",
+            success: function(data) {
+                var image = data.data;
+                console.log(image);
+                if (data.success == "True") {                        
+                    var newSvg =document.getElementById('qrsini');
+                    newSvg.outerHTML =atob(image);
+                } else if (data.errors) {
+                    
+                }
+            },
+        });
+    });        
+
+
 </script>
 @endsection
