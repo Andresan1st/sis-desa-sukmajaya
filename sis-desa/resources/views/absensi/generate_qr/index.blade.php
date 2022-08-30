@@ -8,12 +8,12 @@
                 <div id="errList" class="text-capitalize"></div>
             </div>
             <div class="col-12" style="margin-top: 30px">
-                <h2 class="content-header-title float-left mb-0">SCAN ABSENSI</h2>
+                <h2 class="content-header-title float-left mb-0">GENERATE QR ABSENSI</h2>
                 <div class="breadcrumb-wrapper">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="/">Home</a>
                         </li>
-                        <li class="breadcrumb-item ">Scan Absensi
+                        <li class="breadcrumb-item ">Generate QR Code
                         </li>
                     </ol>
                 </div>
@@ -29,7 +29,7 @@
         <section class="invoice-add-wrapper">
             <div class="row invoice-add">
                 <!-- Invoice Add Left starts -->
-                <div class="col-xl-12 col-md-8 col-12">
+                <div class="col-xl-8 col-md-8 col-12">
                     <div class="card invoice-preview-card">
                         <div class="card-body row" >
                             <div class="logo-wrapper col-md-2" style="padding: 0; margin: 0; ">
@@ -46,71 +46,40 @@
                     </div>
                 </div>
 
-                <div class="col-xl-12 col-md-3 col-12">
+                <div class="col-xl-4 col-md-4 col-12">
                     <div class="card invoice-preview-card">
                         <div class="card-body row" >
-                            <div id="reader" width="1800px"></div>
+                            <div style="max-width: 100%">
+                                <img src="data:image/png;base64,{!!  $qrcode  !!}"/>
+                            </div>
                         </div>
                         <hr class="invoice-spacing" style="padding: 0; margin: 0;"/>
+                    </div>
+                </div>
+
+                <div class="col-xl-9 col-md-9 col-12">
+                    <div class="card invoice-preview-card">
+                        {!! $qrcode !!}
                     </div>
                 </div>
         </section>
     </div>
 </div>
-  
 @endsection
 
 @section('script')
-<script src="https://raw.githubusercontent.com/mebjas/html5-qrcode/master/minified/html5-qrcode.min.js"></script>
-<script src="{{ asset('html5-qrcode.min.js') }}"></script>
 <script>
-    
-
-    $(document).ready(function () {
-        
-    })
-
-    function onScanSuccess(qrCodeMessage) {
-        Swal.fire({
-            text: 'SILAHKAN KLIK TOMBOL OK UNTUK ABSEN',
-            icon: 'success',
-            confirmButtonText: `Yes`,
-            customClass: {
-                confirmButton: 'order-2',
-                denyButton: 'order-3',
+    $.ajax({
+        url: "/mas_data_absensi/Qrcode",
+        type: "GET",
+        dataType: "JSON",
+        success: function(data) {
+            if (data.success == "True") {                        
+                // document.getElementById("qr_code").src = 'data:image/png;base64,'+data.data+'';
+            } else if (data.errors) {
+                
             }
-        }).then((result) => {
-            
-            if (result.isConfirmed) {
-                $.ajax({
-                url: "<?php echo url('mas_data_absensi/store/') ?>"+"/"+qrCodeMessage,
-                    type: "GET",
-                    dataType: "JSON",
-                    success: function(data) {
-                        if (data.success == "True") {
-                        
-                        } else if (data.errors) {
-                            Swal.fire({
-                                html: "Absen Sukses",
-                                icon: 'success',
-                                confirmButtonText: 'OK'
-                            })
-                        }
-                    },
-                });
-                window.location.href = "{{ route('scan.absensi') }}";
-            } else if (result.isDenied) {
-                return false;
-            }
-        });
-        
-            
-    }
-    function onScanError(errorMessage) {
-    //handle scan error
-    }
-    var html5QrcodeScanner = new Html5QrcodeScanner(
-        "reader", { fps: 10, qrbox: 250 });
-    html5QrcodeScanner.render(onScanSuccess, onScanError);
+        },
+    });
 </script>
 @endsection
