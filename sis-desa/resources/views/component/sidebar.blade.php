@@ -38,8 +38,16 @@
                 </ul>
             </li>
         </li>
+        <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="copy"></i><span class="menu-title text-truncate" data-i18n="Form Elements">Absensi</span></a>
+            <ul class="menu-content">
+                <li><a class="d-flex align-items-center" href="/scan_absensi"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Input Groups">Scan Absensi</span></a>
+                </li>
+                <li><a class="d-flex align-items-center" href="{{ route('mas_data_absensi') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Input Groups">Generate QR Absensi</span></a>
+                </li>
+            </ul>
+        </li>
     @endif
-    @if(auth()->user()->role=='sekertaris') 
+    {{-- @if(auth()->user()->role=='sekertaris') 
         <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="copy"></i><span class="menu-title text-truncate" data-i18n="Form Elements">Modul Master</span></a>
             <ul class="menu-content">
                 <li><a class="d-flex align-items-center" href="/mas_data_jabatan"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Input Groups">Data Jabatan</span></a>
@@ -62,26 +70,26 @@
                 </li>
             </ul>
         </li>
-    @endif
-    @if(auth()->user()->role=='staff') 
+        <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="copy"></i><span class="menu-title text-truncate" data-i18n="Form Elements">Absensi</span></a>
+            <ul class="menu-content">
+                <li><a class="d-flex align-items-center" href="/scan_absensi"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Input Groups">Scan Absensi</span></a>
+                </li>
+                <li><a class="d-flex align-items-center" href="{{ route('mas_data_absensi') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Input Groups">Generate QR Absensi</span></a>
+                </li>
+            </ul>
+        </li>
+    @endif --}}
+    @if(auth()->user()->role=='staff1') 
     <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="copy"></i><span class="menu-title text-truncate" data-i18n="Form Elements">Modul Master</span></a>
         <ul class="menu-content">
             <li><a class="d-flex align-items-center" href="/mas_data_masyarakat"><i data-feather="user"></i><span class="menu-item text-truncate" data-i18n="Input Groups">Data Masyarakat</span></a>
             </li>
             <li><a class="d-flex align-items-center" href="/mas_data_bantuan"><i data-feather="user"></i><span class="menu-item text-truncate" data-i18n="Input Groups">Data Bantuan Masyarakat</span></a>
             </li>
+            
         </ul>
+        
     </li>
-    <li class="nav-item open"><a class="d-flex align-items-center" href="#"><i data-feather="copy"></i><span class="menu-title text-truncate" data-i18n="Form Elements">Modul Surat</span></a>
-        <ul class="menu-content">
-            <li class="{{ (request()->is('surat_masuk')) ? 'active' : '' }}" ><a class="d-flex align-items-center" href="{{route('page.surat_masuk')}}"><i data-feather="mail"></i><span class="menu-item text-truncate" data-i18n="Input">Surat Masuk</span></a>
-            </li>
-            <li><a class="d-flex align-items-center {{ (request()->is('surat_keluar')) ? 'active' : '' }}" href="{{route('page.surat_keluar')}}"><i data-feather="mail"></i><span class="menu-item text-truncate" data-i18n="Input Groups">Surat Keluar</span></a>
-            </li>
-        </ul>
-    </li>
-    @endif
-
     <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="copy"></i><span class="menu-title text-truncate" data-i18n="Form Elements">Absensi</span></a>
         <ul class="menu-content">
             <li><a class="d-flex align-items-center" href="/scan_absensi"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Input Groups">Scan Absensi</span></a>
@@ -90,4 +98,44 @@
             </li>
         </ul>
     </li>
+    <li class="nav-item open"><a class="d-flex align-items-center" href="#"><i data-feather="copy"></i><span class="menu-title text-truncate" data-i18n="Form Elements">Modul Surat</span></a>
+        <ul class="menu-content">
+            <li class="{{ (request()->is('surat_masuk')) ? 'active' : '' }}" ><a class="d-flex align-items-center" href="{{route('page.surat_masuk')}}"><i data-feather="mail"></i><span class="menu-item text-truncate" data-i18n="Input">Surat Masuk</span></a>
+            </li>
+            {{-- <li><a class="d-flex align-items-center {{ (request()->is('surat_keluar')) ? 'active' : '' }}" href="{{route('page.surat_keluar')}}"><i data-feather="mail"></i><span class="menu-item text-truncate" data-i18n="Input Groups">Surat Keluar</span></a>
+            </li> --}}
+        </ul>
+    </li>
+    @endif
+
+    @if(auth()->user()->role=='staff2') 
+    <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="copy"></i><span class="menu-title text-truncate" data-i18n="Form Elements">Modul Master</span></a>
+        <ul class="menu-content">
+            <li><a class="d-flex align-items-center" href="/mas_data_masyarakat"><i data-feather="user"></i><span class="menu-item text-truncate" data-i18n="Input Groups">Data Masyarakat</span></a>
+            </li>
+            <li><a class="d-flex align-items-center" href="/mas_data_bantuan"><i data-feather="user"></i><span class="menu-item text-truncate" data-i18n="Input Groups">Data Bantuan Masyarakat</span></a>
+            </li>
+            
+        </ul>
+        
+    </li>
+    <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="copy"></i><span class="menu-title text-truncate" data-i18n="Form Elements">Absensi</span></a>
+        <ul class="menu-content">
+            <li><a class="d-flex align-items-center" href="/scan_absensi"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Input Groups">Scan Absensi</span></a>
+            </li>
+            <li><a class="d-flex align-items-center" href="{{ route('mas_data_absensi') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Input Groups">Generate QR Absensi</span></a>
+            </li>
+        </ul>
+    </li>
+    <li class="nav-item open"><a class="d-flex align-items-center" href="#"><i data-feather="copy"></i><span class="menu-title text-truncate" data-i18n="Form Elements">Modul Surat</span></a>
+        <ul class="menu-content">
+            {{-- <li class="{{ (request()->is('surat_masuk')) ? 'active' : '' }}" ><a class="d-flex align-items-center" href="{{route('page.surat_masuk')}}"><i data-feather="mail"></i><span class="menu-item text-truncate" data-i18n="Input">Surat Masuk</span></a>
+            </li> --}}
+            <li><a class="d-flex align-items-center {{ (request()->is('surat_keluar')) ? 'active' : '' }}" href="{{route('page.surat_keluar')}}"><i data-feather="mail"></i><span class="menu-item text-truncate" data-i18n="Input Groups">Surat Keluar</span></a>
+            </li>
+        </ul>
+    </li>
+    @endif
+
+    
 </ul>
