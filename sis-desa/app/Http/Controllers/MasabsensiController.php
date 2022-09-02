@@ -42,6 +42,7 @@ class MasabsensiController extends Controller
      */
     public function store($params)
     {
+        date_default_timezone_set('Asia/Jakarta');
        DB::beginTransaction();
        try{
        
@@ -128,15 +129,14 @@ class MasabsensiController extends Controller
 
     public function qrcodescan(){
         date_default_timezone_set('Asia/Jakarta');
-        $jam =  date("Y-m-d h:i:s");
-        //dd($jam);
+        $jam =  date("Y-m-d H:i:s");
         //dd(QrCode::format('svg')->size(200)->errorCorrection('H')->generate($jam));
         $qrcode = base64_encode(QrCode::size(250)->generate($jam));
 
         return Response()->json([
             'message'=>"Success Get Data",
+            'data'=> $qrcode,
             'success'=>'True',
-            'data'=> $qrcode
         ]);
     }
 

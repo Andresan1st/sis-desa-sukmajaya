@@ -30,7 +30,7 @@ use App\Http\Controllers\MasabsensiController;
 Route::get('/',[LoginController::class,'index'])->name('loginform');
 Auth::routes();
 
-Route::group(['middleware'=> ['auth','cekrole:admin,kepala desa,wakil ketua,sekertaris,staff']],function(){
+Route::group(['middleware'=> ['auth','cekrole:admin,kepala desa,wakil ketua,sekertaris,staff1,staff2']],function(){
     Route::controller(DashboardController::class)->group(function(){
         Route::get('/home','home')->name('home');
         Route::get('/dashboard','index')->name('dashboard_statistic');
