@@ -803,6 +803,7 @@
 	<!-- Atlantis DEMO methods, don't include it in your project! -->
 	<script src="{{asset('assets1/js/setting-demo.js')}}"></script>
 	<script src="{{asset('assets1/js/demo.js')}}"></script>
+	@yield('script')
 	<script>
 		$('#lineChart').sparkline([102,109,120,99,110,105,115], {
 			type: 'line',

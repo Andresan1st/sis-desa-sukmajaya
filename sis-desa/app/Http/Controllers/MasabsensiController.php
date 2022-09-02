@@ -139,4 +139,9 @@ class MasabsensiController extends Controller
             'data'=> $qrcode
         ]);
     }
+
+    public function list_absensi(Request $request)
+    {
+        return view('absensi.daftar_absensi.index');
+    }
 }

@@ -88,6 +88,8 @@
             </li>
             <li><a class="d-flex align-items-center" href="{{ route('mas_data_absensi') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Input Groups">Generate QR Absensi</span></a>
             </li>
+            <li><a class="d-flex align-items-center" href="/mas_data_absensi/list_absensi"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Input Groups">Daftar Absensi</span></a>
+            </li>
         </ul>
     </li>
 </ul>

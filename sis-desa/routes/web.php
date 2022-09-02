@@ -56,7 +56,7 @@ Route::group(['middleware'=> ['auth','cekrole:admin,kepala desa,wakil ketua,seke
     });
 
     Route::controller(masdatajabatanController::class)->group(function(){
-        Route::get('/mas_data_jabatan','index')->name('mas_data_jabatan');;
+        Route::get('/mas_data_jabatan','index')->name('mas_data_jabatan');
         Route::get('/mas_data_jabatan/create','create')->name('mas_data_jabatan_create');
         Route::get('/mas_data_jabatan/apijabatan','apijabatan');
         Route::post('/mas_data_jabatan/store','store');
@@ -170,9 +170,10 @@ Route::group(['middleware'=> ['auth','cekrole:admin,kepala desa,wakil ketua,seke
 
 
     Route::controller(MasabsensiController::class)->group(function(){
-        Route::get('/mas_data_absensi','index')->name('mas_data_absensi');;
+        Route::get('/mas_data_absensi','index')->name('mas_data_absensi');
         Route::get('/mas_data_absensi/Qrcode','qrcodescan');
         Route::get('/mas_data_absensi/store/{id}','store');
+        Route::get('/mas_data_absensi/list_absensi','list_absensi');
     });
 
     Route::controller(ColorController::class)->group(function(){
