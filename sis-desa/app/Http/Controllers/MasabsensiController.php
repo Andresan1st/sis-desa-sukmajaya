@@ -142,6 +142,23 @@ class MasabsensiController extends Controller
 
     public function list_absensi(Request $request)
     {
+        if ($request->ajax()) {
+
+            // $data = MasabsenModel::get();
+            $data = db::table('mas_absen')->selectRaw("mas_absen.nip,pg.nip,pg.nama,mas_absen.jam_masuk,mas_absen.jam_keluar")
+            ->leftJoin("tb_pegawai as pg","mas_absen.nip","pg.nip")
+            ->whereRaw("mas_absen.tanggal = curdate()")
+            ->get();
+            return Datatables::of($data)
+                // ->addIndexColumn()
+                ->addColumn('action', function($data){
+                    $actionBtn = ' <a href="#" data-nip="'.$data->nip.'" data-nama="'.$data->nama.'" class="delete btn btn-info btn-sm"><span class="fa fa-light fa-edit"></span></a>';
+                    $actionBtn.= ' <a data-target="#modaldel" data-nip="'.$data->nip.'" data-toggle="modal" href="javascript:void(0)" class="delete btn btn-danger btn-sm"></a>';
+                    return $actionBtn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        };
         return view('absensi.daftar_absensi.index');
     }
 }

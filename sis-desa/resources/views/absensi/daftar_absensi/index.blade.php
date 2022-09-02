@@ -54,13 +54,14 @@
 
                 <div class="col-xl-12 col-md-12 col-12">
                     <div class="card invoice-preview-card">
-                        <div class="table-responsive">
+                        <div class="table-responsive" style="padding: 5px">
                             <table id="indextable" class="datatables-basic table">
                                 <thead class="thead-dark">
                                     <tr>
                                         <th>No</th>
-                                        <th>Jabatan</th>
-                                        <th>Status</th>
+                                        <th>Pegawai</th>
+                                        <th>Masuk</th>
+                                        <th>Pulang</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -70,8 +71,9 @@
                                 <tfoot>
                                     <tr>
                                         <th>No</th>
-                                        <th>Jabatan</th>
-                                        <th>Status</th>
+                                        <th>Pegawai</th>
+                                        <th>Masuk</th>
+                                        <th>Pulang</th>
                                         <th>Action</th>
                                     </tr>
                                 </tfoot>
@@ -86,5 +88,41 @@
 @endsection
 
 @section('script')
-
+<script>
+        $(document).ready(function() {
+            var table = $('#indextable').DataTable({
+                destroy: true,
+                processing: true,
+                serverSide: true,
+                ajax: "/mas_data_absensi/list_absensi",
+                columns: [{
+                        "width":10,
+                        "data": null,
+                        "sortable": false,
+                        render: function(data, type, row, meta) {
+                            return meta.row + meta.settings._iDisplayStart + 1;
+                        }
+                    },
+                    {
+                        data: 'nama',
+                        name: 'nama'
+                    },
+                    {
+                        data: 'jam_masuk',
+                        name: 'jam_masuk'
+                    },
+                    {
+                        data: 'jam_keluar',
+                        name: 'jam_keluar'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: true,
+                        searchable: true
+                    },
+                ]
+            });
+        });
+</script>
 @endsection
