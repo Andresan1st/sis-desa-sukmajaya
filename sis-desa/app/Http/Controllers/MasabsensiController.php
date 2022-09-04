@@ -9,6 +9,7 @@ use PDF;
 use DataTables;
 use Validator;
 use Auth;
+use App\Models\MasdatapegawaiModel;
 use QrCode;
 use Carbon\Carbon;
 use App\Models\MasabsenModel;
@@ -21,6 +22,8 @@ class MasabsensiController extends Controller
      */
     public function index()
     {
+        
+        // $pegawai_teladan = Pegawai::
         return view('absensi.generate_qr.index');
     }
 
@@ -149,16 +152,33 @@ class MasabsensiController extends Controller
             ->leftJoin("tb_pegawai as pg","mas_absen.nip","pg.nip")
             ->whereRaw("mas_absen.tanggal = curdate()")
             ->get();
-            return Datatables::of($data)
-                // ->addIndexColumn()
-                ->addColumn('action', function($data){
-                    $actionBtn = ' <a href="#" data-nip="'.$data->nip.'" data-nama="'.$data->nama.'" class="delete btn btn-info btn-sm"><span class="fa fa-light fa-edit"></span></a>';
-                    $actionBtn.= ' <a data-target="#modaldel" data-nip="'.$data->nip.'" data-toggle="modal" href="javascript:void(0)" class="delete btn btn-danger btn-sm"></a>';
-                    return $actionBtn;
-                })
-                ->rawColumns(['action'])
-                ->make(true);
+            return Datatables::of($data)->make(true);
         };
-        return view('absensi.daftar_absensi.index');
+        $teladan = MasabsenModel::whereDate('tanggal', Carbon::today())->orderBy('jam_masuk','asc')->first();
+        $pegawai_teladan = MasdatapegawaiModel::where('nip', $teladan->nip)->first();
+        return view('absensi.daftar_absensi.index',compact('pegawai_teladan'));
+    }
+
+    public function report_bulanan()
+    {
+        return view('absensi.daftar_absensi.laporan_absensi_bulanan');
+    }
+
+    public function report_bulanan_data(Request $request, $month)
+    {
+        if ($request->ajax()) {
+
+            $tahun = substr($month,0,4);
+            $bulan = substr($month,5);
+
+            $data = db::table('mas_absen')
+            ->selectRaw("mas_absen.nip,pg.nip,pg.nama,mas_absen.jam_masuk,mas_absen.jam_keluar,mas_absen.tanggal")
+            ->leftJoin("tb_pegawai as pg","mas_absen.nip","pg.nip")
+            ->whereMonth('tanggal', $bulan)
+            ->whereYear('tanggal', $tahun)
+            ->orderBy('tanggal','asc')
+            ->get();
+            return Datatables::of($data)->make(true);
+        };
     }
 }

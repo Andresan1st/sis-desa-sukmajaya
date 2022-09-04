@@ -16,6 +16,7 @@ use App\Http\Controllers\AbsensiController;
 use App\Http\Controllers\MasdanabantuanController;
 use App\Http\Controllers\MaskeuangandesaController;
 use App\Http\Controllers\MasabsensiController;
+use App\Http\Controllers\ReportController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -174,6 +175,12 @@ Route::group(['middleware'=> ['auth','cekrole:admin,kepala desa,wakil ketua,seke
         Route::get('/mas_data_absensi/Qrcode','qrcodescan');
         Route::get('/mas_data_absensi/store/{id}','store');
         Route::get('/mas_data_absensi/list_absensi','list_absensi');
+        Route::get('/mas_data_absensi/report_bulanan', 'report_bulanan');
+        Route::get('/mas_data_absensi/report_bulanan/{month}', 'report_bulanan_data');
+    });
+
+    Route::controller(ReportController::class)->group(function(){
+        Route::get('/report_data_absensi/{month}', 'report_absensi');
     });
 
     Route::controller(ColorController::class)->group(function(){

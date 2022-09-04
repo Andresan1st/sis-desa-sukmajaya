@@ -13,7 +13,7 @@
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="/">Home</a>
                         </li>
-                        <li class="breadcrumb-item ">Daftar Absensi
+                        <li class="breadcrumb-item ">Daftar Absensi Keseluruhan
                         </li>
                     </ol>
                 </div>
@@ -29,10 +29,12 @@
         <section class="invoice-add-wrapper">
             <div class="row invoice-add">
                 <!-- Invoice Add Left starts -->
-                <div class="col-xl-8 col-md-8 col-12">
+                <div class="col-xl-12 col-md-12 col-12">
                     <div class="card invoice-preview-card">
-                        <div class="card-body" >
-                            <img src="{{ asset('ss2.png') }}" style="max-width: 100%" alt="">
+                        <div class="card-body">
+                            <center>
+                                <img src="{{ asset('ss2.png') }}" style="max-width: 100%" alt="">
+                            </center>
                         </div>
                         <hr class="invoice-spacing" style="padding: 0; margin: 0;"/>
                     </div>
@@ -40,19 +42,16 @@
                 <div class="col-xl-4 col-md-6 col-12">
                     <div class="card card-congratulation-medal">
                         <div class="card-body">
-                            <h5>Congratulations 🎉</h5>
-                            <p class="card-text font-small-3">Pegawai teladan hari ini</p>
-                            <h3 class="mb-75 mt-2 pt-50">
-                                <a href="javascript:void(0);">{{ $pegawai_teladan->nama }}</a>
-                            </h3>
-                            "{{ $pegawai_teladan->jabatan->nama_jabatan }}"<br>
-                            <a href="/mas_data_absensi/report_bulanan" type="button" style="margin-top: 20px" class="btn btn-primary waves-effect waves-float waves-light btn-sm">Laporan Absensi Keseluruhan</a>
-                            <img src="{{ asset('app-assets/images/illustration/badge.svg') }}" class="congratulation-medal" alt="Medal Pic">
+                            <b><label for="month"> Bulan...</label></b>
+                            <b><label for="month"> Ubah bulan berikut ini untuk mencari data absensi...</label></b>
+                            <input type="month" id="month" value="{{ date('Y-m') }}" class="form-control">
+                        </div>
+                        <div class="card-body">
+                            <a href="#" id="report" class="btn btn-primary">Export Data</a>
                         </div>
                     </div>
                 </div>
-
-                <div class="col-xl-12 col-md-12 col-12">
+                <div class="col-xl-8 col-md-6 col-12">
                     <div class="card invoice-preview-card">
                         <div class="table-responsive" style="padding: 5px">
                             <table id="indextable" class="datatables-basic table">
@@ -79,19 +78,26 @@
                         </div>
                     </div>
                 </div>
+            </div>
         </section>
     </div>
 </div>
 @endsection
 
+
 @section('script')
 <script>
-        $(document).ready(function() {
-            var table = $('#indextable').DataTable({
+    $(document).ready(function () {    
+        var month = $('#month').val();
+
+        var a = document.getElementById('report');
+        a.href = "/report_data_absensi/"+month;
+
+        var table = $('#indextable').DataTable({
                 destroy: true,
                 processing: true,
                 serverSide: true,
-                ajax: "/mas_data_absensi/list_absensi",
+                ajax: "/mas_data_absensi/report_bulanan/"+month,
                 columns: [{
                         "width":10,
                         "data": null,
@@ -114,6 +120,40 @@
                     },
                 ]
             });
-        });
+    })
+
+    $('#month').on('change', function (params) {
+        var month = this.value;
+        var a = document.getElementById('report');
+        a.href = "/report_data_absensi/"+month;
+        
+        var table = $('#indextable').DataTable({
+                destroy: true,
+                processing: true,
+                serverSide: true,
+                ajax: "/mas_data_absensi/report_bulanan/"+month,
+                columns: [{
+                        "width":10,
+                        "data": null,
+                        "sortable": false,
+                        render: function(data, type, row, meta) {
+                            return meta.row + meta.settings._iDisplayStart + 1;
+                        }
+                    },
+                    {
+                        data: 'nama',
+                        name: 'nama'
+                    },
+                    {
+                        data: 'jam_masuk',
+                        name: 'jam_masuk'
+                    },
+                    {
+                        data: 'jam_keluar',
+                        name: 'jam_keluar'
+                    },
+                ]
+            });
+    })
 </script>
 @endsection
