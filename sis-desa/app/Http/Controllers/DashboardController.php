@@ -166,7 +166,7 @@ class DashboardController extends Controller
         $year = (int)date("y");
         $danabantuan = MasdanabantuanModel::selectRaw("count(*) as total")
         // ->whereMonth("tanggal",$month)
-        // ->whereYear("tanggal",$year)
+        ->whereRaw("status ='ACTIVE'")
         ->get();
        // dd($danabantuan);
         // dd($danabantuan->total);
