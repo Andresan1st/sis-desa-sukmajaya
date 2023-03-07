@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Interfaces\MasdatapegawaiRepoInterfaces;
 use DB;
 use Response;
 use PDF;
@@ -15,6 +16,13 @@ use App\Models\masdatajabtanModel;
 use App\Models\MasstrukturoorModel;
 class MasdatapegawaiController extends Controller
 {
+    private MasdatapegawaiRepoInterfaces $pgrp;
+
+    public function __construct(MasdatapegawaiRepoInterfaces $pgrp) 
+    {
+        $this->pgrp = $pgrp;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -72,7 +80,7 @@ class MasdatapegawaiController extends Controller
                return response()->json(['errors' => $validator->errors()->all()]);
            } else {
                 $nip=$this->setCodeDraft();
-                //dd($nip);
+
                 $datajabatan = MasdatapegawaiModel::create([
                     "nip"=>$nip,
                     "nama"=> $request->nama,
@@ -83,9 +91,8 @@ class MasdatapegawaiController extends Controller
                     "id_organisasi"=>$request->id_organisasi,
                     "status"=>"ACTIVE"
                 ]);
-                // dd($item);
-             
-                    DB::commit();
+              
+                DB::commit();
                 return Response()->json([
                     'message'=>"Berhasil Disimpan",
                     'success'=>'True'
@@ -235,13 +242,16 @@ class MasdatapegawaiController extends Controller
         $dateyear = (int)date("Y");
         $datemonth = (int)date("m");
         $date_now= date("Y-m-d");
-       
+        //dd($date_now);
         $getLastNumber= MasdatapegawaiModel::select('nip')
         ->whereYear('created_at',$dateyear)
-        ->whereRaw("(status <> 'INACTIVE' OR status <>'DELETED')")
+        ->whereMonth('created_at',$datemonth)
+        //->whereRaw("(status <> 'INACTIVE' OR status <>'DELETED')")
         ->orderBy('nip', 'desc')
         ->pluck('nip')
         ->first();
+
+       // dd($getLastNumber);
         if ($getLastNumber) {
             $datatemp =explode('-',$getLastNumber);
             $getLastNumber = $datatemp[1];
@@ -255,19 +265,17 @@ class MasdatapegawaiController extends Controller
         $getLastNumber = (int)$getLastNumber +1;
         //dd($getLastNumber);
         if(strlen($getLastNumber) == 1){
-            $nol = "0000";
+            $nol = "000";
         }elseif(strlen($getLastNumber) == 2){
            
-            $nol = "000";
-        }elseif(strlen($getLastNumber) == 3){
             $nol = "00";
-        }elseif(strlen($getLastNumber) == 4){
+        }elseif(strlen($getLastNumber) == 3){
             $nol = "0";
-        }else{
+        }elseif(strlen($getLastNumber) == 4){
             $nol = null;
         }
-        $number = "P"."-".$nol.$getLastNumber;
-       // dd($number);
+        $number = "P"."-".$dateyear.$datemonth."-".$nol.$getLastNumber;
+        //dd($number);
         return $number;
     }
 }
