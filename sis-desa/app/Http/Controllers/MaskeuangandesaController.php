@@ -60,7 +60,7 @@ class MaskeuangandesaController extends Controller
                 $total_keuangan = (float) str_replace('.','',$request->total_keuangan);
                 $datakeuangan = MasdatakeuanganModel::create([
                     "tanggal"=>$request->tanggal,
-                    "total_keuangan"=> total_keuangan,
+                    "total_keuangan"=> $total_keuangan,
                 ]);
                 // dd($item);
              
