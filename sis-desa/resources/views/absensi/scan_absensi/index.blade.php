@@ -42,8 +42,8 @@
 
                 <div class="col-xl-12 col-md-3 col-12">
                     <div class="card invoice-preview-card">
-                        <div class="card-body row" >
-                            <div style="margin-left:40%">
+                        <div class="card-body" >
+                            <div class="d-flex justify-content-center">
                                 <div id="reader" width="1800px"></div>
                             </div>
                         </div>
@@ -57,8 +57,10 @@
 @endsection
 
 @section('script')
-<script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+{{-- <script src="https://raw.githubusercontent.com/mebjas/html5-qrcode/master/minified/html5-qrcode.min.js"></script> --}}
+<script src="https://raw.githubusercontent.com/mebjas/html5-qrcode/master/minified/html5-qrcode.min.js" type="text/javascript"></script>
 <script src="{{ asset('html5-qrcode.min.js') }}"></script>
+
 <script>
     
 
