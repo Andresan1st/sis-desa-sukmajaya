@@ -94,7 +94,8 @@ class MasdanabantuanController extends Controller
     public function show($id)
     {
         $datams = MasdanabantuanModel::where('id',$id)->first();
-        return view('master.mas_data_danabantuan.show',compact('datams'));
+        $masyarakat = MasdatamasyarakatModel::whereRaw("status <> 'DELETED'")->get();
+        return view('master.mas_data_danabantuan.show',compact('datams','masyarakat'));
     }
 
     /**
