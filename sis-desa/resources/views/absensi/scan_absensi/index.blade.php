@@ -86,17 +86,21 @@
                     dataType: "JSON",
                     success: function(data) {
                         if (data.success == "True") {
-                        
+                            Swal.fire({
+                                html: "Absen Sukses",
+                                icon: 'success',
+                                confirmButtonText: 'OK'
+                            })
                         } else if (data.errors) {
                             Swal.fire({
-                                html: "Absen Sukses"+qrCodeMessage,
-                                icon: 'success',
+                                html: data.errors,
+                                icon: 'warning',
                                 confirmButtonText: 'OK'
                             })
                         }
                     },
                 });
-                window.location.href = "{{ route('scan.absensi') }}";
+               // window.location.href = "{{ route('scan.absensi') }}";
             } else if (result.isDenied) {
                 return false;
             }
