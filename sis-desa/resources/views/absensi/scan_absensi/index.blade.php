@@ -57,7 +57,7 @@
 @endsection
 
 @section('script')
-<script src="https://raw.githubusercontent.com/mebjas/html5-qrcode/master/minified/html5-qrcode.min.js"></script>
+<script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
 <script src="{{ asset('html5-qrcode.min.js') }}"></script>
 <script>
     
