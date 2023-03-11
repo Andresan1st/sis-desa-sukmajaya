@@ -89,7 +89,7 @@
                         
                         } else if (data.errors) {
                             Swal.fire({
-                                html: "Absen Sukses",
+                                html: "Absen Sukses"+qrCodeMessage,
                                 icon: 'success',
                                 confirmButtonText: 'OK'
                             })
