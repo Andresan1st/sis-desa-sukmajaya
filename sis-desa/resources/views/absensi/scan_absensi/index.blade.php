@@ -100,7 +100,7 @@
                         }
                     },
                 });
-               // window.location.href = "{{ route('scan.absensi') }}";
+                window.location.href = "{{ route('scan.absensi') }}";
             } else if (result.isDenied) {
                 return false;
             }
